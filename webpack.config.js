@@ -8,7 +8,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     //页面入口文件配置
     entry: {
-        hotServer:'webpack/hot/only-dev-server',
+        //fetch:whatwgFetch,
         app:path.resolve(__dirname, './app/app.js'),
         plugins_css:plugins.css,
         plugins_js:plugins.js,
@@ -23,11 +23,22 @@ module.exports = {
     module: {
         //加载器配置
         loaders: [
-            { test: /\.js?$/, loaders: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader',query:{
-                presets:['react']
-            }},
-            {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader","css-loader")},
+            {
+                test: /\.js?$/,
+                loaders: ['babel-loader'],
+                exclude: /node_modules/,
+                include: path.join(__dirname, 'app')
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query:{
+                    plugins: ['transform-runtime'],
+                    presets:['es2015','react','stage-3']
+                }
+            },
+            {test: /\.css$/, loaders: ["style-loader","css-loader"]},
             { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=../../[path][name].[ext]'}
         ]
     },
@@ -40,7 +51,7 @@ module.exports = {
     },
     //插件项
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
+/*        new webpack.HotModuleReplacementPlugin(),*/
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.CommonsChunkPlugin('plugins_js', 'plugins_js.js'),
         new ExtractTextPlugin('plugins_css','plugins_css.css'),
