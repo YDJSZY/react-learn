@@ -5,13 +5,11 @@ const React = require("react");
 const ReactDom = require("react-dom");
 const Page_a = require("../view_components/page_a");
 const Page_b = require("../view_components/page_b");
-import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
+import  { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 module.exports = ReactDom.render(
     (
-        <Router history={hashHistory}>
-            <Route path="/" component={Page_a}></Route>
-            <Route path="page_a" component={Page_a}></Route>
-            <Route path="page_b" component={Page_b}></Route>
+        <Router>
+           
         </Router>
     ),
     document.getElementById('main')

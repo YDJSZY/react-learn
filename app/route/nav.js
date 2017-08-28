@@ -3,23 +3,27 @@
  */
 const React = require("react");
 const ReactDom = require("react-dom");
-import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
+import { BrowserRouter as StaticRouter, Router, Switch, Route, Link } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
+const customHistory = createBrowserHistory();
 const Nav = React.createClass({
     render: function () {
-        return <ul className="sidebar-menu">
+        return <Router history={customHistory}>
+                 <ul className="sidebar-menu">
                     <li>
-                        <a href="#page_a">
-                            <i className="fa fa-ellipsis-v"></i>
+                        <Link to="/page_a">
+                            <i className="fa fa-user"></i>
                             page_a
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#page_b">
+                        <Link to="/page_b">
                             <i className="fa fa-table"></i>
                             page_b
-                        </a>
+                        </Link>
                     </li>
                 </ul>
+            </Router>
     }
 });
 ReactDom.render(<Nav />,document.getElementById("menu"));

@@ -3,11 +3,57 @@
  */
 const React = require("react");
 const ReactDom = require("react-dom");
-<<<<<<< Updated upstream
 import "whatwg-fetch";
-require("./route/nav");
-require("./route/routes");
+/*require("./route/nav");
+require("./route/routes");*/
 require("babel-polyfill");
+import { BrowserRouter,Switch, Route, Link,Router,HashRouter } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
+const customHistory = createBrowserHistory();
+const Page_a = require("./view_components/page_a");
+const Page_b = require("./view_components/page_b");
+
+const Header = () => (
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <Link to="/page_a">
+                        <i className="fa fa-user"></i>
+                        page_a
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/page_b">
+                        <i className="fa fa-table"></i>
+                        page_b
+                    </Link>
+                </li>
+            </ul>
+        </nav>
+    </header>
+)
+const Main = () => (
+    <main>
+        <Switch>
+            <Route exact path="/" component={Page_a}></Route>
+            <Route path="/page_a" component={Page_a}></Route>
+            <Route path="/page_b" component={Page_b}></Route>
+        </Switch>
+    </main>
+)
+const App = () => (
+    <div>
+        <Header />
+        <Main />
+    </div>
+)
+ReactDom.render((
+    <HashRouter>
+        <App />
+    </HashRouter>
+), document.getElementById('root'));
+
 async function getMyInfo() {
     var response = await fetch('./package.json');
     var data = await response.json();
@@ -25,13 +71,9 @@ async function getMyInfo() {
         console.log('parsing failed', ex)
     })*/
 }
-getMyInfo();
+//getMyInfo();
 
-console.log(12)
-
-
-=======
-var arr = [
+/*var arr = [
     <h1>Hello world!</h1>,
     <h2>React is awesome</h2>,
 ];
@@ -86,13 +128,13 @@ ReactDom.render(
 var MyTitle = React.createClass({
     propTypes: {
         title: React.PropTypes.string.isRequired,
-    },/*定义属性类型*/
+    },/!*定义属性类型*!/
 
     getDefaultProps : function () {
         return {
             fuck : 'Hello World'
         };
-    },/*定义属性默认值*/
+    },/!*定义属性默认值*!/
 
     render: function() {
         return <h1> {this.props.title},{this.props.fuck} </h1>;
@@ -128,7 +170,7 @@ ReactDom.render(
 var LikeButton = React.createClass({
     getInitialState: function() {
         return {liked: false};
-    },/*定义初始状态*/
+    },/!*定义初始状态*!/
     handleClick: function(event) {
         this.setState({liked: !this.state.liked});
     },
@@ -165,5 +207,4 @@ var Input = React.createClass({
     }
 });
 
-ReactDom.render(<Input/>, document.getElementById('main7'));
->>>>>>> Stashed changes
+ReactDom.render(<Input/>, document.getElementById('main7'));*/
