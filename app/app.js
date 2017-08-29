@@ -12,42 +12,10 @@ import createBrowserHistory from 'history/createBrowserHistory';
 const customHistory = createBrowserHistory();
 const Page_a = require("./view_components/page_a");
 const Page_b = require("./view_components/page_b");
+/*import Nav from './route/nav';
+import Main from './route/routes';*/
+import App from './view_components/app';
 
-const Header = () => (
-    <header>
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/page_a">
-                        <i className="fa fa-user"></i>
-                        page_a
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/page_b">
-                        <i className="fa fa-table"></i>
-                        page_b
-                    </Link>
-                </li>
-            </ul>
-        </nav>
-    </header>
-)
-const Main = () => (
-    <main>
-        <Switch>
-            <Route exact path="/" component={Page_a}></Route>
-            <Route path="/page_a" component={Page_a}></Route>
-            <Route path="/page_b" component={Page_b}></Route>
-        </Switch>
-    </main>
-)
-const App = () => (
-    <div>
-        <Header />
-        <Main />
-    </div>
-)
 ReactDom.render((
     <HashRouter>
         <App />

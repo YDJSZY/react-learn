@@ -61,9 +61,9 @@ module.exports = {
     plugins: [
 /*        new webpack.HotModuleReplacementPlugin(),*/
         new HtmlWebpackPlugin({
-            template: 'app/index.html',
+            template: './app/index.html',
             inject: 'body',
-            filename: 'index.html'
+            filename: './index.html'
         }),
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({name:'vendor_js', filename:'vendor_js.js'}),
