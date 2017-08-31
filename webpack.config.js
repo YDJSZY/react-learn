@@ -10,9 +10,9 @@ module.exports = {
     //页面入口文件配置
     entry: {
         //fetch:whatwgFetch,
-        jquery:path.resolve(__dirname, './app/node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js'),
+        jquery:path.resolve(__dirname, './node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js'),
         app:path.resolve(__dirname, './app/app.js'),
-        styles_css:plugins.css,
+        styles:plugins.css,
         vendor_js:plugins.js,
     },
     //入口文件输出配置
@@ -20,32 +20,36 @@ module.exports = {
         path: path.resolve(__dirname, 'assets/static'),
         publicPath: './',
         filename: '[name].js',
-        chunkFilename: '[name].js'
+        //chunkFilename: '[name].[chunkhash:5].js',
+        chunkFilename: '[name].js',
     },
     module: {
         //加载器配置
         rules: [
             {
-                test: /\.js?$/,
-                loaders: ['babel-loader'],
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                include: path.join(__dirname, 'app')
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
+                include: path.join(__dirname, 'app'),
                 loader: 'babel-loader',
-                query:{
-                    plugins: ['transform-runtime'],
+                query: {
+                    cacheDirectory: true,
+                    plugins: ['transform-runtime',['import', [{ libraryName: 'antd', style: "css" }]]],
                     presets:['es2015','react','stage-3']
                 }
             },
             {
                 test: /\.css$/,
+                exclude: path.join(__dirname,'node_modules/antd'),
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: "css-loader"
                 })
+            },
+            {
+                test: /\.css$/,
+                //exclude: path.join(__dirname,'node_modules'),
+                include:path.join(__dirname,'node_modules/antd'),
+                loader : 'style-loader!css-loader',// 一定要有style-loader
             },
             { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=[path][name].[ext]'}
         ]
@@ -59,6 +63,7 @@ module.exports = {
     },
     //插件项
     plugins: [
+        //["import", { libraryName: "antd", style: "css" }], // `style: true` 会加载 less 文件
 /*        new webpack.HotModuleReplacementPlugin(),*/
         new HtmlWebpackPlugin({
             template: './app/index.html',
@@ -66,7 +71,7 @@ module.exports = {
             filename: './index.html'
         }),
         new webpack.NoErrorsPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({name:'vendor_js', filename:'vendor_js.js'}),
+        new webpack.optimize.CommonsChunkPlugin({name:'vendor_js', filename:'vendor.js'}),
         new ExtractTextPlugin('styles.css'),
         new webpack.ProvidePlugin({
             $: "jquery",

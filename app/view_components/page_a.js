@@ -2,10 +2,24 @@
  * Created by Apple on 17/2/6.
  */
 const React = require("react");
-const ReactDom = require("react-dom");
-var Page_a = React.createClass({
-    render:function () {
-        return <h1>this is page_a</h1>
+import { Button } from 'antd';
+export default class Page_a extends React.Component{
+    constructor(props){
+        super(props)
     }
-});
-module.exports = Page_a;
+
+    render() {
+        return <div>
+                    <h1>this is page_a</h1>
+                    <Button type="primary">Primary</Button>
+                </div>
+    }
+
+    componentWillMount() {
+        //alert("componentWillMount");
+    }
+
+    componentDidMount(){
+        console.log($("body"));
+    }
+};
