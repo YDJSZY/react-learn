@@ -10,10 +10,10 @@ module.exports = {
     //页面入口文件配置
     entry: {
         //fetch:whatwgFetch,
-        jquery:path.resolve(__dirname, './node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js'),
-        app:path.resolve(__dirname, './app/app.js'),
+        //jquery:path.resolve(__dirname, './node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js'),
+        app:path.resolve(__dirname, './app/main.js'),
         styles:plugins.css,
-        vendor_js:plugins.js,
+        vendor:["react","react-dom","moment","react-router","react-router-dom","classnames","axios"],
     },
     //入口文件输出配置
     output: {
@@ -34,7 +34,7 @@ module.exports = {
                 query: {
                     cacheDirectory: true,
                     plugins: ['transform-runtime',['import', [{ libraryName: 'antd', style: "css" }]]],
-                    presets:['es2015','react','stage-3']
+                    presets:['es2015','react','stage-0']
                 }
             },
             {
@@ -48,7 +48,10 @@ module.exports = {
             {
                 test: /\.css$/,
                 //exclude: path.join(__dirname,'node_modules'),
-                include:path.join(__dirname,'node_modules/antd'),
+                include:[
+                    path.join(__dirname,'node_modules/antd'),
+                    path.join(__dirname,'app/app'),
+                ],
                 loader : 'style-loader!css-loader',// 一定要有style-loader
             },
             { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=[path][name].[ext]'}
@@ -71,7 +74,7 @@ module.exports = {
             filename: './index.html'
         }),
         new webpack.NoErrorsPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({name:'vendor_js', filename:'vendor.js'}),
+        new webpack.optimize.CommonsChunkPlugin({names: ['vendor', 'manifest']}),
         new ExtractTextPlugin('styles.css'),
         new webpack.ProvidePlugin({
             $: "jquery",

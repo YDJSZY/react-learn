@@ -1,0 +1,16 @@
+.hideNavText{
+    max-width: 0;
+    opacity: 0;
+}
+
+.filter-form{
+    margin-bottom: 15px;
+}
+
+.filter-form .ant-form-item{
+    margin-top:15px;
+}
+
+i.anticon-caret-down{
+    font-size: 14px;
+}
