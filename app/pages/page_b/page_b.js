@@ -14,7 +14,7 @@ export default class Page_b extends React.Component{
                         <Breadcrumb.Item>page_b</Breadcrumb.Item>
                     </Breadcrumb>
                     <div style={{ padding: '0 15px 15px 15px', background: '#fff'}}>
-
+                        <span className="test">this is page_b</span>
                     </div>
                 </div>
     }

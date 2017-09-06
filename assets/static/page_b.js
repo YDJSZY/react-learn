@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 692:
+/***/ 693:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,9 +10,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _css = __webpack_require__(785);
+var _css = __webpack_require__(734);
 
-var _breadcrumb = __webpack_require__(788);
+var _breadcrumb = __webpack_require__(737);
 
 var _breadcrumb2 = _interopRequireDefault(_breadcrumb);
 
@@ -74,7 +74,15 @@ var Page_b = function (_React$Component) {
                         'page_b'
                     )
                 ),
-                React.createElement('div', { style: { padding: '0 15px 15px 15px', background: '#fff' } })
+                React.createElement(
+                    'div',
+                    { style: { padding: '0 15px 15px 15px', background: '#fff' } },
+                    React.createElement(
+                        'span',
+                        { className: 'test' },
+                        'this is page_b'
+                    )
+                )
             );
         }
     }]);
@@ -86,7 +94,7 @@ exports.default = Page_b;
 
 /***/ }),
 
-/***/ 731:
+/***/ 713:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100,19 +108,19 @@ var _extends2 = __webpack_require__(36);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _classCallCheck2 = __webpack_require__(65);
+var _classCallCheck2 = __webpack_require__(67);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(68);
+var _createClass2 = __webpack_require__(70);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = __webpack_require__(66);
+var _possibleConstructorReturn2 = __webpack_require__(68);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(67);
+var _inherits2 = __webpack_require__(69);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -199,25 +207,25 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 785:
+/***/ 734:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(69);
+__webpack_require__(71);
 
-__webpack_require__(786);
+__webpack_require__(735);
 
 /***/ }),
 
-/***/ 786:
+/***/ 735:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(787);
+var content = __webpack_require__(736);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -225,7 +233,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(71)(content, options);
+var update = __webpack_require__(50)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -243,10 +251,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 787:
+/***/ 736:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(70)(undefined);
+exports = module.exports = __webpack_require__(49)(undefined);
 // imports
 
 
@@ -258,7 +266,7 @@ exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-
 
 /***/ }),
 
-/***/ 788:
+/***/ 737:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -268,11 +276,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Breadcrumb = __webpack_require__(789);
+var _Breadcrumb = __webpack_require__(738);
 
 var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
 
-var _BreadcrumbItem = __webpack_require__(731);
+var _BreadcrumbItem = __webpack_require__(713);
 
 var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
 
@@ -284,7 +292,7 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 789:
+/***/ 738:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -294,19 +302,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _classCallCheck2 = __webpack_require__(65);
+var _classCallCheck2 = __webpack_require__(67);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(68);
+var _createClass2 = __webpack_require__(70);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = __webpack_require__(66);
+var _possibleConstructorReturn2 = __webpack_require__(68);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(67);
+var _inherits2 = __webpack_require__(69);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -322,7 +330,7 @@ var _warning = __webpack_require__(362);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _BreadcrumbItem = __webpack_require__(731);
+var _BreadcrumbItem = __webpack_require__(713);
 
 var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
 

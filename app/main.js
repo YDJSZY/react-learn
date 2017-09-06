@@ -3,9 +3,10 @@
  */
 import React from 'react';
 import ReactDom from 'react-dom';
-import {HashRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
+import axios from 'axios';
 import App from './pages/app';
-
+require("./styles/main.css");
 ReactDom.render((
     <HashRouter>
         <App />
@@ -13,17 +14,7 @@ ReactDom.render((
 ), document.getElementById('root'));
 
 async function getMyInfo() {
-    var response = await fetch('../../package.json');
-    var data = await response.json();
-    console.log(data)
-        /*.then(function(response) {
-            console.log(response.json())
-            return response.json()
-        }).then(function(json) {
-        console.log('parsed json', json)
-    }).catch(function(ex) {
-        console.log('parsing failed', ex)
-    })*/
+    var response = await axios.get('../../package.json');
 }
 getMyInfo();
 

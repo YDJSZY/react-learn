@@ -3,7 +3,7 @@
  */
 import React from "react";
 import { DatePicker,Select } from 'antd';
-const DateRangeSelect = require("../untils/dateRangeSelect");
+const dateRangeSelect = require("../untils/dateRangeSelect");
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
@@ -26,6 +26,13 @@ const namedDateRanges = [
 ];
 const dateFormat = 'YYYY-MM-DD';
 export default class DateRange extends React.Component {
+    //static defaultProps = {
+    //  name: 'Mary'  //定义defaultprops的另一种方式
+    //}
+
+    //static propTypes = {
+    //name: React.PropTypes.string
+    //}
     constructor(props) {
         super(props);
         this.state = {
@@ -34,56 +41,71 @@ export default class DateRange extends React.Component {
         };
     }
 
-    //static defaultProps = {
-    //  name: 'Mary'  //定义defaultprops的另一种方式
-    //}
-
-    //static propTypes = {
-    //name: React.PropTypes.string
-    //}
-
     componentWillMount() {
-        this.dateRangeChange(this.props.dateRangeName);
+        
     }
 
     componentDidMount(){
-
+        this.dateRangeChange(this.props.dateRangeName,true);
     }
 
-    dateRangeChange(val) {
-        var dateRange = DateRangeSelect(val);
-        var arr = [moment(dateRange.begin_time,dateFormat),moment(dateRange.end_time,dateFormat)]
+    dateRangeChange = (val,noReq)=> {/*日期范围改变*/
+        var dateRange = dateRangeSelect(val);
+        var arr = [moment(dateRange.begin_time,dateFormat),moment(dateRange.end_time,dateFormat)];
+        this.emitDateRangeChange(dateRange,noReq);
         this.setState({
             dateValue:arr,
             disabledDateRange:dateRange.dateRangeName == "自定义" ? false : true
         })
     }
 
-    beginDateChange(date) {
+    emitDateRangeChange(dateRange,noReq) {
+        this.props.onDateRangeChange(dateRange,noReq);/*触发父组件的日期选择回调*/
+    }
+
+    beginDateChange = (date)=> {
         var dateValue = this.state.dateValue;
         dateValue[0] = moment(date._d,dateFormat);
         this.setState({
             dateValue:dateValue,
+        },()=>{
+            this.props.cacheParams.begin_time = +new Date(dateValue[0]._d);
         })
     }
 
-    endDateChange(date) {
+    endDateChange = (date)=> {
         var dateValue = this.state.dateValue;
         dateValue[1] = moment(date._d,dateFormat);
         this.setState({
             dateValue:dateValue,
+        },()=>{
+            this.props.cacheParams.end_time = +new Date(dateValue[1]._d);
         })
+    }
+
+    disabledBeginDate = (current)=> {/*开始日期不能大于结束日期*/
+        return current && current.valueOf() > +new Date(this.state.dateValue[1]);
+    }
+
+    disabledEndDate = (current)=> {/*结束日期不能小于开始日期*/
+        return current && current.valueOf() < +new Date(this.state.dateValue[0]);
     }
 
     render() {
         return  <div>
-                    <Select defaultValue={this.props.dateRangeName} style={{ width: 120 }} onChange={this.dateRangeChange.bind(this)}>
+                    <Select defaultValue={this.props.dateRangeName} style={{ width: 120 }} onChange={this.dateRangeChange}>
                         {namedDateRanges.map(function(item,index){
                             return <Select.Option key={'_'+index} value={item}>{item}</Select.Option>
                         })}
                     </Select>
-                    <DatePicker value={this.state.dateValue[0]} onChange={this.beginDateChange.bind(this)} disabled={this.state.disabledDateRange}></DatePicker>
-                    <DatePicker value={this.state.dateValue[1]} onChange={this.endDateChange.bind(this)} disabled={this.state.disabledDateRange}></DatePicker>
+                    <DatePicker
+                        value={this.state.dateValue[0]} onChange={this.beginDateChange}
+                        disabled={this.state.disabledDateRange} disabledDate={this.disabledBeginDate}>
+                    </DatePicker>
+                    <DatePicker
+                        value={this.state.dateValue[1]} onChange={this.endDateChange}
+                        disabled={this.state.disabledDateRange} disabledDate={this.disabledEndDate}>
+                    </DatePicker>
                 </div>
     }
 }

@@ -9,8 +9,6 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     //页面入口文件配置
     entry: {
-        //fetch:whatwgFetch,
-        //jquery:path.resolve(__dirname, './node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js'),
         app:path.resolve(__dirname, './app/main.js'),
         styles:plugins.css,
         vendor:["react","react-dom","moment","react-router","react-router-dom","classnames","axios"],
@@ -39,7 +37,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: path.join(__dirname,'node_modules/antd'),
+                exclude: [path.join(__dirname,'node_modules/antd'),path.join(__dirname,'app/styles')],
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: "css-loader"
@@ -50,7 +48,7 @@ module.exports = {
                 //exclude: path.join(__dirname,'node_modules'),
                 include:[
                     path.join(__dirname,'node_modules/antd'),
-                    path.join(__dirname,'app/app'),
+                    path.join(__dirname,'app/styles'),
                 ],
                 loader : 'style-loader!css-loader',// 一定要有style-loader
             },

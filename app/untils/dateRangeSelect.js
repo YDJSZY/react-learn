@@ -313,10 +313,10 @@
         };
     };
 
-    function DateRangeSelect(dateRangeName) {
+    function dateRangeSelect(dateRangeName) {
         var t = dateNameToRange(dateRangeName),currentDateRange;
         return currentDateRange = {begin_time:t[0],end_time:t[1],dateRangeName:dateRangeName}
     }
 
-    return DateRangeSelect;
+    return dateRangeSelect;
 }))

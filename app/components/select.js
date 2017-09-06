@@ -13,7 +13,8 @@ export default class SelectComponent extends React.Component {
     }
 
     selectChange(value) {
-        this.props.config.onSelect(value);
+        var model = this.props.config.model;
+        this.props.config.onSelect(model,value);
     }
 
     render() {
@@ -24,7 +25,7 @@ export default class SelectComponent extends React.Component {
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                     optionFilterProp="'value'"
                     style={this.props.config.style}
-                    placeholder="Select a person"
+                    placeholder={this.props.config.placeholder || '请选择'}
                     onChange={this.selectChange.bind(this)}
                         >
                     {this.props.config.source.map(function(item,index){
