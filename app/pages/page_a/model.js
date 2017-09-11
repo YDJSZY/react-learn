@@ -18,6 +18,8 @@ var model = {
             key: 'username',
             edit:true,
             type:'text',
+            placeholder:'请输入您的名字',
+            help:'不能为空',
             render: text => <a href="#">{text}</a>,
         }, {
             title: '年龄',
@@ -51,6 +53,30 @@ var model = {
             title: '体重',
             dataIndex: 'weight',
             key: 'weight',
+        },
+        {
+            title: '生日',
+            dataIndex: 'birthday',
+            key: 'birthday',
+            edit:true,
+            type:"date",
+            config:{
+                format:"YYYY-MM-DD",/*默认*/
+            }
+        },
+        {
+            title: '启用',
+            dataIndex: 'enabled',
+            key: 'enabled',
+            edit:true,
+            type:"switch"
+        },
+        {
+            title: '描述',
+            dataIndex: 'description',
+            key: 'description',
+            edit:true,
+            type:"textarea"
         },
         {
             title: '操作',

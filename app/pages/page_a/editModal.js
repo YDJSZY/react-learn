@@ -2,7 +2,7 @@
  * Created by luwenwe on 2017/9/11.
  */
 import React from "react";
-import { Modal, Button, Row, Col, Form, Input, InputNumber, Select } from 'antd';
+import { Modal, Button, Row, Col, Form, Input, InputNumber, Select, DatePicker, Switch, Icon } from 'antd';
 const FormItem = Form.Item;
 export default class EditModal extends React.Component {
     static defaultProps = {}
@@ -44,36 +44,36 @@ export default class EditModal extends React.Component {
                                     var tpl;
                                     switch (model.type) {
                                         case 'text':
-                                            tpl = <Col span={12} key={'_'+index} style={{"padding":"0 10px"}}>
+                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
                                                 <FormItem
                                                     xs={ {span: 24} }
                                                     sm={ {span: 6} }
                                                     label={model.title}
-                                                    hasFeedback
+                                                    help={model.help}
                                                 >
-                                                    <Input />
+                                                    <Input placeholder={model.placeholder} name={model.key} />
                                                 </FormItem>
                                             </Col>
                                             break;
                                         case 'number':
-                                            tpl = <Col span={12} key={'_'+index} style={{"padding":"0 10px"}}>
+                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
                                                 <FormItem
                                                     xs={ {span: 24} }
                                                     sm={ {span: 6} }
                                                     label={model.title}
-                                                    hasFeedback
+                                                    help={model.help}
                                                 >
-                                                    <InputNumber style={{"width":"100%"}} />
+                                                    <InputNumber placeholder={model.placeholder} name={model.key} style={{"width":"100%"}} />
                                                 </FormItem>
                                             </Col>
                                             break;
                                         case 'select':
-                                            tpl = <Col span={12} key={'_'+index} style={{"padding":"0 10px"}}>
+                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
                                                 <FormItem
                                                     xs={ {span: 24} }
                                                     sm={ {span: 6} }
                                                     label={model.title}
-                                                    hasFeedback
+                                                    help={model.help}
                                                 >
                                                     <Select
                                                         mode={model.mode}
@@ -88,6 +88,45 @@ export default class EditModal extends React.Component {
                                                             return <Select.Option key={'_'+index} value={item.id}>{item.name}</Select.Option>
                                                         })}
                                                     </Select>
+                                                </FormItem>
+                                            </Col>
+                                            break;
+                                        case 'date':
+                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
+                                                <FormItem
+                                                    xs={ {span: 24} }
+                                                    sm={ {span: 6} }
+                                                    label={model.title}
+                                                    help={model.help}
+                                                >
+                                                    <DatePicker placeholder={model.placeholder} name={model.key} format={model.config.format} style={{"width":"100%"}}>
+                                                    </DatePicker>
+                                                </FormItem>
+                                            </Col>
+                                            break;
+                                        case 'switch':
+                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
+                                                <FormItem
+                                                    xs={ {span: 24} }
+                                                    sm={ {span: 6} }
+                                                    label={model.title}
+                                                    help={model.help}
+                                                >
+                                                    <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} >
+                                                    </Switch>
+                                                </FormItem>
+                                            </Col>
+                                            break;
+                                        case 'textarea':
+                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px"}}>
+                                                <FormItem
+                                                    xs={ {span: 24} }
+                                                    sm={ {span: 6} }
+                                                    label={model.title}
+                                                    help={model.help}
+                                                >
+                                                    <textarea placeholder={model.placeholder} style={{"width":"100%","padding":"7px 6px","border":"1px solid #d9d9d9","borderRadius":"4px"}}>
+                                                    </textarea>
                                                 </FormItem>
                                             </Col>
                                             break;
