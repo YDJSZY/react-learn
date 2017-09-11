@@ -12,16 +12,6 @@
       "sex":"男",
       "height":"170",
       "weight":"65kg"
-    },
-    {
-      "id":2,
-      "key":"2",
-      "username":"黄思红",
-      "age":25,
-      "address":"漳浦",
-      "sex":"女",
-      "height":"160",
-      "weight":"60kg"
     }
   ]
 }

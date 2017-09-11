@@ -4,12 +4,63 @@
 import React from "react";
 import DateRange from '../../components/dateRange';
 import SelectComponent from '../../components/select';
-import { Form, Table, Input, Button,Breadcrumb } from 'antd';
+import DataTable from '../../components/dataTable';
+import EditModal from './editModal';
+import { Form, Table, Input, Button,Breadcrumb,Badge,Dropdown,Menu,Icon } from 'antd';
 import { model } from './model';
-import axios from 'axios';
 require("./style.css");
 const FormItem = Form.Item;
 const columns = model.fields;
+const menu = (
+    <Menu>
+        <Menu.Item>
+            Action 1
+        </Menu.Item>
+        <Menu.Item>
+            Action 2
+        </Menu.Item>
+    </Menu>
+);
+const expandedRowRender = () => {
+    const _columns = [
+        {title: 'Date', dataIndex: 'date', key: 'date'},
+        {title: 'Name', dataIndex: 'name', key: 'name'},
+        {title: 'Status', key: 'state', render: () => <span><Badge status="success"/>Finished</span>},
+        {title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum'},
+        {
+            title: 'Action',
+            dataIndex: 'operation',
+            key: 'operation',
+            render: () => (
+                <span className={'table-operation'}>
+                    <a href="#">Pause</a>
+                    <a href="#">Stop</a>
+                    <Dropdown overlay={menu}>
+                        <a href="#">
+                            More <Icon type="down"/>
+                        </a>
+                    </Dropdown>
+                </span>
+            ),
+        },
+    ];
+    const data = [];
+    for (let i = 0; i < 3; ++i) {
+        data.push({
+            key: i,
+            date: '2014-12-24 23:12:00',
+            name: 'This is production name',
+            upgradeNum: 'Upgraded: 56',
+        });
+    }
+    return (
+        <Table
+            columns={_columns}
+            dataSource={data}
+            pagination={false}
+        />
+    );
+}
 const styles = {
     "demoSpan":{
         "color":"#ddd",
@@ -21,106 +72,68 @@ export default class Page_a extends React.Component{
         selectSource:[{id:"1",name:"篮球"},{id:"2",name:"音乐"},{id:"3",name:"足球"}]
     }
     constructor(props){
-        super(props)
-        this.state = {
-            serverData:[],
-            paginationMes:{
+        super(props);
+        this.editConfig = {
+            model:model.fields,
+            visible:false
+        }
+        this.dataTableConfig = {
+            expandedRowRender:expandedRowRender,
+            requestUrl: "../../data.json",
+            columns:columns,
+            loadDataParams: {
+                order:"",
+                page:1,
+                page_size:20,
+                begin_time:"",
+                end_time:""
+            },
+            pagination: {
                 showSizeChanger:true,
                 defaultCurrent:1,
                 total:0,
-                pageSize:20,
-                onChange:(page,pageSize)=> {
-                    this.gotoPage(page,pageSize)
-                },
-                onShowSizeChange:(page,pageSize)=> {
-                    this.gotoPage(1,pageSize)
-                },
-            },
-        }
-        this.loadDataParams = {
-            order:"",
-            page:1,
-            page_size:20,
-            begin_time:"",
-            end_time:""
+                pageSize:20
+            }
         }
     }
 
     selectCallBack = (model,value)=> {
-        this.loadDataParams[model] = value;
-        this.loadFirstPage();
-    }
-
-    loadFirstPage = ()=> {
-        this.fetchData()
-    }
-
-    async fetchData() {
-        try{
-            var res = await axios.get('../../data.json', {params:this.loadDataParams});
-            if(res.status >=200 && res.status<=300){
-                return this.parseResponse(res.data);
-            }
-        }catch(e) {
-            console.debug(e);
-        }
-    }
-
-    parseResponse(data) {
-        var paginationMes = this.state.paginationMes;
-        paginationMes.defaultCurrent = data.currentPage;
-        paginationMes.total = data.total;
-        paginationMes.pageSize = this.loadDataParams.page_size;
-        paginationMes.current = this.loadDataParams.page;
-        this.setState({
-            serverData:data.results,
-            paginationMes:paginationMes
-        })
-    }
-
-    gotoPage(page,pageSize) {
-        this.loadDataParams.page = page;
-        this.loadDataParams.page_size = pageSize;
-        this.loadFirstPage();
-    }
-
-    tableChange(pagination, filters, sorter) {
-        this.sorterChange(sorter);
-    }
-
-    sorterChange(sorter) {/*排序改变*/
-        var order = sorter.order;
-        if(!order) return;
-        var key = sorter.column.sortKey || sorter.columnKey;
-        this.loadDataParams.order = order=="descend" ? "-"+key : key;
-        this.fetchData()
+        this.dataTableConfig.loadDataParams[model] = value;
+        this.search();
     }
 
     dateRangeChange = (dateRange,noReq)=> {
-        this.loadDataParams.begin_time = +new Date(dateRange.begin_time);
-        this.loadDataParams.end_time = +new Date(dateRange.end_time);
+        this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
+        this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
         if(dateRange.dateRangeName == "自定义") return;
         if(noReq) return;
-        this.loadFirstPage();
+        this.search();
     }/*日期查询范围改变*/
 
     search = ()=> {
-        this.loadFirstPage();
+        if(!this.$dataTable){
+            console.debug("$dataTable is not exist");
+            return;
+        }
+        this.$dataTable.loadFirstPage();
     }
 
     searchChange = (e)=> {
-        this.loadDataParams.search = e.target.value;
+        this.dataTableConfig.loadDataParams.search = e.target.value;
     }
 
     inputEnter = (e)=> {
         if(e.keyCode === 13) {
-            this.loadFirstPage();
+            this.search();
         }
+    }/*enter搜索*/
+
+    create = ()=> {
+        this.$editModal.open()
     }
 
     componentDidMount() {
-        this.fetchData();
-        console.log(this.loadDataParams)
+        console.log("parent")
     }
 
     render() {
@@ -137,11 +150,11 @@ export default class Page_a extends React.Component{
                             <FormItem>
                                 <SelectComponent
                                     config={
-                                    {
-                                        mode:'',source:this.props.selectSource,
-                                        onSelect:this.selectCallBack,model:'hobby',
-                                        style:{width:"152px",marginTop:"2px"},placeholder:'爱好'
-                                    }
+                                        {
+                                            mode:'',source:this.props.selectSource,
+                                            onSelect:this.selectCallBack,model:'hobby',
+                                            style:{width:"152px",marginTop:"2px"},placeholder:'爱好'
+                                        }
                                     }>
                                 </SelectComponent>
                             </FormItem>
@@ -154,13 +167,13 @@ export default class Page_a extends React.Component{
                             <FormItem>
                                 <span style={styles.demoSpan}>test</span>
                             </FormItem>
+                            <FormItem style={{"float":"right","marginRight":0}}>
+                                <Button type="primary" size="default" onClick={this.create}>新增</Button>
+                            </FormItem>
                         </Form>
-                        <Table
-                            columns={columns} dataSource={this.state.serverData}
-                            pagination={this.state.paginationMes} bordered={true}
-                            scroll={{x:"100%"}} size="defaults" onChange={this.tableChange.bind(this)}
-                        />
+                        <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
                     </div>
+                    <EditModal config={this.editConfig} ref={(ref) => { this.$editModal = ref; }}></EditModal>
                 </div>
     }
 };
