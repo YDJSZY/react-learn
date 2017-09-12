@@ -2,7 +2,16 @@
  * Created by luwenwei on 17/9/3.
  */
 import React from "react";
-import { Icon } from 'antd';
+var action = function () {
+    var self = this;
+    return action = function (actionName,args) {
+        if(!this[actionName]){
+            console.error("The function "+actionName+" is not exits");
+            return;
+        }
+        this[actionName](args)
+    }.bind(self)
+}
 var model = {
     fields:[
         {
@@ -19,7 +28,9 @@ var model = {
             edit:true,
             type:'text',
             placeholder:'请输入您的名字',
-            help:'不能为空',
+            options:{rules:[
+                {required: true, message: '请填写名字'}
+            ]},
             render: text => <a href="#">{text}</a>,
         }, {
             title: '年龄',
@@ -27,6 +38,18 @@ var model = {
             key: 'age',
             edit:true,
             type:'number',
+            min:0,
+            max:10,
+            options:{rules:[
+                {required: true, message: '请填写年龄'},
+                {validator: function (rule, value, callback) {
+                    if(value < 0 || value > 10){
+                        callback("年龄必须在0和10之间")
+                    }else{
+                        callback();
+                    }
+                }}
+            ]},
             sorter:true/*服务端排序*/
         },
         {
@@ -42,6 +65,9 @@ var model = {
             key: 'sex',
             edit:true,
             type:'select',
+            options:{rules:[
+                {required: true, message: '请填写性别'}
+            ]},
             source:[{id:"1",name:"男"},{id:"2",name:"女"},{id:"3",name:"未知"}]
         },
         {
@@ -60,6 +86,9 @@ var model = {
             key: 'birthday',
             edit:true,
             type:"date",
+            options:{rules:[
+                {required: true, message: '请填写生日'}
+            ]},
             config:{
                 format:"YYYY-MM-DD",/*默认*/
             }
@@ -69,7 +98,10 @@ var model = {
             dataIndex: 'enabled',
             key: 'enabled',
             edit:true,
-            type:"switch"
+            type:"switch",
+            options:{
+                initialValue:true
+            }
         },
         {
             title: '描述',
@@ -83,16 +115,16 @@ var model = {
             key: 'action',
             fixed: 'right',
             width: 100,
-            render: (text, record) => (
-                <span>
-                  <a href="#">编辑</a>
-                  <span className="ant-divider" />
-                  <a href="#">删除</a>
-                  <span className="ant-divider" />
-                </span>
-            ),
+            render: (text, record, context) => {
+                return <span>
+                          <a href="#" onClick={action.bind(undefined,"edit",record)}>编辑</a>
+                          <span className="ant-divider"/>
+                          <a href="#" onClick={action.bind(undefined,"delete",record.id)}>删除</a>
+                          <span className="ant-divider"/>
+                        </span>
+            },
         }
     ]
 }
 
-export {model};
+export {model,action};

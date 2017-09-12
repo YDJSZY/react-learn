@@ -12605,7 +12605,8 @@ module.exports = defaults;
 /* 155 */,
 /* 156 */,
 /* 157 */,
-/* 158 */
+/* 158 */,
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12721,13 +12722,12 @@ return zhCn;
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(534);
 
 /***/ }),
-/* 160 */,
 /* 161 */,
 /* 162 */,
 /* 163 */,
@@ -44549,8 +44549,8 @@ var map = {
 	"./x-pseudo.js": 359,
 	"./yo": 360,
 	"./yo.js": 360,
-	"./zh-cn": 158,
-	"./zh-cn.js": 158,
+	"./zh-cn": 159,
+	"./zh-cn.js": 159,
 	"./zh-hk": 361,
 	"./zh-hk.js": 361,
 	"./zh-tw": 362,
@@ -44587,7 +44587,7 @@ __webpack_require__(0);
 __webpack_require__(691);
 __webpack_require__(93);
 __webpack_require__(18);
-module.exports = __webpack_require__(159);
+module.exports = __webpack_require__(160);
 
 
 /***/ }),

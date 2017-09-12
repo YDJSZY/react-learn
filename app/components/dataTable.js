@@ -74,6 +74,10 @@ export default class DataTable extends React.Component {
         this.fetchData()
     }
 
+    edit(id) {
+        
+    }
+
     componentDidMount() {
         this.loadFirstPage();
     }

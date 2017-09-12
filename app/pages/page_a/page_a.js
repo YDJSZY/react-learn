@@ -5,9 +5,10 @@ import React from "react";
 import DateRange from '../../components/dateRange';
 import SelectComponent from '../../components/select';
 import DataTable from '../../components/dataTable';
-import EditModal from './editModal';
+import EditModalForm from './editModal';
 import { Form, Table, Input, Button,Breadcrumb,Badge,Dropdown,Menu,Icon } from 'antd';
-import { model } from './model';
+import { model,action } from './model';
+import moment from 'moment';
 require("./style.css");
 const FormItem = Form.Item;
 const columns = model.fields;
@@ -73,9 +74,18 @@ export default class Page_a extends React.Component{
     }
     constructor(props){
         super(props);
-        this.editConfig = {
+        action.apply(this);
+        this.state = {
+            editModalVisible:false,
+            modalType:"create",
+            formValues:{}
+        }
+        this.editModalConfig = {
             model:model.fields,
-            visible:false
+            action:action,
+            visible:false,
+            title:"新增",
+            modalType:""
         }
         this.dataTableConfig = {
             expandedRowRender:expandedRowRender,
@@ -129,11 +139,38 @@ export default class Page_a extends React.Component{
     }/*enter搜索*/
 
     create = ()=> {
-        this.$editModal.open()
+        this.setFormValue({enabled:true})
+        this.setState({
+            editModalVisible:true,
+            modalType:"create",
+            formValues:{enabled:true}
+        })
+    }
+
+    edit(record) {
+        this.setFormValue(record)
+        this.setState({
+            editModalVisible:true,
+            modalType:"edit",
+            formValues:record
+        })
+    }
+
+    setFormValue(record){
+        for(var prop of model.fields){
+            if(!prop.edit) continue;
+            var obj = {};
+            if(prop.type=="date"){
+                obj[prop.key] = moment(record[prop.key],"YYYY-MM-DD")
+            }else{
+                obj[prop.key] = record[prop.key];
+            }
+            this.$editModalForm.setFieldsValue(obj);
+        }
     }
 
     componentDidMount() {
-        console.log("parent")
+
     }
 
     render() {
@@ -173,7 +210,7 @@ export default class Page_a extends React.Component{
                         </Form>
                         <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
                     </div>
-                    <EditModal config={this.editConfig} ref={(ref) => { this.$editModal = ref; }}></EditModal>
+                    <EditModalForm config={this.editModalConfig} visible={this.state.editModalVisible} formValues={this.state.formValues} modalType={this.state.modalType} ref={(ref) => { this.$editModalForm = ref; }}></EditModalForm>
                 </div>
     }
 };
