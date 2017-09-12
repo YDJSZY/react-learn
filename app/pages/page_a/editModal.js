@@ -3,7 +3,7 @@
  */
 import React from "react";
 import moment from 'moment';
-import { Modal,message, Button, Row, Col, Form, Input, InputNumber, Select, DatePicker, Switch, Icon } from 'antd';
+import { Modal,message, Button,Upload, Row, Col, Form, Input, InputNumber, Select, DatePicker, Switch, Icon } from 'antd';
 const FormItem = Form.Item;
 class EditModal extends React.Component {
     static defaultProps = {}
@@ -12,7 +12,10 @@ class EditModal extends React.Component {
         super(props);
         this.state = {
             visible:props.visible,
-            modalType:props.modalType
+            modalType:props.modalType,
+            previewVisible:false,
+            previewImage:"",
+            fileList:[]
         }
         this.model = props.config.model;
         this.formValues = {};
@@ -54,6 +57,23 @@ class EditModal extends React.Component {
         })
     }
 
+    preview = (file)=> {
+        this.setState({
+            previewImage: file.url || file.thumbUrl,
+            previewVisible: true,
+        });
+    }
+
+    closePreview = ()=> {
+        this.setState({
+            previewVisible: false,
+        });
+    }
+
+    onUploadChange = ({ file, fileList })=> {
+        console.log(file)
+    }
+
     componentWillReceiveProps(nextProps) {
         this.setState({
             visible:nextProps.visible
@@ -70,7 +90,8 @@ class EditModal extends React.Component {
             if(!model.options) continue;
             modelRules[model.key] = model.options;
         }
-        return  <Modal
+        return  <div>
+                    <Modal
                     width="620"
                     okText="保存"
                     title={this.props.config.title}
@@ -183,6 +204,37 @@ class EditModal extends React.Component {
                                                     </FormItem>
                                                 </Col>
                                             break;
+                                        case 'file':
+                                            const { previewVisible, previewImage,fileList } = this.state;
+                                            const uploadButton = (
+                                                <div>
+                                                    <Icon type="plus" />
+                                                    <div className="ant-upload-text">{model.uploadBtnText || "上传"}</div>
+                                                </div>
+                                            );
+                                            var fileCount = model.fileCount || 1;
+                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px"}}>
+                                                <FormItem
+                                                    xs={ {span: 24} }
+                                                    sm={ {span: 6} }
+                                                    label={model.title}
+                                                    help={model.help}
+                                                >
+                                                    {getFieldDecorator(model.key, modelRules[model.key])(
+                                                        <Upload
+                                                            action={model.uploadUrl}
+                                                            listType="picture-card"
+                                                            fileList={fileList}
+                                                            name={model.filename || "file_name"}
+                                                            onPreview={this.preview}
+                                                            onChange={this.onUploadChange}
+                                                        >
+                                                            {fileList.length >= fileCount ? null : uploadButton}
+                                                        </Upload>
+                                                    )}
+                                                </FormItem>
+                                            </Col>
+                                            break;
                                     }
                                     return tpl;
                                 })
@@ -190,6 +242,11 @@ class EditModal extends React.Component {
                         </Row>
                     </Form>
                 </Modal>
+                <Modal title="预览"
+                    visible={this.state.previewVisible} footer={null} onCancel={this.closePreview}>
+                    <img alt="example" style={{ width: '100%' }} src={this.state.previewImage} />
+                </Modal>
+                </div>
     }
 }
 

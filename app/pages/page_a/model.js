@@ -111,6 +111,14 @@ var model = {
             type:"textarea"
         },
         {
+            title: '头像',
+            dataIndex: 'head',
+            key: 'head',
+            edit:true,
+            type:"file",
+            uploadBtnText:"上传头像"
+        },
+        {
             title: '操作',
             key: 'action',
             fixed: 'right',
