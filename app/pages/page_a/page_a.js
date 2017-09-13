@@ -76,11 +76,11 @@ export default class Page_a extends React.Component{
     constructor(props){
         super(props);
         action.apply(this);
-        this.baseUrl = "../../data.json";
+        this.baseUrl = "../data.json";
         this.state = {
         }
         this.editModalConfig = {
-            dataUrl:"../../data.json",
+            dataUrl:"../data.json",
             model:model.fields,
             visible:false,
             title:"新增",
@@ -89,7 +89,7 @@ export default class Page_a extends React.Component{
         }
         this.dataTableConfig = {
             expandedRowRender:expandedRowRender,
-            requestUrl: "../../data.json",
+            requestUrl: "../data.json",
             columns:columns,
             loadDataParams: {
                 order:"",

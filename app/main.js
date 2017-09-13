@@ -10,7 +10,7 @@ import {myInfo,constants,setMyInfo,setConstants} from './untils/commons'
 require("./styles/main.css");
 
 async function getMyInfo() {
-    var response = await axios.get('../../package.json');
+    var response = await axios.get('../package.json');
     setMyInfo(response.data);
 }
 getMyInfo();
