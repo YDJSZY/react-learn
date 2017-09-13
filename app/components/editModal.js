@@ -3,6 +3,7 @@
  */
 import React from "react";
 import moment from 'moment';
+import axios from 'axios';
 import { Modal,message, Button,Upload, Row, Col, Form, Input, InputNumber, Select, DatePicker, Switch, Icon } from 'antd';
 const FormItem = Form.Item;
 class EditModal extends React.Component {
@@ -11,8 +12,8 @@ class EditModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible:props.visible,
-            modalType:props.modalType,
+            visible:false,
+            modalType:"",
             previewVisible:false,
             previewImage:"",
             fileList:[]
@@ -21,16 +22,48 @@ class EditModal extends React.Component {
         this.formValues = {};
     }
 
-    open() {
+    open(modalType) {
         this.setState({
-            visible:true
+            visible:true,
+            modalType:modalType
         })
     }
+
+    handleCancel = ()=> {
+        this.setState({
+            visible:false,
+            modalType:""
+        })
+    }/*关闭modal*/
 
     handleOk = ()=> {
         this.submitForm();
     }
 
+    create = (initialValue)=> {
+        this.setFormValue(initialValue);
+        this.open("create");
+    }
+
+    edit(record) {
+        this.setFormValue(record);
+        this.open("edit");
+    }
+
+    setFormValue(record){
+        for(var prop of this.model){
+            if(!prop.edit) continue;
+            var obj = {};
+            if(prop.type=="date"){
+                obj[prop.key] = moment(record[prop.key] || new Date(),prop.format || "YYYY-MM-DD");
+            }else{
+                obj[prop.key] = record[prop.key];
+            }
+            this.recordId = record.id;
+            this.props.form.setFieldsValue(obj);
+        }
+    }/*给表单赋值*/
+    
     submitForm() {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (err) {
@@ -45,15 +78,33 @@ class EditModal extends React.Component {
                 } else{
                     this.formValues[prop] = values[prop]
                 }
-            }
-            console.log(this.formValues)
+            }/*收集表单各个字段的值*/
+            this.saveForm(this.formValues,this.state.modalType);/*调用父组件的保存表单方法*/
         });
     }
 
-    handleCancel = ()=> {
-        this.setState({
-            visible:false,
-            modalType:""
+    saveForm = (data,type)=> {
+        var method,url;
+        if(type == "create"){
+            method = "POST";
+            url = this.props.config.dataUrl;
+        }else{
+            method = "PUT";
+            url = this.props.config.dataUrl+"/"+this.recordId+"/"
+        }
+        console.log(data)
+        axios({
+            url:url,
+            method:method,
+            data:data
+        }).then((res)=> {
+            if(res.status >=200 && res.status <=301){
+                message.success('保存成功!',10);
+                this.props.config.saveFormCallBack(res,type);
+                return;
+            }
+            message.error('保存失败!',10);
+            console.error(res.data);
         })
     }
 
@@ -75,9 +126,6 @@ class EditModal extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            visible:nextProps.visible
-        })
     }
 
     componentDidMount() {
@@ -92,8 +140,9 @@ class EditModal extends React.Component {
         }
         return  <div>
                     <Modal
-                    width="620"
+                    width="620px"
                     okText="保存"
+                    maskClosable={false}
                     title={this.props.config.title}
                     visible={this.state.visible}
                     onOk={this.handleOk}
@@ -250,5 +299,5 @@ class EditModal extends React.Component {
     }
 }
 
-const EditModalForm = Form.create({})(EditModal);
+const EditModalForm = Form.create()(EditModal);
 export default EditModalForm

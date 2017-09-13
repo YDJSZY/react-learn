@@ -13,7 +13,7 @@ export default class App extends React.Component {
             collapsed: false
         }
     }
-    toggle(){
+    toggle = ()=> {
         this.setState({
             collapsed: !this.state.collapsed,
         });
@@ -27,7 +27,9 @@ export default class App extends React.Component {
                 collapsible="true"
                 collapsed={this.state.collapsed}
             >
-                <div className="logo" />
+                <div className="logo" style={{height:"65px",textAlign:"center",lineHeight:"65px"}}>
+                    <h2 style={{color:"#fff"}}>admin</h2>
+                </div>
                 <MyMenu collapsed={this.state.collapsed} />
             </Sider>
             <Layout>
@@ -36,7 +38,7 @@ export default class App extends React.Component {
                         style={{marginLeft:"15px",fontSize:"16px"}}
                         className="trigger"
                         type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                        onClick={this.toggle.bind(this)}
+                        onClick={this.toggle}
                     />
                 </Header>
                 <Content style={{ padding:'0 15px'}}>

@@ -6,17 +6,19 @@ import ReactDom from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import axios from 'axios';
 import App from './pages/app';
+import {myInfo,constants,setMyInfo,setConstants} from './untils/commons'
 require("./styles/main.css");
+
+async function getMyInfo() {
+    var response = await axios.get('../../package.json');
+    setMyInfo(response.data);
+}
+getMyInfo();
 ReactDom.render((
     <HashRouter>
         <App />
     </HashRouter>
 ), document.getElementById('root'));
-
-async function getMyInfo() {
-    var response = await axios.get('../../package.json');
-}
-getMyInfo();
 
 /*var arr = [
     <h1>Hello world!</h1>,

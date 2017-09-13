@@ -69,6 +69,7 @@ export default class DateRange extends React.Component {
         this.setState({
             dateValue:dateValue,
         },()=>{
+            console.log(this.props)
             this.props.cacheParams.begin_time = +new Date(dateValue[0]._d);
         })
     }

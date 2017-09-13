@@ -75,7 +75,7 @@ export default class DataTable extends React.Component {
     }
 
     edit(id) {
-        
+
     }
 
     componentDidMount() {
@@ -87,7 +87,7 @@ export default class DataTable extends React.Component {
             columns={this.props.config.columns} dataSource={this.state.serverData}
             pagination={this.state.pagination} bordered={true}
             expandedRowRender={this.props.config.expandedRowRender || null}
-            scroll={{x:"100%"}} size="defaults" onChange={this.tableChange}
+            scroll={{x:"1500px"}} size="defaults" onChange={this.tableChange}
         />
     }
 }

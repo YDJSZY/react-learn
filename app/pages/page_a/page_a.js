@@ -5,10 +5,11 @@ import React from "react";
 import DateRange from '../../components/dateRange';
 import SelectComponent from '../../components/select';
 import DataTable from '../../components/dataTable';
-import EditModalForm from './editModal';
+import EditModalForm from '../../components/editModal';
 import { Form, Table, Input, Button,Breadcrumb,Badge,Dropdown,Menu,Icon } from 'antd';
 import { model,action } from './model';
-import moment from 'moment';
+import {myInfo,constants} from '../../untils/commons'
+import baseMethods from '../../untils/baseMethods'
 require("./style.css");
 const FormItem = Form.Item;
 const columns = model.fields;
@@ -75,17 +76,16 @@ export default class Page_a extends React.Component{
     constructor(props){
         super(props);
         action.apply(this);
+        this.baseUrl = "../../data.json";
         this.state = {
-            editModalVisible:false,
-            modalType:"create",
-            formValues:{}
         }
         this.editModalConfig = {
+            dataUrl:"../../data.json",
             model:model.fields,
-            action:action,
             visible:false,
             title:"新增",
-            modalType:""
+            modalType:"",
+            saveFormCallBack:this.saveFormCallBack
         }
         this.dataTableConfig = {
             expandedRowRender:expandedRowRender,
@@ -105,68 +105,18 @@ export default class Page_a extends React.Component{
                 pageSize:20
             }
         }
+        this.init()
     }
 
-    selectCallBack = (model,value)=> {
-        this.dataTableConfig.loadDataParams[model] = value;
-        this.search();
-    }
-
-    dateRangeChange = (dateRange,noReq)=> {
-        this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
-        this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
-        if(dateRange.dateRangeName == "自定义") return;
-        if(noReq) return;
-        this.search();
-    }/*日期查询范围改变*/
-
-    search = ()=> {
-        if(!this.$dataTable){
-            console.debug("$dataTable is not exist");
-            return;
+    init() {
+        for(var prop in baseMethods) {
+            if(typeof baseMethods[prop] !=='function') return;
+            this.__proto__[prop] = baseMethods[prop].bind(this)
         }
-        this.$dataTable.loadFirstPage();
     }
 
-    searchChange = (e)=> {
-        this.dataTableConfig.loadDataParams.search = e.target.value;
-    }
+    componentWillMount() {
 
-    inputEnter = (e)=> {
-        if(e.keyCode === 13) {
-            this.search();
-        }
-    }/*enter搜索*/
-
-    create = ()=> {
-        this.setFormValue({enabled:true})
-        this.setState({
-            editModalVisible:true,
-            modalType:"create",
-            formValues:{enabled:true}
-        })
-    }
-
-    edit(record) {
-        this.setFormValue(record)
-        this.setState({
-            editModalVisible:true,
-            modalType:"edit",
-            formValues:record
-        })
-    }
-
-    setFormValue(record){
-        for(var prop of model.fields){
-            if(!prop.edit) continue;
-            var obj = {};
-            if(prop.type=="date"){
-                obj[prop.key] = moment(record[prop.key],"YYYY-MM-DD")
-            }else{
-                obj[prop.key] = record[prop.key];
-            }
-            this.$editModalForm.setFieldsValue(obj);
-        }
     }
 
     componentDidMount() {
@@ -182,7 +132,7 @@ export default class Page_a extends React.Component{
                     <div style={{ padding: '0 15px 15px 15px', background: '#fff'}}>
                         <Form layout="inline" className="filter-form">
                             <FormItem>
-                                <DateRange dateRangeName="本月份" cacheParams={this.loadDataParams} onDateRangeChange={this.dateRangeChange}></DateRange>
+                                <DateRange dateRangeName="本月份" cacheParams={this.dataTableConfig.loadDataParams} onDateRangeChange={this.dateRangeChange}></DateRange>
                             </FormItem>
                             <FormItem>
                                 <SelectComponent
@@ -210,7 +160,7 @@ export default class Page_a extends React.Component{
                         </Form>
                         <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
                     </div>
-                    <EditModalForm config={this.editModalConfig} visible={this.state.editModalVisible} formValues={this.state.formValues} modalType={this.state.modalType} ref={(ref) => { this.$editModalForm = ref; }}></EditModalForm>
+                    <EditModalForm config={this.editModalConfig} wrappedComponentRef={(ref) => { this.$editModalForm = ref; }}></EditModalForm>
                 </div>
     }
 };

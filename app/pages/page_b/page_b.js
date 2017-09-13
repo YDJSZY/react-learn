@@ -3,10 +3,16 @@
  */
 const React = require("react");
 import { Breadcrumb } from 'antd';
-//import DateRange from '../../components/dateRange';
-//import SelectComponent from '../../components/select';
-//import axios from 'axios';
+import { model,action } from '../page_a/model';
+import DateRange from '../../components/dateRange';
+import SelectComponent from '../../components/select';
+import axios from 'axios';
 export default class Page_b extends React.Component{
+    constructor(props) {
+        super(props);
+        action.apply(this);
+    }
+    
     render () {
         return  <div>
                     <Breadcrumb style={{ margin: '12px 0' }}>

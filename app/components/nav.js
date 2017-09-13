@@ -14,7 +14,7 @@ export default class MyMenu extends React.Component {
             'nav-text':true,
             'hideNavText':this.props.collapsed
         });
-        return  <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+        return  <Menu theme="dark" mode="inline" defaultSelectedKeys={['page_a']}>
                     <Menu.Item key="page_a">
                         <NavLink to="/page_a">
                             <Icon type="user" />
