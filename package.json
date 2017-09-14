@@ -7,7 +7,8 @@
     "clean:dev": "rm -rf assets",
     "clean:prod": "rm -rf dist",
     "dev": "export NODE_ENV=development && rm -rf assets && webpack --w",
-    "prod": "export NODE_ENV=production && rm -rf dist && webpack"
+    "prod": "export NODE_ENV=production && rm -rf dist && webpack",
+    "server":"export NODE_ENV=server && webpack-dev-server --devtool eval --progress --colors --content-base server --inline --hot"
   },
   "author": "",
   "license": "ISC",
@@ -35,7 +36,7 @@
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.7",
     "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1",
+    "webpack-dev-server": "^2.8.1",
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
