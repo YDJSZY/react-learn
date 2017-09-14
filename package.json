@@ -7,7 +7,7 @@
     "clean:dev": "rm -rf assets",
     "clean:prod": "rm -rf dist",
     "dev": "export NODE_ENV=development && rm -rf assets && webpack --w",
-    "prod":"export NODE_ENV=production && rm -rf dist && webpack"
+    "prod": "export NODE_ENV=production && rm -rf dist && webpack"
   },
   "author": "",
   "license": "ISC",
