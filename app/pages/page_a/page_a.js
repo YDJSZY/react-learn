@@ -152,7 +152,8 @@ export default class Page_a extends React.Component{
                                 <Button type="primary" size="default" onClick={this.search}>Search</Button>
                             </FormItem>
                             <FormItem>
-                                <span style={styles.demoSpan}>test style</span>
+                                <span className="test">test</span>
+                                <span style={styles.demoSpan}>test style!</span>
                             </FormItem>
                             <FormItem style={{"float":"right","marginRight":0}}>
                                 <Button type="primary" size="default" onClick={this.create}>新增</Button>

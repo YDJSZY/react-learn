@@ -4,7 +4,7 @@
 import React from "react";
 import moment from 'moment';
 import axios from 'axios';
-import { Modal,message, Button,Upload, Row, Col, Form, Input, InputNumber, Select, DatePicker, Switch, Icon } from 'antd';
+import { Modal,message, Upload, Row, Col, Form, Input, InputNumber, Select, DatePicker, Switch, Icon } from 'antd';
 const FormItem = Form.Item;
 class EditModal extends React.Component {
     static defaultProps = {}

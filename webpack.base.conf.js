@@ -51,7 +51,7 @@ var config = {
     resolve: {
         extensions: ['.js', '.json'],
         alias: {
-            'react/lib/ReactMount': 'react-dom/lib/ReactMount'
+            
         }
     },
     //插件项
@@ -61,7 +61,7 @@ var config = {
             inject: 'body',
             filename: './index.html'
         }),
-        new webpack.NoErrorsPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",

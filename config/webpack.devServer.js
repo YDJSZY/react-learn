@@ -2,7 +2,7 @@
  * Created by luwenwei on 17/9/14.
  */
 var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+//var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require('path');
 var config = {
     output:{
@@ -23,7 +23,7 @@ var config = {
         }),*/
         new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({names: ['vendor', 'manifest']}),
-        new ExtractTextPlugin('styles.css')
+        //new ExtractTextPlugin('styles.css')
     ]
 };
 
