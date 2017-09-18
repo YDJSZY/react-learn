@@ -2,7 +2,7 @@
  * Created by luwenwe on 2017/9/11.
  */
 import React from "react";
-import { Table,Badge,Dropdown,Menu,Icon } from 'antd';
+import { Table } from 'antd';
 import axios from 'axios';
 
 export default class DataTable extends React.Component {

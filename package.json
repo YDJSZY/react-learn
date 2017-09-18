@@ -36,7 +36,12 @@
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.7",
     "webpack": "^3.5.5",
+<<<<<<< HEAD
     "webpack-dev-server": "^2.8.2",
+=======
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.8.1",
+>>>>>>> 6ef8bbef52213ae34c8d3ea0bfa2638810deed7f
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
