@@ -16,49 +16,6 @@ function iiHOC(WrappedComponent) {
         constructor() {
             super();
         }
-
-        selectCallBack = (model,value)=> {
-            this.dataTableConfig.loadDataParams[model] = value;
-            this.search();
-        }
-
-        dateRangeChange = (dateRange,noReq)=> {
-            this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
-            this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
-            if(dateRange.dateRangeName == "自定义") return;
-            if(noReq) return;
-            this.search();
-        }/*日期查询范围改变*/
-
-        search = ()=> {
-            if(!this.$dataTable){
-                console.debug("$dataTable is not exist");
-                return;
-            }
-            this.$dataTable.loadFirstPage();
-        }
-
-        searchChange = (e)=> {
-            this.dataTableConfig.loadDataParams.search = e.target.value;
-        }
-
-        inputEnter = (e)=> {
-            if(e.keyCode === 13) {
-                this.search();
-            }
-        }/*enter搜索*/
-
-        create = ()=> {
-            this.$editModalForm.create({enabled:true});
-        }
-
-        edit = (record)=> {
-            this.$editModalForm.edit(record);
-        }
-
-        saveFormCallBack = (res,type)=> {
-            console.log(res)
-        }
         
         render() {
             return super.render();

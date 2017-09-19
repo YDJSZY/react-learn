@@ -7,9 +7,9 @@ import SelectComponent from '../../components/select';
 import DataTable from '../../components/dataTable';
 import EditModalForm from '../../components/editModal';
 import { Form, Table, Input, Button,Breadcrumb,Badge,Dropdown,Menu,Icon } from 'antd';
-import { model,action } from './model';
-import {myInfo,constants} from '../../untils/commons'
-import { iiHOC } from '../../hoc/hoc';
+import { model } from './model';
+import {myInfo,constants} from '../../untils/commons';
+import CommonMethodsClass from '../../untils/commonMethods';
 require("./style.css");
 const FormItem = Form.Item;
 const menu = (
@@ -68,22 +68,20 @@ const styles = {
         "fontSize":"18px"
     }
 }
-var actionIsBind = false;
 
-class Page_a extends React.Component {
+export default class Page_a extends CommonMethodsClass {
     static defaultProps = {
         selectSource: [{id: "1", name: "篮球"}, {id: "2", name: "音乐"}, {id: "3", name: "足球"}]
     }
 
     constructor(props) {
         super(props);
-        action.apply(this);
-        this.dataModel = model.getFields(this);
+        this.dataTableModel = model.getFields(this);
         this.baseUrl = "../data.json";
         this.state = {}
         this.editModalConfig = {
             dataUrl: "../data.json",
-            model: this.dataModel,
+            model: this.dataTableModel,
             visible: false,
             title: "新增",
             modalType: "",
@@ -92,7 +90,7 @@ class Page_a extends React.Component {
         this.dataTableConfig = {
             expandedRowRender: expandedRowRender,
             requestUrl: "../data.json",
-            columns: this.dataModel,
+            columns: this.dataTableModel,
             loadDataParams: {
                 order: "",
                 page: 1,
@@ -107,6 +105,11 @@ class Page_a extends React.Component {
                 pageSize: 20
             }
         }
+    }
+
+    beforeCreate =()=> {
+        console.log(this)
+        return {enabled:true};
     }
 
     componentWillMount() {
@@ -162,4 +165,4 @@ class Page_a extends React.Component {
     }
 }
 
-export default iiHOC(Page_a)
+//export default iiHOC(Page_a)

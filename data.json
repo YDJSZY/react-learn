@@ -14,7 +14,8 @@
       "weight":"65kg",
       "birthday":"2017-02-26",
       "enabled":true,
-      "description":"你好"
+      "description":"你好么你很好么哈哈哈活得很好喝",
+      "head":"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
     },
     {
       "id":2,
@@ -27,7 +28,8 @@
       "weight":"56kg",
       "birthday":"2017-02-27",
       "enabled":false,
-      "description":"你好"
+      "description":"你好",
+      "head":"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
     }
   ]
 }

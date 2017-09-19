@@ -1,7 +1,9 @@
 /**
  * Created by luwenwei on 17/9/3.
  */
-import React from "react";
+import React from 'react';
+import { Popover, Icon, Avatar } from 'antd';
+import { renderAvatar,renderEnabled,renderTooltip } from '../../untils/renderData';
 var action = function () {
     var self = this;
     action = function (actionName,args) {
@@ -104,6 +106,9 @@ var model = {
                 type:"switch",
                 options:{
                     initialValue:true
+                },
+                render:(text, record) => {
+                    return renderEnabled(text)
                 }
             },
             {
@@ -111,7 +116,10 @@ var model = {
                 dataIndex: 'description',
                 key: 'description',
                 edit:true,
-                type:"textarea"
+                type:"textarea",
+                render:(text,record) =>{
+                    return renderTooltip(text,10);
+                }
             },
             {
                 title: '头像',
@@ -119,7 +127,10 @@ var model = {
                 key: 'head',
                 edit:true,
                 type:"file",
-                uploadBtnText:"上传头像"
+                uploadBtnText:"上传头像",
+                render:(text,record) =>{
+                    return renderAvatar(text)
+                }
             },
             {
                 title: '操作',
