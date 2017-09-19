@@ -9,10 +9,9 @@ import EditModalForm from '../../components/editModal';
 import { Form, Table, Input, Button,Breadcrumb,Badge,Dropdown,Menu,Icon } from 'antd';
 import { model,action } from './model';
 import {myInfo,constants} from '../../untils/commons'
-import baseMethods from '../../untils/baseMethods'
+import { iiHOC } from '../../hoc/hoc';
 require("./style.css");
 const FormItem = Form.Item;
-const columns = model.fields;
 const menu = (
     <Menu>
         <Menu.Item>
@@ -69,49 +68,44 @@ const styles = {
         "fontSize":"18px"
     }
 }
-export default class Page_a extends React.Component{
+var actionIsBind = false;
+
+class Page_a extends React.Component {
     static defaultProps = {
-        selectSource:[{id:"1",name:"篮球"},{id:"2",name:"音乐"},{id:"3",name:"足球"}]
-    }
-    constructor(props){
-        super(props);
-        action.apply(this);
-        this.baseUrl = "../data.json";
-        this.state = {
-        }
-        this.editModalConfig = {
-            dataUrl:"../data.json",
-            model:model.fields,
-            visible:false,
-            title:"新增",
-            modalType:"",
-            saveFormCallBack:this.saveFormCallBack
-        }
-        this.dataTableConfig = {
-            expandedRowRender:expandedRowRender,
-            requestUrl: "../data.json",
-            columns:columns,
-            loadDataParams: {
-                order:"",
-                page:1,
-                page_size:20,
-                begin_time:"",
-                end_time:""
-            },
-            pagination: {
-                showSizeChanger:true,
-                defaultCurrent:1,
-                total:0,
-                pageSize:20
-            }
-        }
-        this.init()
+        selectSource: [{id: "1", name: "篮球"}, {id: "2", name: "音乐"}, {id: "3", name: "足球"}]
     }
 
-    init() {
-        for(var prop in baseMethods) {
-            if(typeof baseMethods[prop] !=='function') return;
-            this.__proto__[prop] = baseMethods[prop].bind(this)
+    constructor(props) {
+        super(props);
+        action.apply(this);
+        this.dataModel = model.getFields(this);
+        this.baseUrl = "../data.json";
+        this.state = {}
+        this.editModalConfig = {
+            dataUrl: "../data.json",
+            model: this.dataModel,
+            visible: false,
+            title: "新增",
+            modalType: "",
+            saveFormCallBack: this.saveFormCallBack
+        }
+        this.dataTableConfig = {
+            expandedRowRender: expandedRowRender,
+            requestUrl: "../data.json",
+            columns: this.dataModel,
+            loadDataParams: {
+                order: "",
+                page: 1,
+                page_size: 20,
+                begin_time: "",
+                end_time: ""
+            },
+            pagination: {
+                showSizeChanger: true,
+                defaultCurrent: 1,
+                total: 0,
+                pageSize: 20
+            }
         }
     }
 
@@ -124,44 +118,48 @@ export default class Page_a extends React.Component{
     }
 
     render() {
-        return  <div>
-                    <Breadcrumb style={{ margin: '12px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>page_a</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div style={{ padding: '0 15px 15px 15px', background: '#fff'}}>
-                        <Form layout="inline" className="filter-form">
-                            <FormItem>
-                                <DateRange dateRangeName="本月份" cacheParams={this.dataTableConfig.loadDataParams} onDateRangeChange={this.dateRangeChange}></DateRange>
-                            </FormItem>
-                            <FormItem>
-                                <SelectComponent
-                                    config={
+        return <div>
+            <Breadcrumb style={{ margin: '12px 0' }}>
+                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>page_a</Breadcrumb.Item>
+            </Breadcrumb>
+            <div style={{ padding: '0 15px 15px 15px', background: '#fff'}}>
+                <Form layout="inline" className="filter-form">
+                    <FormItem>
+                        <DateRange dateRangeName="本月份" cacheParams={this.dataTableConfig.loadDataParams}
+                                   onDateRangeChange={this.dateRangeChange}></DateRange>
+                    </FormItem>
+                    <FormItem>
+                        <SelectComponent
+                            config={
                                         {
                                             mode:'',source:this.props.selectSource,
                                             onSelect:this.selectCallBack,model:'hobby',
                                             style:{width:"152px",marginTop:"2px"},placeholder:'爱好'
                                         }
                                     }>
-                                </SelectComponent>
-                            </FormItem>
-                            <FormItem>
-                                <Input placeholder="搜索" size="default" onChange={this.searchChange} onKeyUp={this.inputEnter} />
-                            </FormItem>
-                            <FormItem>
-                                <Button type="primary" size="default" onClick={this.search}>Search</Button>
-                            </FormItem>
-                            <FormItem>
-                                <span className="test">test</span>
-                                <span style={styles.demoSpan}>test style!</span>
-                            </FormItem>
-                            <FormItem style={{"float":"right","marginRight":0}}>
-                                <Button type="primary" size="default" onClick={this.create}>新增</Button>
-                            </FormItem>
-                        </Form>
-                        <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
-                    </div>
-                    <EditModalForm config={this.editModalConfig} wrappedComponentRef={(ref) => { this.$editModalForm = ref; }}></EditModalForm>
-                </div>
+                        </SelectComponent>
+                    </FormItem>
+                    <FormItem>
+                        <Input placeholder="搜索" size="default" onChange={this.searchChange} onKeyUp={this.inputEnter}/>
+                    </FormItem>
+                    <FormItem>
+                        <Button type="primary" size="default" onClick={this.search}>Search</Button>
+                    </FormItem>
+                    <FormItem>
+                        <span className="test">test</span>
+                        <span style={styles.demoSpan}>test style!</span>
+                    </FormItem>
+                    <FormItem style={{"float":"right","marginRight":0}}>
+                        <Button type="primary" size="default" onClick={this.create}>新增</Button>
+                    </FormItem>
+                </Form>
+                <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
+            </div>
+            <EditModalForm config={this.editModalConfig}
+                           wrappedComponentRef={(ref) => { this.$editModalForm = ref; }}></EditModalForm>
+        </div>
     }
-};
+}
+
+export default iiHOC(Page_a)

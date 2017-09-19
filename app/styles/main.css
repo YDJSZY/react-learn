@@ -1,3 +1,7 @@
+.font-size-base{
+    font-size: 14px;
+}
+
 .hideNavText{
     max-width: 0;
     opacity: 0;

@@ -23,10 +23,12 @@ class EditModal extends React.Component {
     }
 
     open(modalType) {
-        this.setState({
-            visible:true,
-            modalType:modalType
-        })
+        if(this._isMounted) {
+            this.setState({
+                visible: true,
+                modalType: modalType
+            })
+        }
     }
 
     handleCancel = ()=> {
@@ -45,7 +47,8 @@ class EditModal extends React.Component {
         this.open("create");
     }
 
-    edit(record) {
+    edit = (record)=> {
+        this.props.form.resetFields();
         this.setFormValue(record);
         this.open("edit");
     }
@@ -60,7 +63,7 @@ class EditModal extends React.Component {
                 obj[prop.key] = record[prop.key];
             }
             this.recordId = record.id;
-            this.props.form.setFieldsValue(obj);
+            if(this._isMounted) this.props.form.setFieldsValue(obj);
         }
     }/*给表单赋值*/
     
@@ -128,7 +131,12 @@ class EditModal extends React.Component {
     componentWillReceiveProps(nextProps) {
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     componentDidMount() {
+        this._isMounted = true;
     }
 
     render() {
@@ -232,7 +240,7 @@ class EditModal extends React.Component {
                                                         help={model.help}
                                                     >
                                                         {getFieldDecorator(model.key, modelRules[model.key])(
-                                                            <Switch defaultChecked={modelRules[model.key].initialValue} checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} >
+                                                            <Switch checkedChildren={<Icon type="check" />} checked={this.props.form.getFieldValue(model.key)} unCheckedChildren={<Icon type="cross" />} >
                                                             </Switch>
                                                         )}
                                                     </FormItem>
