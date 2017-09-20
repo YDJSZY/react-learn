@@ -20,6 +20,7 @@ export default class SelectComponent extends React.Component {
     render() {
         return <Select
                     mode={this.props.config.mode}
+                    value={this.props.config.value}
                     allowClear
                     showSearch
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}

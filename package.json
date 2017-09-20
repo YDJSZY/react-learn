@@ -10,7 +10,7 @@
     "prod": "export NODE_ENV=production && rm -rf dist && webpack",
     "server": "export NODE_ENV=server && webpack-dev-server --devtool eval --progress --colors --content-base server --inline --hot"
   },
-  "author": "",
+  "author": "lww",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.22.1",

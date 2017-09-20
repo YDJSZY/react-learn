@@ -139,9 +139,9 @@ var model = {
                 width: 100,
                 render: (text, record) => {
                     return <span>
-                          <a href="#" onClick={self.edit.bind(self,record)}>编辑</a>
+                          <a onClick={self.edit.bind(self,record)}>编辑</a>
                           <span className="ant-divider"/>
-                          <a href="#" onClick={action.bind(undefined,"delete",record.id)}>删除</a>
+                          <a onClick={action.bind(undefined,"delete",record.id)}>删除</a>
                           <span className="ant-divider"/>
                         </span>
                 },

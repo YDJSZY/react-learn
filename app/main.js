@@ -6,7 +6,7 @@ import ReactDom from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import axios from 'axios';
 import App from './pages/app';
-import {myInfo,constants,setMyInfo,setConstants} from './untils/commons'
+import {myInfo,constants,setMyInfo,setConstants} from './untils/global'
 require("./styles/main.css");
 
 async function getMyInfo() {

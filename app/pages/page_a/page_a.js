@@ -8,7 +8,7 @@ import DataTable from '../../components/dataTable';
 import EditModalForm from '../../components/editModal';
 import { Form, Table, Input, Button,Breadcrumb,Badge,Dropdown,Menu,Icon } from 'antd';
 import { model } from './model';
-import {myInfo,constants} from '../../untils/commons';
+import {myInfo,constants} from '../../untils/global';
 import CommonMethodsClass from '../../untils/commonMethods';
 require("./style.css");
 const FormItem = Form.Item;
@@ -92,6 +92,8 @@ export default class Page_a extends CommonMethodsClass {
             requestUrl: "../data.json",
             columns: this.dataTableModel,
             loadDataParams: {
+                hobby:"2",
+                dateRangeName:"本月份",
                 order: "",
                 page: 1,
                 page_size: 20,
@@ -108,60 +110,60 @@ export default class Page_a extends CommonMethodsClass {
     }
 
     beforeCreate =()=> {
-        console.log(this)
         return {enabled:true};
     }
 
-    componentWillMount() {
-
-    }
+    /*componentWillMount() {
+        console.log(95)
+    }*/
 
     componentDidMount() {
-
     }
 
-    render() {
+    render(match) {
         return <div>
-            <Breadcrumb style={{ margin: '12px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>page_a</Breadcrumb.Item>
-            </Breadcrumb>
-            <div style={{ padding: '0 15px 15px 15px', background: '#fff'}}>
-                <Form layout="inline" className="filter-form">
-                    <FormItem>
-                        <DateRange dateRangeName="本月份" cacheParams={this.dataTableConfig.loadDataParams}
-                                   onDateRangeChange={this.dateRangeChange}></DateRange>
-                    </FormItem>
-                    <FormItem>
-                        <SelectComponent
-                            config={
-                                        {
-                                            mode:'',source:this.props.selectSource,
-                                            onSelect:this.selectCallBack,model:'hobby',
-                                            style:{width:"152px",marginTop:"2px"},placeholder:'爱好'
-                                        }
-                                    }>
-                        </SelectComponent>
-                    </FormItem>
-                    <FormItem>
-                        <Input placeholder="搜索" size="default" onChange={this.searchChange} onKeyUp={this.inputEnter}/>
-                    </FormItem>
-                    <FormItem>
-                        <Button type="primary" size="default" onClick={this.search}>Search</Button>
-                    </FormItem>
-                    <FormItem>
-                        <span className="test">test</span>
-                        <span style={styles.demoSpan}>test style!</span>
-                    </FormItem>
-                    <FormItem style={{"float":"right","marginRight":0}}>
-                        <Button type="primary" size="default" onClick={this.create}>新增</Button>
-                    </FormItem>
-                </Form>
-                <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
-            </div>
-            <EditModalForm config={this.editModalConfig}
-                           wrappedComponentRef={(ref) => { this.$editModalForm = ref; }}></EditModalForm>
-        </div>
+                    <Breadcrumb style={{ margin: '12px 0' }}>
+                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item>page_a</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <div style={{ padding: '0 15px 15px 15px', background: '#fff'}}>
+                        <Form layout="inline" className="filter-form">
+                            <FormItem>
+                                <DateRange dateRangeName={this.dataTableConfig.loadDataParams.dateRangeName} cacheParams={this.dataTableConfig.loadDataParams}
+                                           onDateRangeChange={this.dateRangeChange}></DateRange>
+                            </FormItem>
+                            <FormItem>
+                                <SelectComponent
+                                    config={
+                                                {
+                                                    value:this.dataTableConfig.loadDataParams.hobby,
+                                                    mode:'',source:this.props.selectSource,
+                                                    onSelect:this.selectCallBack,model:'hobby',
+                                                    style:{width:"152px",marginTop:"2px"},placeholder:'爱好'
+                                                }
+                                            }>
+                                </SelectComponent>
+                            </FormItem>
+                            <FormItem>
+                                <Input placeholder="搜索" size="default" onChange={this.searchChange} onKeyUp={this.inputEnter}/>
+                            </FormItem>
+                            <FormItem>
+                                <Button type="primary" size="default" onClick={this.search}>Search</Button>
+                            </FormItem>
+                            <FormItem>
+                                <span className="test">test</span>
+                                <span style={styles.demoSpan}>test style!</span>
+                            </FormItem>
+                            <FormItem style={{"float":"right","marginRight":0}}>
+                                <Button type="primary" size="default" onClick={this.create}>新增</Button>
+                            </FormItem>
+                        </Form>
+                        <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
+                    </div>
+                    <EditModalForm config={this.editModalConfig}
+                                   wrappedComponentRef={(ref) => { this.$editModalForm = ref; }}>
+                    </EditModalForm>
+                </div>
     }
 }
 

@@ -4,7 +4,7 @@
 import React from "react";
 import { Table } from 'antd';
 import axios from 'axios';
-
+require('../styles/dataTable.css');
 export default class DataTable extends React.Component {
     static defaultProps = {
         
@@ -28,6 +28,7 @@ export default class DataTable extends React.Component {
     }
 
     loadFirstPage = ()=> {
+        this.loadDataParams.page = 1;
         this.fetchData()
     }
 

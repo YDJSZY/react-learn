@@ -8,10 +8,10 @@ import { model,action } from '../page_a/model';
 import DateRange from '../../components/dateRange';
 //import SelectComponent from '../../components/select';
 import axios from 'axios';
-export default class Page_b extends React.Component{
+import CommonMethodsClass from '../../untils/commonMethods';
+export default class Page_b extends CommonMethodsClass{
     constructor(props) {
         super(props);
-        action.apply(this);
     }
     
     render () {

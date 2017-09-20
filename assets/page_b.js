@@ -1,65 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 1290:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(71);
-
-__webpack_require__(1291);
-
-/***/ }),
-
-/***/ 1291:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1292);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(50)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../../../../css-loader/index.js!./index.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1292:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(49)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */\n/* stylelint-disable declaration-bang-space-before */\n/* stylelint-disable declaration-bang-space-before */\n.ant-popover {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1030;\n  cursor: auto;\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n  white-space: normal;\n  font-size: 12px;\n  line-height: 1.5;\n  font-weight: normal;\n  text-align: left;\n}\n.ant-popover:after {\n  content: \"\";\n  position: absolute;\n  background: rgba(255, 255, 255, 0.01);\n}\n.ant-popover-hidden {\n  display: none;\n}\n.ant-popover-placement-top,\n.ant-popover-placement-topLeft,\n.ant-popover-placement-topRight {\n  padding-bottom: 8px;\n}\n.ant-popover-placement-right,\n.ant-popover-placement-rightTop,\n.ant-popover-placement-rightBottom {\n  padding-left: 8px;\n}\n.ant-popover-placement-bottom,\n.ant-popover-placement-bottomLeft,\n.ant-popover-placement-bottomRight {\n  padding-top: 8px;\n}\n.ant-popover-placement-left,\n.ant-popover-placement-leftTop,\n.ant-popover-placement-leftBottom {\n  padding-right: 8px;\n}\n.ant-popover-inner {\n  background-color: #fff;\n  background-clip: padding-box;\n  border-radius: 4px;\n  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);\n}\n.ant-popover-title {\n  min-width: 177px;\n  margin: 0;\n  padding: 0 16px;\n  line-height: 32px;\n  height: 32px;\n  border-bottom: 1px solid #e9e9e9;\n  color: rgba(0, 0, 0, 0.65);\n  font-weight: 500;\n}\n.ant-popover-inner-content {\n  padding: 8px 16px;\n  color: rgba(0, 0, 0, 0.65);\n}\n.ant-popover-message {\n  padding: 8px 0 16px;\n  font-size: 12px;\n  color: rgba(0, 0, 0, 0.65);\n}\n.ant-popover-message > .anticon {\n  color: #ffbf00;\n  line-height: 17px;\n  position: absolute;\n}\n.ant-popover-message-title {\n  padding-left: 20px;\n}\n.ant-popover-buttons {\n  text-align: right;\n  margin-bottom: 8px;\n}\n.ant-popover-buttons button {\n  margin-left: 8px;\n}\n.ant-popover-arrow,\n.ant-popover-arrow:after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid;\n}\n.ant-popover-arrow {\n  border-width: 5px;\n}\n.ant-popover-arrow:after {\n  border-width: 4px;\n  content: \"\";\n}\n.ant-popover-placement-top > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-topLeft > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-topRight > .ant-popover-content > .ant-popover-arrow {\n  border-bottom-width: 0;\n  border-top-color: rgba(217, 217, 217, 0.7);\n  bottom: 3px;\n}\n.ant-popover-placement-top > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-topLeft > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-topRight > .ant-popover-content > .ant-popover-arrow:after {\n  content: \" \";\n  bottom: 1px;\n  margin-left: -4px;\n  border-bottom-width: 0;\n  border-top-color: #fff;\n}\n.ant-popover-placement-top > .ant-popover-content > .ant-popover-arrow {\n  left: 50%;\n  margin-left: -5px;\n}\n.ant-popover-placement-topLeft > .ant-popover-content > .ant-popover-arrow {\n  left: 16px;\n}\n.ant-popover-placement-topRight > .ant-popover-content > .ant-popover-arrow {\n  right: 16px;\n}\n.ant-popover-placement-right > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-rightTop > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-rightBottom > .ant-popover-content > .ant-popover-arrow {\n  left: 3px;\n  border-left-width: 0;\n  border-right-color: rgba(217, 217, 217, 0.7);\n}\n.ant-popover-placement-right > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-rightTop > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-rightBottom > .ant-popover-content > .ant-popover-arrow:after {\n  content: \" \";\n  left: 1px;\n  bottom: -4px;\n  border-left-width: 0;\n  border-right-color: #fff;\n}\n.ant-popover-placement-right > .ant-popover-content > .ant-popover-arrow {\n  top: 50%;\n  margin-top: -5px;\n}\n.ant-popover-placement-rightTop > .ant-popover-content > .ant-popover-arrow {\n  top: 12px;\n}\n.ant-popover-placement-rightBottom > .ant-popover-content > .ant-popover-arrow {\n  bottom: 12px;\n}\n.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-bottomLeft > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow {\n  border-top-width: 0;\n  border-bottom-color: rgba(217, 217, 217, 0.7);\n  top: 3px;\n}\n.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-bottomLeft > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow:after {\n  content: \" \";\n  top: 1px;\n  margin-left: -4px;\n  border-top-width: 0;\n  border-bottom-color: #fff;\n}\n.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow {\n  left: 50%;\n  margin-left: -5px;\n}\n.ant-popover-placement-bottomLeft > .ant-popover-content > .ant-popover-arrow {\n  left: 16px;\n}\n.ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow {\n  right: 16px;\n}\n.ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow {\n  right: 3px;\n  border-right-width: 0;\n  border-left-color: rgba(217, 217, 217, 0.7);\n}\n.ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow:after {\n  content: \" \";\n  right: 1px;\n  border-right-width: 0;\n  border-left-color: #fff;\n  bottom: -4px;\n}\n.ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow {\n  top: 50%;\n  margin-top: -5px;\n}\n.ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow {\n  top: 12px;\n}\n.ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow {\n  bottom: 12px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1293:
+/***/ 1284:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69,23 +10,23 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends2 = __webpack_require__(36);
+var _getPrototypeOf = __webpack_require__(74);
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _classCallCheck2 = __webpack_require__(67);
+var _classCallCheck2 = __webpack_require__(75);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(70);
+var _createClass2 = __webpack_require__(78);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = __webpack_require__(68);
+var _possibleConstructorReturn2 = __webpack_require__(76);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(69);
+var _inherits2 = __webpack_require__(77);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -93,398 +34,137 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _tooltip = __webpack_require__(383);
-
-var _tooltip2 = _interopRequireDefault(_tooltip);
-
-var _warning = __webpack_require__(363);
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var Popover = function (_React$Component) {
-    (0, _inherits3['default'])(Popover, _React$Component);
-
-    function Popover() {
-        (0, _classCallCheck3['default'])(this, Popover);
-        return (0, _possibleConstructorReturn3['default'])(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
-    }
-
-    (0, _createClass3['default'])(Popover, [{
-        key: 'getPopupDomNode',
-        value: function getPopupDomNode() {
-            return this.refs.tooltip.getPopupDomNode();
-        }
-    }, {
-        key: 'getOverlay',
-        value: function getOverlay() {
-            var _props = this.props,
-                title = _props.title,
-                prefixCls = _props.prefixCls,
-                content = _props.content;
-
-            (0, _warning2['default'])(!('overlay' in this.props), 'Popover[overlay] is removed, please use Popover[content] instead, ' + 'see: https://u.ant.design/popover-content');
-            return _react2['default'].createElement(
-                'div',
-                null,
-                title && _react2['default'].createElement(
-                    'div',
-                    { className: prefixCls + '-title' },
-                    title
-                ),
-                _react2['default'].createElement(
-                    'div',
-                    { className: prefixCls + '-inner-content' },
-                    content
-                )
-            );
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var props = (0, _extends3['default'])({}, this.props);
-            delete props.title;
-            return _react2['default'].createElement(_tooltip2['default'], (0, _extends3['default'])({}, props, { ref: 'tooltip', overlay: this.getOverlay() }));
-        }
-    }]);
-    return Popover;
-}(_react2['default'].Component);
-
-exports['default'] = Popover;
-
-Popover.defaultProps = {
-    prefixCls: 'ant-popover',
-    placement: 'top',
-    transitionName: 'zoom-big',
-    trigger: 'hover',
-    mouseEnterDelay: 0.1,
-    mouseLeaveDelay: 0.1,
-    overlayStyle: {}
-};
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 1294:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(71);
-
-__webpack_require__(1295);
-
-/***/ }),
-
-/***/ 1295:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1296);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(50)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../../../../css-loader/index.js!./index.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 1296:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(49)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */\n/* stylelint-disable declaration-bang-space-before */\n/* stylelint-disable declaration-bang-space-before */\n.ant-avatar {\n  display: inline-block;\n  text-align: center;\n  background: #ccc;\n  color: #fff;\n  white-space: nowrap;\n  position: relative;\n  overflow: hidden;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  border-radius: 16px;\n}\n.ant-avatar > * {\n  line-height: 32px;\n}\n.ant-avatar.ant-avatar-icon {\n  font-size: 18px;\n}\n.ant-avatar-lg {\n  width: 40px;\n  height: 40px;\n  line-height: 40px;\n  border-radius: 20px;\n}\n.ant-avatar-lg > * {\n  line-height: 40px;\n}\n.ant-avatar-lg.ant-avatar-icon {\n  font-size: 24px;\n}\n.ant-avatar-sm {\n  width: 24px;\n  height: 24px;\n  line-height: 24px;\n  border-radius: 12px;\n}\n.ant-avatar-sm > * {\n  line-height: 24px;\n}\n.ant-avatar-sm.ant-avatar-icon {\n  font-size: 14px;\n}\n.ant-avatar-square {\n  border-radius: 4px;\n}\n.ant-avatar > img {\n  width: 100%;\n  height: 100%;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1297:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends2 = __webpack_require__(36);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _defineProperty2 = __webpack_require__(48);
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _classCallCheck2 = __webpack_require__(67);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(70);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(68);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(69);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(19);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _icon = __webpack_require__(100);
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _classnames = __webpack_require__(18);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var __rest = undefined && undefined.__rest || function (s, e) {
-    var t = {};
-    for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-    }if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-        if (e.indexOf(p[i]) < 0) t[p[i]] = s[p[i]];
-    }return t;
-};
-
-var Avatar = function (_React$Component) {
-    (0, _inherits3['default'])(Avatar, _React$Component);
-
-    function Avatar(props) {
-        (0, _classCallCheck3['default'])(this, Avatar);
-
-        var _this = (0, _possibleConstructorReturn3['default'])(this, (Avatar.__proto__ || Object.getPrototypeOf(Avatar)).call(this, props));
-
-        _this.setScale = function () {
-            var childrenNode = _this.avatarChildren;
-            if (childrenNode) {
-                var childrenWidth = childrenNode.offsetWidth;
-                var avatarWidth = _reactDom2['default'].findDOMNode(_this).getBoundingClientRect().width;
-                // add 4px gap for each side to get better performance
-                if (avatarWidth - 8 < childrenWidth) {
-                    _this.setState({
-                        scale: (avatarWidth - 8) / childrenWidth
-                    });
-                } else {
-                    _this.setState({
-                        scale: 1
-                    });
-                }
-            }
-        };
-        _this.handleImgLoadError = function () {
-            return _this.setState({ isImgExist: false });
-        };
-        _this.state = {
-            scale: 1,
-            isImgExist: true
-        };
-        return _this;
-    }
-
-    (0, _createClass3['default'])(Avatar, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.setScale();
-        }
-    }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            if (prevProps.children !== this.props.children || prevState.scale !== this.state.scale && this.state.scale === 1) {
-                this.setScale();
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _classNames,
-                _classNames2,
-                _this2 = this;
-
-            var _a = this.props,
-                prefixCls = _a.prefixCls,
-                shape = _a.shape,
-                size = _a.size,
-                src = _a.src,
-                icon = _a.icon,
-                className = _a.className,
-                others = __rest(_a, ["prefixCls", "shape", "size", "src", "icon", "className"]);
-            var sizeCls = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-sm', size === 'small'), _classNames));
-            var classString = (0, _classnames2['default'])(prefixCls, className, sizeCls, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-' + shape, shape), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-image', src), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-icon', icon), _classNames2));
-            var children = this.props.children;
-            if (src && this.state.isImgExist) {
-                children = _react2['default'].createElement('img', { src: src, onError: this.handleImgLoadError });
-            } else if (icon) {
-                children = _react2['default'].createElement(_icon2['default'], { type: icon });
-            } else {
-                var childrenNode = this.avatarChildren;
-                if (childrenNode || this.state.scale !== 1) {
-                    var childrenStyle = {
-                        msTransform: 'scale(' + this.state.scale + ')',
-                        WebkitTransform: 'scale(' + this.state.scale + ')',
-                        transform: 'scale(' + this.state.scale + ')',
-                        position: 'absolute',
-                        display: 'inline-block',
-                        left: 'calc(50% - ' + Math.round(childrenNode.offsetWidth / 2) + 'px)'
-                    };
-                    children = _react2['default'].createElement(
-                        'span',
-                        { className: prefixCls + '-string', ref: function ref(span) {
-                                return _this2.avatarChildren = span;
-                            }, style: childrenStyle },
-                        children
-                    );
-                } else {
-                    children = _react2['default'].createElement(
-                        'span',
-                        { className: prefixCls + '-string', ref: function ref(span) {
-                                return _this2.avatarChildren = span;
-                            } },
-                        children
-                    );
-                }
-            }
-            return _react2['default'].createElement(
-                'span',
-                (0, _extends3['default'])({}, others, { className: classString }),
-                children
-            );
-        }
-    }]);
-    return Avatar;
-}(_react2['default'].Component);
-
-exports['default'] = Avatar;
-
-Avatar.defaultProps = {
-    prefixCls: 'ant-avatar',
-    shape: 'circle',
-    size: 'default'
-};
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ 1298:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.renderTooltip = exports.renderEnabled = exports.renderAvatar = undefined;
-
-var _css = __webpack_require__(381);
-
-var _tooltip = __webpack_require__(383);
-
-var _tooltip2 = _interopRequireDefault(_tooltip);
-
-var _css2 = __webpack_require__(160);
-
-var _icon = __webpack_require__(100);
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _css3 = __webpack_require__(1290);
-
-var _popover = __webpack_require__(1293);
-
-var _popover2 = _interopRequireDefault(_popover);
-
-var _css4 = __webpack_require__(1294);
-
-var _avatar = __webpack_require__(1297);
-
-var _avatar2 = _interopRequireDefault(_avatar);
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
+var _global = __webpack_require__(1298);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var renderAvatar = function renderAvatar(src, title) {
-    var content = _react2.default.createElement(_avatar2.default, { style: { "width": "100px", "height": "100px" }, src: src });
-    var _content = _react2.default.createElement(_avatar2.default, { src: src });
-    return _react2.default.createElement(
-        _popover2.default,
-        { content: content, title: title || "" },
-        _content
-    );
-}; /**
-    * Created by luwenwei on 17/9/19.
-    */
+/**
+ * Created by luwenwe on 2017/9/13.
+ */
+var $localStorage = (0, _global.getLocalStorage)();
 
+var CommonMethodsClass = function (_React$Component) {
+    (0, _inherits3.default)(CommonMethodsClass, _React$Component);
 
-var renderEnabled = function renderEnabled(flag) {
-    if (flag === true) {
-        return _react2.default.createElement(_icon2.default, { type: 'check-circle', style: { "fontSize": "20px" } });
-    }
-    if (flag === false) {
-        return _react2.default.createElement(_icon2.default, { type: 'close-circle', style: { "fontSize": "20px" } });
-    }
-};
+    function CommonMethodsClass(props) {
+        (0, _classCallCheck3.default)(this, CommonMethodsClass);
 
-var renderTooltip = function renderTooltip(title, cutTextCount) {
-    if (!title) return "";
-    var cutTextCount = cutTextCount || 20;
-    var _title = title.length > cutTextCount ? title.substr(0, cutTextCount) + "..." : title;
-    return _react2.default.createElement(
-        _tooltip2.default,
-        { title: title },
-        _react2.default.createElement(
-            'span',
-            null,
-            _title
-        )
-    );
-};
+        var _this = (0, _possibleConstructorReturn3.default)(this, (CommonMethodsClass.__proto__ || (0, _getPrototypeOf2.default)(CommonMethodsClass)).call(this, props));
 
-exports.renderAvatar = renderAvatar;
-exports.renderEnabled = renderEnabled;
-exports.renderTooltip = renderTooltip;
+        _this.selectCallBack = function (model, value) {
+            _this.dataTableConfig.loadDataParams[model] = value;
+            _this.search();
+        };
+
+        _this.dateRangeChange = function (dateRange, noReq) {
+            _this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
+            _this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
+            if (dateRange.dateRangeName == "自定义") return;
+            if (noReq) return;
+            _this.search();
+        };
+
+        _this.search = function () {
+            if (!_this.$dataTable) {
+                console.debug("$dataTable is not exist");
+                return;
+            }
+            _this.$dataTable.loadFirstPage();
+        };
+
+        _this.searchChange = function (e) {
+            _this.dataTableConfig.loadDataParams.search = e.target.value;
+        };
+
+        _this.inputEnter = function (e) {
+            if (e.keyCode === 13) {
+                _this.search();
+            }
+        };
+
+        _this.beforeCreate = function () {
+            return {};
+        };
+
+        _this.create = function () {
+            var obj = _this.beforeCreate();
+            _this.$editModalForm.create(obj);
+        };
+
+        _this.beforeEdit = function (record) {
+            return record;
+        };
+
+        _this.edit = function (record) {
+            var record = _this.beforeEdit(record);
+            _this.$editModalForm.edit(record);
+        };
+
+        _this.saveFormCallBack = function (res, type) {
+            console.log(res);
+        };
+
+        _this.dateRangeChange = function (dateRange, noReq) {
+            _this.dataTableConfig.loadDataParams.dateRangeName = dateRange.dateRangeName;
+            _this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
+            _this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
+            if (dateRange.dateRangeName == "自定义") return;
+            if (noReq) return;
+            _this.search();
+        };
+
+        return _this;
+    } /*日期查询范围改变*/
+
+    /*enter搜索*/
+
+    (0, _createClass3.default)(CommonMethodsClass, [{
+        key: "cutPath",
+        /*日期查询范围改变*/
+
+        value: function cutPath(path) {
+            /*切割路由*/
+            this.currentRoute = path.split("/")[1];
+            this.setLocalStorage();
+            //this.getStorageByCurrentRoute(this.currentRoute);
+        }
+    }, {
+        key: "getStorageByCurrentRoute",
+        value: function getStorageByCurrentRoute(currentRoute) {
+            this.currentRouteStorage = $localStorage[currentRoute] ? $localStorage[currentRoute] : $localStorage[currentRoute] = {};
+            this.setSomeParams();
+        } /*获取当前路由下的一些参数*/
+
+    }, {
+        key: "setSomeParams",
+        value: function setSomeParams() {
+            if (this.currentRouteStorage.loadDataParams) {
+                this.dataTableConfig.loadDataParams = this.currentRouteStorage.loadDataParams;
+            } else {
+                this.currentRouteStorage.loadDataParams = this.dataTableConfig.loadDataParams;
+            } /*从localstorage获取当前页面的一些请求参数*/
+        }
+    }, {
+        key: "setLocalStorage",
+        value: function setLocalStorage() {
+            $localStorage.route = this.currentRoute;
+            (0, _global.setLocalStorage)($localStorage);
+        }
+    }, {
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            this.cutPath(this.props.match.match.path);
+        }
+    }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+            this.setLocalStorage();
+        }
+    }]);
+    return CommonMethodsClass;
+}(_react2.default.Component);
+
+exports.default = CommonMethodsClass;
 
 /***/ }),
 
@@ -506,15 +186,15 @@ var _classCallCheck2 = __webpack_require__(75);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(76);
+var _createClass2 = __webpack_require__(78);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = __webpack_require__(77);
+var _possibleConstructorReturn2 = __webpack_require__(76);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(78);
+var _inherits2 = __webpack_require__(77);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -530,9 +210,13 @@ var _dateRange = __webpack_require__(808);
 
 var _dateRange2 = _interopRequireDefault(_dateRange);
 
-var _axios = __webpack_require__(157);
+var _axios = __webpack_require__(158);
 
 var _axios2 = _interopRequireDefault(_axios);
+
+var _commonMethods = __webpack_require__(1284);
+
+var _commonMethods2 = _interopRequireDefault(_commonMethods);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -542,16 +226,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var React = __webpack_require__(3);
 //import SelectComponent from '../../components/select';
 
-var Page_b = function (_React$Component) {
-    (0, _inherits3.default)(Page_b, _React$Component);
+var Page_b = function (_CommonMethodsClass) {
+    (0, _inherits3.default)(Page_b, _CommonMethodsClass);
 
     function Page_b(props) {
         (0, _classCallCheck3.default)(this, Page_b);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (Page_b.__proto__ || (0, _getPrototypeOf2.default)(Page_b)).call(this, props));
-
-        _model.action.apply(_this);
-        return _this;
+        return (0, _possibleConstructorReturn3.default)(this, (Page_b.__proto__ || (0, _getPrototypeOf2.default)(Page_b)).call(this, props));
     }
 
     (0, _createClass3.default)(Page_b, [{
@@ -587,7 +267,7 @@ var Page_b = function (_React$Component) {
         }
     }]);
     return Page_b;
-}(React.Component);
+}(_commonMethods2.default);
 
 exports.default = Page_b;
 ;
@@ -3475,7 +3155,7 @@ var _propTypes = __webpack_require__(5);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _createChainedFunction = __webpack_require__(372);
+var _createChainedFunction = __webpack_require__(374);
 
 var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
 
@@ -4048,7 +3728,7 @@ module.exports = exports['default'];
 /***/ 751:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(366);
+__webpack_require__(367);
 __webpack_require__(365);
 module.exports = __webpack_require__(856);
 
@@ -4058,7 +3738,7 @@ module.exports = __webpack_require__(856);
 /***/ 752:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(366);
+__webpack_require__(367);
 __webpack_require__(365);
 module.exports = __webpack_require__(858);
 
@@ -4550,10 +4230,10 @@ exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-
 
 var ctx = __webpack_require__(161);
 var $export = __webpack_require__(40);
-var toObject = __webpack_require__(158);
+var toObject = __webpack_require__(159);
 var call = __webpack_require__(775);
 var isArrayIter = __webpack_require__(776);
-var toLength = __webpack_require__(369);
+var toLength = __webpack_require__(371);
 var createProperty = __webpack_require__(777);
 var getIterFn = __webpack_require__(727);
 
@@ -4714,7 +4394,7 @@ __WEBPACK_IMPORTED_MODULE_0__Select__["a" /* default */].OptGroup = __WEBPACK_IM
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_classnames__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_classnames__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rc_animate__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_component_classes__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_component_classes__ = __webpack_require__(370);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_component_classes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_component_classes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__util__ = __webpack_require__(719);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__SelectTrigger__ = __webpack_require__(786);
@@ -6166,7 +5846,7 @@ exports.default = function (obj, keys) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rc_util_es_Children_toArray__ = __webpack_require__(789);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_menu__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rc_menu__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_dom_scroll_into_view__ = __webpack_require__(367);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_dom_scroll_into_view__ = __webpack_require__(369);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_dom_scroll_into_view___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_dom_scroll_into_view__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__util__ = __webpack_require__(719);
 
@@ -6549,15 +6229,15 @@ var _classCallCheck2 = __webpack_require__(75);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(76);
+var _createClass2 = __webpack_require__(78);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = __webpack_require__(77);
+var _possibleConstructorReturn2 = __webpack_require__(76);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(78);
+var _inherits2 = __webpack_require__(77);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -6569,7 +6249,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-__webpack_require__(156);
+__webpack_require__(157);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11383,7 +11063,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-__webpack_require__(156);
+__webpack_require__(157);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -13867,7 +13547,7 @@ module.exports = exports['default'];
 "use strict";
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-var _typeof2 = __webpack_require__(370);
+var _typeof2 = __webpack_require__(372);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -14216,7 +13896,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _renderData = __webpack_require__(1298);
+var _renderData = __webpack_require__(888);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14354,13 +14034,13 @@ var model = {
                     null,
                     _react2.default.createElement(
                         'a',
-                        { href: '#', onClick: self.edit.bind(self, record) },
+                        { onClick: self.edit.bind(self, record) },
                         '\u7F16\u8F91'
                     ),
                     _react2.default.createElement('span', { className: 'ant-divider' }),
                     _react2.default.createElement(
                         'a',
-                        { href: '#', onClick: _action.bind(undefined, "delete", record.id) },
+                        { onClick: _action.bind(undefined, "delete", record.id) },
                         '\u5220\u9664'
                     ),
                     _react2.default.createElement('span', { className: 'ant-divider' })
@@ -14372,6 +14052,494 @@ var model = {
 
 exports.model = model;
 exports.action = _action;
+
+/***/ }),
+
+/***/ 888:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.renderTooltip = exports.renderEnabled = exports.renderAvatar = undefined;
+
+var _css = __webpack_require__(368);
+
+var _tooltip = __webpack_require__(366);
+
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
+var _css2 = __webpack_require__(156);
+
+var _icon = __webpack_require__(100);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _css3 = __webpack_require__(889);
+
+var _popover = __webpack_require__(892);
+
+var _popover2 = _interopRequireDefault(_popover);
+
+var _css4 = __webpack_require__(893);
+
+var _avatar = __webpack_require__(896);
+
+var _avatar2 = _interopRequireDefault(_avatar);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var renderAvatar = function renderAvatar(src, title) {
+    var content = _react2.default.createElement(_avatar2.default, { style: { "width": "100px", "height": "100px" }, src: src });
+    var _content = _react2.default.createElement(_avatar2.default, { src: src });
+    return _react2.default.createElement(
+        _popover2.default,
+        { content: content, title: title || "" },
+        _content
+    );
+}; /**
+    * Created by luwenwei on 17/9/19.
+    */
+
+
+var renderEnabled = function renderEnabled(flag) {
+    if (flag === true) {
+        return _react2.default.createElement(_icon2.default, { type: 'check-circle', style: { "fontSize": "20px", "color": "#27c24c" } });
+    }
+    if (flag === false) {
+        return _react2.default.createElement(_icon2.default, { type: 'close-circle', style: { "fontSize": "20px" } });
+    }
+};
+
+var renderTooltip = function renderTooltip(title, cutTextCount) {
+    if (!title) return "";
+    var cutTextCount = cutTextCount || 20;
+    var _title = title.length > cutTextCount ? title.substr(0, cutTextCount) + "..." : title;
+    return _react2.default.createElement(
+        _tooltip2.default,
+        { title: title },
+        _react2.default.createElement(
+            'span',
+            null,
+            _title
+        )
+    );
+};
+
+exports.renderAvatar = renderAvatar;
+exports.renderEnabled = renderEnabled;
+exports.renderTooltip = renderTooltip;
+
+/***/ }),
+
+/***/ 889:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(71);
+
+__webpack_require__(890);
+
+/***/ }),
+
+/***/ 890:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(891);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(50)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../../../../css-loader/index.js!./index.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 891:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(49)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */\n/* stylelint-disable declaration-bang-space-before */\n/* stylelint-disable declaration-bang-space-before */\n.ant-popover {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1030;\n  cursor: auto;\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n  white-space: normal;\n  font-size: 12px;\n  line-height: 1.5;\n  font-weight: normal;\n  text-align: left;\n}\n.ant-popover:after {\n  content: \"\";\n  position: absolute;\n  background: rgba(255, 255, 255, 0.01);\n}\n.ant-popover-hidden {\n  display: none;\n}\n.ant-popover-placement-top,\n.ant-popover-placement-topLeft,\n.ant-popover-placement-topRight {\n  padding-bottom: 8px;\n}\n.ant-popover-placement-right,\n.ant-popover-placement-rightTop,\n.ant-popover-placement-rightBottom {\n  padding-left: 8px;\n}\n.ant-popover-placement-bottom,\n.ant-popover-placement-bottomLeft,\n.ant-popover-placement-bottomRight {\n  padding-top: 8px;\n}\n.ant-popover-placement-left,\n.ant-popover-placement-leftTop,\n.ant-popover-placement-leftBottom {\n  padding-right: 8px;\n}\n.ant-popover-inner {\n  background-color: #fff;\n  background-clip: padding-box;\n  border-radius: 4px;\n  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);\n}\n.ant-popover-title {\n  min-width: 177px;\n  margin: 0;\n  padding: 0 16px;\n  line-height: 32px;\n  height: 32px;\n  border-bottom: 1px solid #e9e9e9;\n  color: rgba(0, 0, 0, 0.65);\n  font-weight: 500;\n}\n.ant-popover-inner-content {\n  padding: 8px 16px;\n  color: rgba(0, 0, 0, 0.65);\n}\n.ant-popover-message {\n  padding: 8px 0 16px;\n  font-size: 12px;\n  color: rgba(0, 0, 0, 0.65);\n}\n.ant-popover-message > .anticon {\n  color: #ffbf00;\n  line-height: 17px;\n  position: absolute;\n}\n.ant-popover-message-title {\n  padding-left: 20px;\n}\n.ant-popover-buttons {\n  text-align: right;\n  margin-bottom: 8px;\n}\n.ant-popover-buttons button {\n  margin-left: 8px;\n}\n.ant-popover-arrow,\n.ant-popover-arrow:after {\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  border-color: transparent;\n  border-style: solid;\n}\n.ant-popover-arrow {\n  border-width: 5px;\n}\n.ant-popover-arrow:after {\n  border-width: 4px;\n  content: \"\";\n}\n.ant-popover-placement-top > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-topLeft > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-topRight > .ant-popover-content > .ant-popover-arrow {\n  border-bottom-width: 0;\n  border-top-color: rgba(217, 217, 217, 0.7);\n  bottom: 3px;\n}\n.ant-popover-placement-top > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-topLeft > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-topRight > .ant-popover-content > .ant-popover-arrow:after {\n  content: \" \";\n  bottom: 1px;\n  margin-left: -4px;\n  border-bottom-width: 0;\n  border-top-color: #fff;\n}\n.ant-popover-placement-top > .ant-popover-content > .ant-popover-arrow {\n  left: 50%;\n  margin-left: -5px;\n}\n.ant-popover-placement-topLeft > .ant-popover-content > .ant-popover-arrow {\n  left: 16px;\n}\n.ant-popover-placement-topRight > .ant-popover-content > .ant-popover-arrow {\n  right: 16px;\n}\n.ant-popover-placement-right > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-rightTop > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-rightBottom > .ant-popover-content > .ant-popover-arrow {\n  left: 3px;\n  border-left-width: 0;\n  border-right-color: rgba(217, 217, 217, 0.7);\n}\n.ant-popover-placement-right > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-rightTop > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-rightBottom > .ant-popover-content > .ant-popover-arrow:after {\n  content: \" \";\n  left: 1px;\n  bottom: -4px;\n  border-left-width: 0;\n  border-right-color: #fff;\n}\n.ant-popover-placement-right > .ant-popover-content > .ant-popover-arrow {\n  top: 50%;\n  margin-top: -5px;\n}\n.ant-popover-placement-rightTop > .ant-popover-content > .ant-popover-arrow {\n  top: 12px;\n}\n.ant-popover-placement-rightBottom > .ant-popover-content > .ant-popover-arrow {\n  bottom: 12px;\n}\n.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-bottomLeft > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow {\n  border-top-width: 0;\n  border-bottom-color: rgba(217, 217, 217, 0.7);\n  top: 3px;\n}\n.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-bottomLeft > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow:after {\n  content: \" \";\n  top: 1px;\n  margin-left: -4px;\n  border-top-width: 0;\n  border-bottom-color: #fff;\n}\n.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow {\n  left: 50%;\n  margin-left: -5px;\n}\n.ant-popover-placement-bottomLeft > .ant-popover-content > .ant-popover-arrow {\n  left: 16px;\n}\n.ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow {\n  right: 16px;\n}\n.ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow,\n.ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow {\n  right: 3px;\n  border-right-width: 0;\n  border-left-color: rgba(217, 217, 217, 0.7);\n}\n.ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow:after,\n.ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow:after {\n  content: \" \";\n  right: 1px;\n  border-right-width: 0;\n  border-left-color: #fff;\n  bottom: -4px;\n}\n.ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow {\n  top: 50%;\n  margin-top: -5px;\n}\n.ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow {\n  top: 12px;\n}\n.ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow {\n  bottom: 12px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 892:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends2 = __webpack_require__(36);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _classCallCheck2 = __webpack_require__(67);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(70);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(68);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(69);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _tooltip = __webpack_require__(366);
+
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
+var _warning = __webpack_require__(363);
+
+var _warning2 = _interopRequireDefault(_warning);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var Popover = function (_React$Component) {
+    (0, _inherits3['default'])(Popover, _React$Component);
+
+    function Popover() {
+        (0, _classCallCheck3['default'])(this, Popover);
+        return (0, _possibleConstructorReturn3['default'])(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
+    }
+
+    (0, _createClass3['default'])(Popover, [{
+        key: 'getPopupDomNode',
+        value: function getPopupDomNode() {
+            return this.refs.tooltip.getPopupDomNode();
+        }
+    }, {
+        key: 'getOverlay',
+        value: function getOverlay() {
+            var _props = this.props,
+                title = _props.title,
+                prefixCls = _props.prefixCls,
+                content = _props.content;
+
+            (0, _warning2['default'])(!('overlay' in this.props), 'Popover[overlay] is removed, please use Popover[content] instead, ' + 'see: https://u.ant.design/popover-content');
+            return _react2['default'].createElement(
+                'div',
+                null,
+                title && _react2['default'].createElement(
+                    'div',
+                    { className: prefixCls + '-title' },
+                    title
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: prefixCls + '-inner-content' },
+                    content
+                )
+            );
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var props = (0, _extends3['default'])({}, this.props);
+            delete props.title;
+            return _react2['default'].createElement(_tooltip2['default'], (0, _extends3['default'])({}, props, { ref: 'tooltip', overlay: this.getOverlay() }));
+        }
+    }]);
+    return Popover;
+}(_react2['default'].Component);
+
+exports['default'] = Popover;
+
+Popover.defaultProps = {
+    prefixCls: 'ant-popover',
+    placement: 'top',
+    transitionName: 'zoom-big',
+    trigger: 'hover',
+    mouseEnterDelay: 0.1,
+    mouseLeaveDelay: 0.1,
+    overlayStyle: {}
+};
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ 893:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(71);
+
+__webpack_require__(894);
+
+/***/ }),
+
+/***/ 894:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(895);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(50)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../../../../css-loader/index.js!./index.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 895:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(49)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */\n/* stylelint-disable declaration-bang-space-before */\n/* stylelint-disable declaration-bang-space-before */\n.ant-avatar {\n  display: inline-block;\n  text-align: center;\n  background: #ccc;\n  color: #fff;\n  white-space: nowrap;\n  position: relative;\n  overflow: hidden;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  border-radius: 16px;\n}\n.ant-avatar > * {\n  line-height: 32px;\n}\n.ant-avatar.ant-avatar-icon {\n  font-size: 18px;\n}\n.ant-avatar-lg {\n  width: 40px;\n  height: 40px;\n  line-height: 40px;\n  border-radius: 20px;\n}\n.ant-avatar-lg > * {\n  line-height: 40px;\n}\n.ant-avatar-lg.ant-avatar-icon {\n  font-size: 24px;\n}\n.ant-avatar-sm {\n  width: 24px;\n  height: 24px;\n  line-height: 24px;\n  border-radius: 12px;\n}\n.ant-avatar-sm > * {\n  line-height: 24px;\n}\n.ant-avatar-sm.ant-avatar-icon {\n  font-size: 14px;\n}\n.ant-avatar-square {\n  border-radius: 4px;\n}\n.ant-avatar > img {\n  width: 100%;\n  height: 100%;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 896:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends2 = __webpack_require__(36);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(48);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _classCallCheck2 = __webpack_require__(67);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(70);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(68);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(69);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(19);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _icon = __webpack_require__(100);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _classnames = __webpack_require__(18);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var __rest = undefined && undefined.__rest || function (s, e) {
+    var t = {};
+    for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+    }if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+        if (e.indexOf(p[i]) < 0) t[p[i]] = s[p[i]];
+    }return t;
+};
+
+var Avatar = function (_React$Component) {
+    (0, _inherits3['default'])(Avatar, _React$Component);
+
+    function Avatar(props) {
+        (0, _classCallCheck3['default'])(this, Avatar);
+
+        var _this = (0, _possibleConstructorReturn3['default'])(this, (Avatar.__proto__ || Object.getPrototypeOf(Avatar)).call(this, props));
+
+        _this.setScale = function () {
+            var childrenNode = _this.avatarChildren;
+            if (childrenNode) {
+                var childrenWidth = childrenNode.offsetWidth;
+                var avatarWidth = _reactDom2['default'].findDOMNode(_this).getBoundingClientRect().width;
+                // add 4px gap for each side to get better performance
+                if (avatarWidth - 8 < childrenWidth) {
+                    _this.setState({
+                        scale: (avatarWidth - 8) / childrenWidth
+                    });
+                } else {
+                    _this.setState({
+                        scale: 1
+                    });
+                }
+            }
+        };
+        _this.handleImgLoadError = function () {
+            return _this.setState({ isImgExist: false });
+        };
+        _this.state = {
+            scale: 1,
+            isImgExist: true
+        };
+        return _this;
+    }
+
+    (0, _createClass3['default'])(Avatar, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.setScale();
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (prevProps.children !== this.props.children || prevState.scale !== this.state.scale && this.state.scale === 1) {
+                this.setScale();
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _classNames,
+                _classNames2,
+                _this2 = this;
+
+            var _a = this.props,
+                prefixCls = _a.prefixCls,
+                shape = _a.shape,
+                size = _a.size,
+                src = _a.src,
+                icon = _a.icon,
+                className = _a.className,
+                others = __rest(_a, ["prefixCls", "shape", "size", "src", "icon", "className"]);
+            var sizeCls = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-sm', size === 'small'), _classNames));
+            var classString = (0, _classnames2['default'])(prefixCls, className, sizeCls, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-' + shape, shape), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-image', src), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-icon', icon), _classNames2));
+            var children = this.props.children;
+            if (src && this.state.isImgExist) {
+                children = _react2['default'].createElement('img', { src: src, onError: this.handleImgLoadError });
+            } else if (icon) {
+                children = _react2['default'].createElement(_icon2['default'], { type: icon });
+            } else {
+                var childrenNode = this.avatarChildren;
+                if (childrenNode || this.state.scale !== 1) {
+                    var childrenStyle = {
+                        msTransform: 'scale(' + this.state.scale + ')',
+                        WebkitTransform: 'scale(' + this.state.scale + ')',
+                        transform: 'scale(' + this.state.scale + ')',
+                        position: 'absolute',
+                        display: 'inline-block',
+                        left: 'calc(50% - ' + Math.round(childrenNode.offsetWidth / 2) + 'px)'
+                    };
+                    children = _react2['default'].createElement(
+                        'span',
+                        { className: prefixCls + '-string', ref: function ref(span) {
+                                return _this2.avatarChildren = span;
+                            }, style: childrenStyle },
+                        children
+                    );
+                } else {
+                    children = _react2['default'].createElement(
+                        'span',
+                        { className: prefixCls + '-string', ref: function ref(span) {
+                                return _this2.avatarChildren = span;
+                            } },
+                        children
+                    );
+                }
+            }
+            return _react2['default'].createElement(
+                'span',
+                (0, _extends3['default'])({}, others, { className: classString }),
+                children
+            );
+        }
+    }]);
+    return Avatar;
+}(_react2['default'].Component);
+
+exports['default'] = Avatar;
+
+Avatar.defaultProps = {
+    prefixCls: 'ant-avatar',
+    shape: 'circle',
+    size: 'default'
+};
+module.exports = exports['default'];
 
 /***/ })
 

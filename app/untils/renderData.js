@@ -13,7 +13,7 @@ var renderAvatar = function (src,title) {
 
 var renderEnabled = function (flag) {
     if(flag === true){
-        return <Icon type="check-circle" style={{"fontSize":"20px"}} />
+        return <Icon type="check-circle" style={{"fontSize":"20px","color":"#27c24c"}} />
     }
     if(flag === false){
         return <Icon type="close-circle" style={{"fontSize":"20px"}} />
