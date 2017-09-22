@@ -15,7 +15,9 @@ var config = {
         chunkFilename: '[name].js',
     },
     plugins:[
-        new webpack.optimize.CommonsChunkPlugin({names: ['vendor', 'manifest']}),
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['jquery','vendor','manifest']
+        }),
         new ExtractTextPlugin('styles.css')
     ]
 };

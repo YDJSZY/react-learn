@@ -10,7 +10,7 @@ var config = {
     output: {
         path: path.resolve(__dirname, '../dist/'),
         publicPath: './',
-        filename: '[name].js',
+        filename: '[name].[chunkhash:5].js',
         chunkFilename: '[name].[chunkhash:5].js',
     },
 

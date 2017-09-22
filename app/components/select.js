@@ -3,7 +3,6 @@
  */
 import React from "react";
 import { Select } from 'antd';
-
 export default class SelectComponent extends React.Component {
     constructor(props) {
         super(props);

@@ -8,7 +8,7 @@ import axios from 'axios';
 import App from './pages/app';
 import {myInfo,constants,setMyInfo,setConstants} from './untils/global'
 require("./styles/main.css");
-
+require("./untils/toggle");
 async function getMyInfo() {
     var response = await axios.get('../package.json');
     setMyInfo(response.data);

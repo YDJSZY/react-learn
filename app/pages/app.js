@@ -3,7 +3,7 @@
  */
 import MyMenu from '../components/nav';
 import Main from '../route/routes';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Icon } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import React from "react";
 export default class App extends React.Component {
@@ -20,35 +20,44 @@ export default class App extends React.Component {
 
     }
     render() {
-        return <Layout style={{height:'100%'}}>
-            <Sider
-                breakpoint="md"
-                trigger={null}
-                collapsible="true"
-                collapsed={this.state.collapsed}
-            >
-                <div className="logo" style={{height:"65px",textAlign:"center",lineHeight:"65px"}}>
-                    <h2 style={{color:"#fff"}}>admin</h2>
+        return <div className="app app-header-fixed" id="app">
+            <div className="app-header navbar" style={{textAlign: "center"}}>
+                <div className="navbar-header bg-info dker" style={{background: "#108ee9"}}>
+                    <button className="pull-right visible-xs dk" data-toggle="className:show" data-target=".navbar-collapse">
+                        <i className="glyphicon glyphicon-cog"></i>
+                    </button>
+                    <button className="pull-right visible-xs" data-toggle="className:off-screen" data-target=".app-aside">
+                        <i className="glyphicon glyphicon-align-justify"></i>
+                    </button>
+                    <a href="#/" className="navbar-brand text-lt system-name" style={{fontSize: "19px"}}>
+                        <span className="hidden-folded">快云漫画管理平台</span>
+                    </a>
                 </div>
-                <MyMenu collapsed={this.state.collapsed} />
-            </Sider>
-            <Layout>
-                <Header style={{ background: '#fff', padding: 0 }}>
-                    <Icon
-                        style={{marginLeft:"15px",fontSize:"16px"}}
-                        className="trigger"
-                        type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                        onClick={this.toggle}
-                    />
-                </Header>
-                <Content style={{ padding:'0 15px'}}>
+                <div className="collapse pos-rlt navbar-collapse box-shadow bg-white-only">
+                    <div className="nav navbar-nav hidden-xs">
+                        <a href="" className="btn no-shadow navbar-btn" data-toggle="className:app-aside-folded" data-target=".app">
+                            <i className="fa fa-dedent fa-fw text"></i>
+                            <i className="fa fa-indent fa-fw text-active"></i>
+                        </a>
+                    </div>
+                    <ul className="nav navbar-nav hidden-sm">
+                    </ul>
+                </div>
+            </div>
+            <MyMenu />
+            <div className="app-content">
+                <div></div>
+                <a href className="off-screen-toggle hide" data-toggle="className:off-screen" data-target=".app-aside" ></a>
+                <div className="app-content-body ainmate-scale-up">
                     <Main />
-                </Content>
-                <Footer style={{ textAlign: 'center' }}>
-                    Ant Design ©2016 Created by Ant UED
-                </Footer>
-            </Layout>
-        </Layout>
+                </div>
+            </div>
+            <div className="app-footer wrapper b-t bg-light" style={{"textAlign": "center"}}>
+                <span>
+                    <strong></strong>
+                </span>
+            </div>
+        </div>
     }
 }
 

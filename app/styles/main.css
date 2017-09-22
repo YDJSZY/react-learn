@@ -1,5 +1,5 @@
-.font-size-base{
-    font-size: 14px;
+section.content{
+    padding: 15px;
 }
 
 .hideNavText{
@@ -9,8 +9,28 @@
 
 .filter-form{
     margin-bottom: 15px;
+    padding: 0 15px;
 }
 
-.filter-form .ant-form-item{
+.filter-form .form-group{
     margin-top:15px;
+}
+
+.panel-title-text{
+    margin: 10px 0;
+}
+
+.separator{
+    margin: 0 8px;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.parent-menu-title{
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.children-menu-title{
+    vertical-align: text-top;
+    color: rgba(0, 0, 0, 0.65);
+    font-weight:initial;
 }

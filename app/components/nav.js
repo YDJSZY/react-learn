@@ -3,8 +3,8 @@
  */
 import cs from 'classnames'//引入classnames依赖库
 import React from "react";
-import { BrowserRouter as StaticRouter,NavLink } from 'react-router-dom';
-import { Menu, Icon } from 'antd';
+import { BrowserRouter as StaticRouter,Link } from 'react-router-dom';
+//import { Menu, Icon } from 'antd';
 import { getLocalStorage } from '../untils/global';
 const $localStorage = getLocalStorage();
 const currentRoute = $localStorage.route;
@@ -16,7 +16,7 @@ export default class MyMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            openKeys: []
+            openKeys: ['sub1']
         };
         this.rootSubmenuKeys = ['sub1'];
     }
@@ -37,36 +37,33 @@ export default class MyMenu extends React.Component {
             'hideNavText':this.props.collapsed
         });
 
-        return  <Menu theme="dark" mode="inline" openKeys={this.state.openKeys}
-                      onOpenChange={this.onOpenChange}
-                      defaultOpenKeys={[keys[currentRoute || 'page_a']]}
-                      defaultSelectedKeys={[currentRoute || 'page_a']}>
-                    <Menu.Item key="page_a">
-                        <NavLink to="/page_a/">
-                            <Icon type="user" />
-                            <span className={collapsedClass} style={{"fontSize":"14px"}}>
-                                page_a
-                            </span>
-                        </NavLink>
-                    </Menu.Item>
-                    <Menu.SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-                        <Menu.Item key="page_b">
-                            <NavLink to="/page_b/">
-                                <Icon type="video-camera" />
-                                <span id="page_b" className={collapsedClass} style={{"fontSize":"14px"}}>
-                                    page_b
-                                </span>
-                            </NavLink>
-                        </Menu.Item>
-                        <Menu.Item key="page_c">
-                            <NavLink to="/page_c/">
-                                <Icon type="book" />
-                                <span className={collapsedClass} style={{"fontSize":"14px"}}>
-                                    page_c
-                                </span>
-                            </NavLink>
-                        </Menu.Item>
-                    </Menu.SubMenu>
-                </Menu>
+        return  <div className="app-aside hidden-xs bg-black" style={{position: "fixed",height: "100%"}}>
+                    <div className="aside-wrap">
+                        <div className="navi-wrap">
+                            <nav className="navi">
+                                <ul className="nav">
+                                    <li className="main-menu">
+                                        <a href className="auto">
+                                          <span className="pull-right text-muted">
+                                                <i className="fa fa-fw fa-angle-right text"></i>
+                                                <i className="fa fa-fw fa-angle-down text-active"></i>
+                                          </span>
+                                            <i className="fa fa-money text-info-dker"></i>
+                                            <span className="font-bold">页面</span>
+                                        </a>
+                                        <ul className="nav nav-sub dk">
+                                            <li>
+                                                <Link to="/page_a/">page_a</Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/page_b/">page_b</Link>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
     }
 };

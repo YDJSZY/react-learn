@@ -4,7 +4,8 @@
 var plugins = {
     "css":[
         "./node_modules/font-awesome/css/font-awesome.min.css",
-        //"./app/styles/main.css"
+        "./app/styles/app.css",
+        './node_modules/bootstrap/dist/css/bootstrap.min.css',
     ],
     "js":[
         "./node_modules/whatwg-fetch/fetch.js",

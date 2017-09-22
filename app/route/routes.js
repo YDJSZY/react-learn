@@ -20,10 +20,6 @@ const Page_b = (match) => (
         {(Page_b) => <Page_b match={match}/>}
     </Bundle>
 )
-const pages = {
-    "page_a":Page_a,
-    "page_b":Page_b
-}
 
 export default class Main extends React.Component {
     render() {
