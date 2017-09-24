@@ -3,7 +3,7 @@
  */
 import React from "react";
 //import { model,action } from '../page_a/model';
-//import DateRange from '../../components/dateRange';
+import DateRange from '../../components/dateRange';
 //import SelectComponent from '../../components/select';
 import axios from 'axios';
 import Select from 'react-select';
@@ -17,9 +17,35 @@ export default class Page_b extends CommonMethodsClass{
             { value: 'one', label: 'One' },
             { value: 'two', label: 'Two' }
         ];
+        this.state = {
+            mySelect:null
+        }
+        this.dataTableConfig = {
+            requestUrl: "../data.json",
+            loadDataParams: {
+                hobby:"2",
+                dateRangeName:"昨天",
+                order: "",
+                page: 1,
+                page_size: 20,
+                begin_time: "",
+                end_time: ""
+            },
+            pagination: {
+                showSizeChanger: true,
+                defaultCurrent: 1,
+                total: 0,
+                pageSize: 20
+            }
+        }
     }
 
     logChange = (val)=> {
+        var selectVal = val ? val.value : null;
+        this.setState({
+            mySelect:selectVal
+        })
+        //this.mySelect = val.value;
         console.log("Selected: " + JSON.stringify(val));
     }
     
@@ -36,18 +62,19 @@ export default class Page_b extends CommonMethodsClass{
                         <div className="panel-body" style={{paddingTop: 0}}>
                             <div className="row" style={{marginBottom: "15px"}}>
                                 <form className="form-inline filter-form" style={{margin:0}}>
+                                    <DateRange dateRangeName={this.dataTableConfig.loadDataParams.dateRangeName} cacheParams={this.dataTableConfig.loadDataParams}
+                                               onDateRangeChange={this.dateRangeChange}></DateRange>
+                                    <div className="form-group">
+                                        <input className="form-control" placeholder="搜索"/>
+                                    </div>
                                     <div className="form-group">
                                         <Select
                                             style={{width:"170px"}}
                                             name="form-field-name"
-                                            value="one"
+                                            value={this.state.mySelect}
                                             options={this.options}
                                             onChange={this.logChange}
                                         />
-                                    </div>
-
-                                    <div className="form-group">
-
                                     </div>
                                 </form>
                             </div>
