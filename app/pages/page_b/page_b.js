@@ -22,6 +22,8 @@ export default class Page_b extends CommonMethodsClass{
         this.dataTableConfig = {
             requestUrl: "../data.json",
             dataTableModel:this.dataTableModel,
+            expandedRow:this.expandedRow,
+            createExpandedRowTpl:this.createExpandedRowTpl,
             loadDataParams: {
                 hobby:"2",
                 dateRangeName:"昨天",
@@ -49,8 +51,33 @@ export default class Page_b extends CommonMethodsClass{
         console.log("Selected: " + JSON.stringify(val));
     }
 
-    toggleDetail(record) {
-        console.log(record)
+    async expandedRow(record) {
+        var promise = await axios.get("../data.json");
+        return promise;
+        
+    }
+    
+    createExpandedRowTpl(data) {
+        return <tr>
+            <td colSpan="30">
+                <div className="table-responsive">
+                    <table className="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>小名</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{data.id}</td>
+                            <td>{"$"+data.username}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
     }
     
     render () {

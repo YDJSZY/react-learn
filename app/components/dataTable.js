@@ -91,8 +91,22 @@ export default class DataTable extends React.Component {
                 });
                 break;
             }
-        };
+        }
         return;
+    }
+    
+    receiveExpandedRow(data) {
+
+    }
+
+    getExpandedRow = (record)=> {
+        var r = this.props.config.expandedRow(record);
+        if(r instanceof Promise){
+            r.then((res,d)=> {
+                console.log(res)
+            })
+        }
+        return
     }
 
     componentDidMount() {
@@ -108,7 +122,7 @@ export default class DataTable extends React.Component {
                 {dataTableModel.map(function (item,index) {
                     return <th data-field={item.key} key={item.key} style={item.style}>
                             {item.title}
-                            {item.sorter ? <i className="fa fa-sort sort" style={{marginLeft:"5px"}} data-sort-name={item.sortName || item.key}></i> : ""}
+                            {item.sorter ? <i className="fa fa-sort sort" style={{marginLeft:"5px"}} data-sort-name={item.sortName || item.key}></i> : null}
                         </th>
                 })}
             </tr>
@@ -135,7 +149,7 @@ export default class DataTable extends React.Component {
                                         })
                                     }
                                 </tr>,
-                                item["showDetail"] ? <tr key={'_$'+index}><td>{index}</td></tr> : null
+                                item["showDetail"] ? this.getExpandedRow(item) : null
                             ]
                         })
                 }

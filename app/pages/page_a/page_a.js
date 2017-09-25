@@ -81,7 +81,7 @@ export default class Page_a extends CommonMethodsClass {
         this.state = {}
         this.editModalConfig = {
             dataUrl: "../data.json",
-            model: this.dataTableModel,
+            dataTableModel: this.dataTableModel,
             visible: false,
             title: "新增",
             modalType: "",
@@ -90,7 +90,7 @@ export default class Page_a extends CommonMethodsClass {
         this.dataTableConfig = {
             expandedRowRender: expandedRowRender,
             requestUrl: "../data.json",
-            columns: this.dataTableModel,
+            dataTableModel: this.dataTableModel,
             loadDataParams: {
                 hobby:"2",
                 dateRangeName:"本月份",
