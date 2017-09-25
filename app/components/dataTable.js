@@ -2,8 +2,8 @@
  * Created by luwenwe on 2017/9/11.
  */
 import React from "react";
-import { Table } from 'antd';
 import axios from 'axios';
+import TableTr from '../components/tableTr';
 require('../styles/dataTable.css');
 export default class DataTable extends React.Component {
     static defaultProps = {
@@ -20,7 +20,8 @@ export default class DataTable extends React.Component {
         }
         this.state = {
             serverData:[],
-            pagination:props.config.pagination
+            pagination:props.config.pagination,
+            dataTableModel:props.config.dataTableModel
         }
         this.loadDataParams = props.config.loadDataParams;
         this.requestUrl = props.config.requestUrl;
@@ -79,16 +80,69 @@ export default class DataTable extends React.Component {
 
     }
 
+    expandedRow(record) {
+        record.showDetail = !record.showDetail;
+        var serverData = this.state.serverData;
+        for(var i = 0,l = serverData.length;i < l;i++){
+            if(serverData[i].id === record.id) {
+                serverData[i] = record;
+                this.setState({
+                    serverData:serverData
+                });
+                break;
+            }
+        };
+        return;
+    }
+
     componentDidMount() {
         this.loadFirstPage();
     }
     
     render() {
-        return <Table
-            columns={this.props.config.columns} dataSource={this.state.serverData}
-            pagination={this.state.pagination} bordered={true}
-            expandedRowRender={this.props.config.expandedRowRender || null}
-            scroll={{x:"1500px"}} size="defaults" onChange={this.tableChange}
-        />
+        var dataTableModel = this.state.dataTableModel;
+        var serverData = this.state.serverData;
+        return <table className="table table-hover table-striped table-bordered">
+            <thead>
+            <tr>
+                {dataTableModel.map(function (item,index) {
+                    return <th data-field={item.key} key={item.key} style={item.style}>
+                            {item.title}
+                            {item.sorter ? <i className="fa fa-sort sort" style={{marginLeft:"5px"}} data-sort-name={item.sortName || item.key}></i> : ""}
+                        </th>
+                })}
+            </tr>
+            </thead>
+            <tbody>
+                {
+                    this.state.serverData.length === 0 ?
+                        <tr>
+                            <td colSpan="30">
+                                <div className="alert alert-info">
+                                    <h4><i className="icon fa fa-warning"></i>没有数据</h4>
+                                </div>
+                            </td>
+                        </tr> :
+                        serverData.map((item,index)=> {
+                            return [
+                                <tr key={'_'+index}>
+                                    {
+                                        dataTableModel.map((modelItem,index)=> {
+                                            var val = item[modelItem.key];
+                                            return <td key={modelItem.key}>{
+                                                    modelItem.render ? modelItem.render(val,item,this) : val
+                                                }</td>
+                                        })
+                                    }
+                                </tr>,
+                                item["showDetail"] ? <tr key={'_$'+index}><td>{index}</td></tr> : null
+                            ]
+                        })
+                }
+
+            <tr>
+            </tr>
+            </tbody>
+        </table>
     }
 }

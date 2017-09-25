@@ -30,7 +30,7 @@ export default class App extends React.Component {
                         <i className="glyphicon glyphicon-align-justify"></i>
                     </button>
                     <a href="#/" className="navbar-brand text-lt system-name" style={{fontSize: "19px"}}>
-                        <span className="hidden-folded">快云漫画管理平台</span>
+                        <span className="hidden-folded">Admin</span>
                     </a>
                 </div>
                 <div className="collapse pos-rlt navbar-collapse box-shadow bg-white-only">

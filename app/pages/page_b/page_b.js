@@ -2,13 +2,11 @@
  * Created by Apple on 17/2/6.
  */
 import React from "react";
-//import { model,action } from '../page_a/model';
+import { model,action } from '../page_a/model';
 import DateRange from '../../components/dateRange';
-//import SelectComponent from '../../components/select';
+import DataTable from '../../components/dataTable';
 import axios from 'axios';
 import Select from 'react-select';
-// Be sure to include styles at some point, probably during your bootstrapping
-import 'react-select/dist/react-select.css';
 import CommonMethodsClass from '../../untils/commonMethods';
 export default class Page_b extends CommonMethodsClass{
     constructor(props) {
@@ -20,8 +18,10 @@ export default class Page_b extends CommonMethodsClass{
         this.state = {
             mySelect:null
         }
+        this.dataTableModel = model.getFields(this);
         this.dataTableConfig = {
             requestUrl: "../data.json",
+            dataTableModel:this.dataTableModel,
             loadDataParams: {
                 hobby:"2",
                 dateRangeName:"昨天",
@@ -47,6 +47,10 @@ export default class Page_b extends CommonMethodsClass{
         })
         //this.mySelect = val.value;
         console.log("Selected: " + JSON.stringify(val));
+    }
+
+    toggleDetail(record) {
+        console.log(record)
     }
     
     render () {
@@ -79,7 +83,7 @@ export default class Page_b extends CommonMethodsClass{
                                 </form>
                             </div>
                             <div className="table-responsive">
-
+                                <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
                             </div>
                         </div>
                         <div className="panel-footer">

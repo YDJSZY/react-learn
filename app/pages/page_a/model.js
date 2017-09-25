@@ -137,12 +137,12 @@ var model = {
                 key: 'action',
                 fixed: 'right',
                 width: 100,
-                render: (text, record) => {
+                style:{width:"20px"},
+                render: (text, record, dataTableRef) => {
                     return <span>
-                          <a onClick={self.edit.bind(self,record)}>编辑</a>
-                          <span className="ant-divider"/>
-                          <a onClick={action.bind(undefined,"delete",record.id)}>删除</a>
-                          <span className="ant-divider"/>
+                            <button className="btn btn-primary btn-xs">编辑</button>
+                            <span className="seperate-line"></span>
+                            <button className="btn btn-success btn-xs" onClick={()=>{dataTableRef.expandedRow(record)}}>详情</button>
                         </span>
                 },
             }
