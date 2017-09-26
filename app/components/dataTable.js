@@ -80,32 +80,53 @@ export default class DataTable extends React.Component {
 
     }
 
-    expandedRow(record) {
-        record.showDetail = !record.showDetail;
+    findRecordById(id) {
         var serverData = this.state.serverData;
         for(var i = 0,l = serverData.length;i < l;i++){
-            if(serverData[i].id === record.id) {
-                serverData[i] = record;
-                this.setState({
-                    serverData:serverData
-                });
-                break;
+            if(serverData[i].id === id) {
+                return [serverData[i],i];
             }
         }
-        return;
+    }
+
+    expandedRow(record) {
+        if(record.showDetail){
+            var serverData = this.state.serverData;
+            var _serverData = this.findRecordById(record.id);
+            _serverData[0].showDetail = false;
+            serverData[_serverData[0][1]] = _serverData[0];
+            this.setState({
+                serverData:serverData
+            });
+            return;
+        }
+        this.getExpandedRowData(record);
     }
     
     receiveExpandedRow(data) {
 
     }
 
-    getExpandedRow = (record)=> {
+    getExpandedRowData = (record)=> {
         var r = this.props.config.expandedRow(record);
-        if(r instanceof Promise){
+        var serverData = this.state.serverData;
+        var _serverData = this.findRecordById(record.id);
+        _serverData[0].showDetail = true;
+        if(r && r instanceof Promise){
             r.then((res,d)=> {
-                console.log(res)
+                _serverData[0].$expandedRowData = res.data;
+                serverData[_serverData[0][1]] = _serverData[0];
+                this.setState({
+                    serverData:serverData
+                });
+                return;
             })
         }
+        if(r) _serverData[0].$expandedRowData = r;
+        serverData[_serverData[0][1]] = _serverData[0];
+        this.setState({
+            serverData:serverData
+        });
         return
     }
 
@@ -149,7 +170,7 @@ export default class DataTable extends React.Component {
                                         })
                                     }
                                 </tr>,
-                                item["showDetail"] ? this.getExpandedRow(item) : null
+                                item["showDetail"] ? this.props.config.getExpandedRow(item) : null
                             ]
                         })
                 }

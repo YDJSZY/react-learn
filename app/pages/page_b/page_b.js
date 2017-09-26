@@ -23,7 +23,7 @@ export default class Page_b extends CommonMethodsClass{
             requestUrl: "../data.json",
             dataTableModel:this.dataTableModel,
             expandedRow:this.expandedRow,
-            createExpandedRowTpl:this.createExpandedRowTpl,
+            getExpandedRow:this.getExpandedRow,
             loadDataParams: {
                 hobby:"2",
                 dateRangeName:"昨天",
@@ -56,28 +56,30 @@ export default class Page_b extends CommonMethodsClass{
         return promise;
         
     }
-    
-    createExpandedRowTpl(data) {
+
+    getExpandedRow(data) {
+        var expandedRowData = data.$expandedRowData.results[0];
+        console.log(expandedRowData)
         return <tr>
-            <td colSpan="30">
-                <div className="table-responsive">
-                    <table className="table table-hover table-striped table-bordered">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>小名</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{data.id}</td>
-                            <td>{"$"+data.username}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </td>
-        </tr>
+                    <td colSpan="30">
+                        <div className="table-responsive">
+                            <table className="table table-hover table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>小名</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>{expandedRowData.id}</td>
+                                    <td>{"$"+expandedRowData.username}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
     }
     
     render () {

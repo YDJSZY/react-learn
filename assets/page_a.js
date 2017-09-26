@@ -3832,7 +3832,7 @@ module.exports = __webpack_require__(26).getIteratorMethod = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(142);
+var cof = __webpack_require__(143);
 var TAG = __webpack_require__(32)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
@@ -7746,7 +7746,7 @@ __webpack_require__(620);
 
 "use strict";
 
-var ctx = __webpack_require__(141);
+var ctx = __webpack_require__(142);
 var $export = __webpack_require__(33);
 var toObject = __webpack_require__(139);
 var call = __webpack_require__(706);
@@ -11736,7 +11736,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(343);
+var _reactSelect = __webpack_require__(345);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
@@ -19423,15 +19423,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _regenerator = __webpack_require__(344);
+var _regenerator = __webpack_require__(343);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(345);
+var _asyncToGenerator2 = __webpack_require__(344);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _promise = __webpack_require__(152);
+var _promise = __webpack_require__(141);
 
 var _promise2 = _interopRequireDefault(_promise);
 
@@ -19490,13 +19490,26 @@ var DataTable = function (_React$Component) {
             _this.sorterChange(sorter);
         };
 
-        _this.getExpandedRow = function (record) {
+        _this.getExpandedRowData = function (record) {
             var r = _this.props.config.expandedRow(record);
-            if (r instanceof _promise2.default) {
+            var serverData = _this.state.serverData;
+            var _serverData = _this.findRecordById(record.id);
+            _serverData[0].showDetail = true;
+            if (r && r instanceof _promise2.default) {
                 r.then(function (res, d) {
-                    console.log(res);
+                    _serverData[0].$expandedRowData = res.data;
+                    serverData[_serverData[0][1]] = _serverData[0];
+                    _this.setState({
+                        serverData: serverData
+                    });
+                    return;
                 });
             }
+            if (r) _serverData[0].$expandedRowData = r;
+            serverData[_serverData[0][1]] = _serverData[0];
+            _this.setState({
+                serverData: serverData
+            });
             return;
         };
 
@@ -19600,20 +19613,29 @@ var DataTable = function (_React$Component) {
         key: 'edit',
         value: function edit(id) {}
     }, {
-        key: 'expandedRow',
-        value: function expandedRow(record) {
-            record.showDetail = !record.showDetail;
+        key: 'findRecordById',
+        value: function findRecordById(id) {
             var serverData = this.state.serverData;
             for (var i = 0, l = serverData.length; i < l; i++) {
-                if (serverData[i].id === record.id) {
-                    serverData[i] = record;
-                    this.setState({
-                        serverData: serverData
-                    });
-                    break;
+                if (serverData[i].id === id) {
+                    return [serverData[i], i];
                 }
             }
-            return;
+        }
+    }, {
+        key: 'expandedRow',
+        value: function expandedRow(record) {
+            if (record.showDetail) {
+                var serverData = this.state.serverData;
+                var _serverData = this.findRecordById(record.id);
+                _serverData[0].showDetail = false;
+                serverData[_serverData[0][1]] = _serverData[0];
+                this.setState({
+                    serverData: serverData
+                });
+                return;
+            }
+            this.getExpandedRowData(record);
         }
     }, {
         key: 'receiveExpandedRow',
@@ -19681,7 +19703,7 @@ var DataTable = function (_React$Component) {
                                     modelItem.render ? modelItem.render(val, item, _this2) : val
                                 );
                             })
-                        ), item["showDetail"] ? _this2.getExpandedRow(item) : null];
+                        ), item["showDetail"] ? _this2.props.config.getExpandedRow(item) : null];
                     }),
                     _react2.default.createElement('tr', null)
                 )
@@ -24176,7 +24198,7 @@ var _extends3 = __webpack_require__(82);
 
 var _extends4 = _interopRequireDefault(_extends3);
 
-var _typeof2 = __webpack_require__(143);
+var _typeof2 = __webpack_require__(144);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -26756,7 +26778,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _typeof2 = __webpack_require__(143);
+var _typeof2 = __webpack_require__(144);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -48475,7 +48497,7 @@ module.exports = function getOwnPropertyDescriptor(it, key) {
 
 // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 var toIObject = __webpack_require__(35);
-var $getOwnPropertyDescriptor = __webpack_require__(144).f;
+var $getOwnPropertyDescriptor = __webpack_require__(145).f;
 
 __webpack_require__(943)('getOwnPropertyDescriptor', function () {
   return function getOwnPropertyDescriptor(it, key) {
