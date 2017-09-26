@@ -5,6 +5,7 @@ import React from "react";
 import { model,action } from '../page_a/model';
 import DateRange from '../../components/dateRange';
 import DataTable from '../../components/dataTable';
+import Pagination from '../../components/pagination';
 import axios from 'axios';
 import Select from 'react-select';
 import CommonMethodsClass from '../../untils/commonMethods';
@@ -34,9 +35,9 @@ export default class Page_b extends CommonMethodsClass{
                 end_time: ""
             },
             pagination: {
-                showSizeChanger: true,
-                defaultCurrent: 1,
-                total: 0,
+                currentPage: 1,
+                totalRecords: 20,
+                totalPages:10,
                 pageSize: 20
             }
         }
@@ -51,15 +52,15 @@ export default class Page_b extends CommonMethodsClass{
         console.log("Selected: " + JSON.stringify(val));
     }
 
-    async expandedRow(record) {
-        var promise = await axios.get("../data.json");
-        return promise;
+    expandedRow(record) {
+        /*var promise = axios.get("../data.json");
+        return promise;*/
+        return null;
         
     }
 
     getExpandedRow(data) {
-        var expandedRowData = data.$expandedRowData.results[0];
-        console.log(expandedRowData)
+        var expandedRowData = data;
         return <tr>
                     <td colSpan="30">
                         <div className="table-responsive">
@@ -67,13 +68,13 @@ export default class Page_b extends CommonMethodsClass{
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>小名</th>
+                                    <th>性别</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td>{expandedRowData.id}</td>
-                                    <td>{"$"+expandedRowData.username}</td>
+                                    <td>{"$"+expandedRowData.sex}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -116,12 +117,7 @@ export default class Page_b extends CommonMethodsClass{
                             </div>
                         </div>
                         <div className="panel-footer">
-                            <div className="pull-left">
-                                <span></span>
-                            </div>
-                            <div className="pull-right">
-                            </div>
-                            <div style={{clear: "both"}}></div>
+                            <Pagination paginationMessage={this.dataTableConfig.pagination}></Pagination>
                         </div>
                     </div>
                 </section>

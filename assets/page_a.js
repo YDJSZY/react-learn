@@ -19496,21 +19496,24 @@ var DataTable = function (_React$Component) {
             var _serverData = _this.findRecordById(record.id);
             _serverData[0].showDetail = true;
             if (r && r instanceof _promise2.default) {
-                r.then(function (res, d) {
+                r.then(function (res) {
                     _serverData[0].$expandedRowData = res.data;
-                    serverData[_serverData[0][1]] = _serverData[0];
+                    serverData[_serverData[1]] = _serverData[0];
+                    console.log(serverData);
                     _this.setState({
                         serverData: serverData
                     });
                     return;
                 });
+            } else {
+                if (r) {
+                    _serverData[0].$expandedRowData = r;
+                    serverData[_serverData[1]] = _serverData[0];
+                }
+                _this.setState({
+                    serverData: serverData
+                });
             }
-            if (r) _serverData[0].$expandedRowData = r;
-            serverData[_serverData[0][1]] = _serverData[0];
-            _this.setState({
-                serverData: serverData
-            });
-            return;
         };
 
         props.config.pagination.onChange = function (page, pageSize) {
@@ -19629,7 +19632,7 @@ var DataTable = function (_React$Component) {
                 var serverData = this.state.serverData;
                 var _serverData = this.findRecordById(record.id);
                 _serverData[0].showDetail = false;
-                serverData[_serverData[0][1]] = _serverData[0];
+                serverData[_serverData[1]] = _serverData[0];
                 this.setState({
                     serverData: serverData
                 });
@@ -19637,9 +19640,6 @@ var DataTable = function (_React$Component) {
             }
             this.getExpandedRowData(record);
         }
-    }, {
-        key: 'receiveExpandedRow',
-        value: function receiveExpandedRow(data) {}
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {

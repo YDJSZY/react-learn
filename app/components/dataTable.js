@@ -94,17 +94,13 @@ export default class DataTable extends React.Component {
             var serverData = this.state.serverData;
             var _serverData = this.findRecordById(record.id);
             _serverData[0].showDetail = false;
-            serverData[_serverData[0][1]] = _serverData[0];
+            serverData[_serverData[1]] = _serverData[0];
             this.setState({
                 serverData:serverData
             });
             return;
         }
         this.getExpandedRowData(record);
-    }
-    
-    receiveExpandedRow(data) {
-
     }
 
     getExpandedRowData = (record)=> {
@@ -113,21 +109,24 @@ export default class DataTable extends React.Component {
         var _serverData = this.findRecordById(record.id);
         _serverData[0].showDetail = true;
         if(r && r instanceof Promise){
-            r.then((res,d)=> {
+            r.then((res)=> {
                 _serverData[0].$expandedRowData = res.data;
-                serverData[_serverData[0][1]] = _serverData[0];
+                serverData[_serverData[1]] = _serverData[0];
+                console.log(serverData)
                 this.setState({
                     serverData:serverData
                 });
                 return;
             })
+        }else{
+            if(r){
+                _serverData[0].$expandedRowData = r;
+                serverData[_serverData[1]] = _serverData[0];
+            }
+            this.setState({
+                serverData:serverData
+            });
         }
-        if(r) _serverData[0].$expandedRowData = r;
-        serverData[_serverData[0][1]] = _serverData[0];
-        this.setState({
-            serverData:serverData
-        });
-        return
     }
 
     componentDidMount() {
