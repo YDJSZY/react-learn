@@ -53,9 +53,8 @@ export default class Page_b extends CommonMethodsClass{
     }
 
     expandedRow(record) {
-        /*var promise = axios.get("../data.json");
-        return promise;*/
-        return null;
+        var promise = axios.get("../data.json");
+        return promise;
         
     }
 
@@ -63,21 +62,24 @@ export default class Page_b extends CommonMethodsClass{
         var expandedRowData = data;
         return <tr>
                     <td colSpan="30">
-                        <div className="table-responsive">
-                            <table className="table table-hover table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>性别</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>{expandedRowData.id}</td>
-                                    <td>{"$"+expandedRowData.sex}</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div className="expanded-row-main">
+                            <div className="table-responsive">
+                                <table className="table table-hover table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>小名</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>{expandedRowData.id}</td>
+                                        <td>{"$"+expandedRowData.username}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <Pagination paginationMessage={expandedRowData.$expandedRowData}></Pagination>
                         </div>
                     </td>
                 </tr>
@@ -112,12 +114,7 @@ export default class Page_b extends CommonMethodsClass{
                                     </div>
                                 </form>
                             </div>
-                            <div className="table-responsive">
-                                <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
-                            </div>
-                        </div>
-                        <div className="panel-footer">
-                            <Pagination paginationMessage={this.dataTableConfig.pagination}></Pagination>
+                            <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
                         </div>
                     </div>
                 </section>

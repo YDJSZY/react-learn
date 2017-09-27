@@ -3,7 +3,8 @@
  */
 import React from "react";
 import axios from 'axios';
-import TableTr from '../components/tableTr';
+import Pagination from './pagination';
+import EditModal from './editModal';
 require('../styles/dataTable.css');
 export default class DataTable extends React.Component {
     static defaultProps = {
@@ -12,12 +13,6 @@ export default class DataTable extends React.Component {
 
     constructor(props) {
         super(props);
-        props.config.pagination.onChange = (page,pageSize)=> {
-            this.gotoPage(page,pageSize)
-        }
-        props.config.pagination.onShowSizeChange = (page,pageSize)=> {
-            this.gotoPage(1,pageSize)
-        }
         this.state = {
             serverData:[],
             pagination:props.config.pagination,
@@ -33,8 +28,13 @@ export default class DataTable extends React.Component {
         this.fetchData()
     }
 
+    gotoPage = (param)=> {
+        console.log(param)
+        this.loadDataParams = Object.assign(this.loadDataParams,param)
+        this.fetchData();
+    }
+
     async fetchData() {
-        console.log(this.loadDataParams)
         var requestUrl = this.requestUrl
         try{
             var res = await axios.get(requestUrl, {params:this.loadDataParams});
@@ -58,16 +58,6 @@ export default class DataTable extends React.Component {
         })
     }
 
-    gotoPage(page,pageSize) {
-        this.loadDataParams.page = page;
-        this.loadDataParams.page_size = pageSize;
-        this.loadFirstPage();
-    }
-
-    tableChange = (pagination, filters, sorter)=>{
-        this.sorterChange(sorter);
-    }
-
     sorterChange(sorter) {/*排序改变*/
         var order = sorter.order;
         if(!order) return;
@@ -75,11 +65,7 @@ export default class DataTable extends React.Component {
         this.loadDataParams.order = order=="descend" ? "-"+key : key;
         this.fetchData()
     }
-
-    edit(id) {
-
-    }
-
+    
     findRecordById(id) {
         var serverData = this.state.serverData;
         for(var i = 0,l = serverData.length;i < l;i++){
@@ -112,7 +98,6 @@ export default class DataTable extends React.Component {
             r.then((res)=> {
                 _serverData[0].$expandedRowData = res.data;
                 serverData[_serverData[1]] = _serverData[0];
-                console.log(serverData)
                 this.setState({
                     serverData:serverData
                 });
@@ -128,6 +113,10 @@ export default class DataTable extends React.Component {
             });
         }
     }
+    
+    edit(record) {
+        this.$editModal.open(record,"edit")
+    }
 
     componentDidMount() {
         this.loadFirstPage();
@@ -136,47 +125,53 @@ export default class DataTable extends React.Component {
     render() {
         var dataTableModel = this.state.dataTableModel;
         var serverData = this.state.serverData;
-        return <table className="table table-hover table-striped table-bordered">
-            <thead>
-            <tr>
-                {dataTableModel.map(function (item,index) {
-                    return <th data-field={item.key} key={item.key} style={item.style}>
-                            {item.title}
-                            {item.sorter ? <i className="fa fa-sort sort" style={{marginLeft:"5px"}} data-sort-name={item.sortName || item.key}></i> : null}
-                        </th>
-                })}
-            </tr>
-            </thead>
-            <tbody>
-                {
-                    this.state.serverData.length === 0 ?
-                        <tr>
-                            <td colSpan="30">
-                                <div className="alert alert-info">
-                                    <h4><i className="icon fa fa-warning"></i>没有数据</h4>
-                                </div>
-                            </td>
-                        </tr> :
-                        serverData.map((item,index)=> {
-                            return [
-                                <tr key={'_'+index}>
-                                    {
-                                        dataTableModel.map((modelItem,index)=> {
-                                            var val = item[modelItem.key];
-                                            return <td key={modelItem.key}>{
-                                                    modelItem.render ? modelItem.render(val,item,this) : val
-                                                }</td>
+        return <div>
+                    <div className="table-responsive">
+                        <table className="table table-hover table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                {dataTableModel.map(function (item,index) {
+                                    return <th data-field={item.key} key={item.key} style={item.style}>
+                                            {item.title}
+                                            {item.sorter ? <i className="fa fa-sort sort" style={{marginLeft:"5px"}} data-sort-name={item.sortName || item.key}></i> : null}
+                                        </th>
+                                })}
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.state.serverData.length === 0 ?
+                                        <tr>
+                                            <td colSpan="30">
+                                                <div className="alert alert-info">
+                                                    <h4><i className="icon fa fa-warning"></i>没有数据</h4>
+                                                </div>
+                                            </td>
+                                        </tr> :
+                                        serverData.map((item,index)=> {
+                                            return [
+                                                <tr key={'_'+index}>
+                                                    {
+                                                        dataTableModel.map((modelItem,index)=> {
+                                                            var val = item[modelItem.key];
+                                                            return <td key={modelItem.key}>{
+                                                                    modelItem.render ? modelItem.render(val,item,this) : val
+                                                                }</td>
+                                                        })
+                                                    }
+                                                </tr>,
+                                                item["showDetail"] ? this.props.config.getExpandedRow(item) : null
+                                            ]
                                         })
-                                    }
-                                </tr>,
-                                item["showDetail"] ? this.props.config.getExpandedRow(item) : null
-                            ]
-                        })
-                }
+                                }
 
-            <tr>
-            </tr>
-            </tbody>
-        </table>
+                            <tr>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <Pagination paginationMessage={this.state.pagination} gotoPage={this.gotoPage}></Pagination>
+                    <EditModal model={this.state.dataTableModel} ref={(ref) => { this.$editModal = ref; }}></EditModal>
+                </div>
     }
 }

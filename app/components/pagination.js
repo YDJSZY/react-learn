@@ -15,13 +15,17 @@ export default class Pagination extends React.Component {
     }
 
     everyPageSizeChange = (e)=> {
-        console.log(e.target.value)
+        this.props.gotoPage({page_size:e.target.value,page:1});
+        this.uiPagination.currentPage = 1;
+        this.uiPagination.init();
     }
 
     componentDidMount() {
         this.uiPagination = new UiPagination(this.state.paginationMessage.totalPages,this.$uiPagination);
         this.uiPagination.init();
-        console.log(this.uiPagination)
+        $(this.$uiPagination).on("gotoPage",(e,page)=> {
+            this.props.gotoPage({page:page})
+        })
     }
 
     render() {

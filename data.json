@@ -1,6 +1,7 @@
 {
   "currentPage":1,
-  "total":100,
+  "totalRecords":100,
+  "totalPages":20,
   "page_size":20,
   "results":[
     {

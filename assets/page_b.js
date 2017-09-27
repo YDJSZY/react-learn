@@ -1,14 +1,18 @@
 webpackJsonp([1],{
 
-/***/ 1345:
+/***/ 1200:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function($) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _getIterator2 = __webpack_require__(1312);
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 var _getPrototypeOf = __webpack_require__(56);
 
@@ -34,292 +38,418 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _moment = __webpack_require__(0);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _axios = __webpack_require__(137);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var UiPagination = __webpack_require__(1346); /**
-                                                        * Created by luwenwei on 17/9/26.
-                                                        */
+var EditModal = function (_React$Component) {
+    (0, _inherits3.default)(EditModal, _React$Component);
 
-var Pagination = function (_React$Component) {
-    (0, _inherits3.default)(Pagination, _React$Component);
+    function EditModal(props) {
+        (0, _classCallCheck3.default)(this, EditModal);
 
-    function Pagination(props) {
-        (0, _classCallCheck3.default)(this, Pagination);
+        var _this = (0, _possibleConstructorReturn3.default)(this, (EditModal.__proto__ || (0, _getPrototypeOf2.default)(EditModal)).call(this, props));
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (Pagination.__proto__ || (0, _getPrototypeOf2.default)(Pagination)).call(this, props));
+        _this.handleCancel = function () {
+            _this.setState({
+                visible: false,
+                modalType: ""
+            });
+        };
 
-        _this.everyPageSizeChange = function (e) {
-            console.log(e.target.value);
+        _this.handleOk = function () {
+            _this.submitForm();
+        };
+
+        _this.create = function (initialValue) {
+            _this.setFormValue(initialValue);
+            _this.open("create");
+        };
+
+        _this.edit = function (record) {
+            _this.props.form.resetFields();
+            _this.setFormValue(record);
+            _this.open("edit");
+        };
+
+        _this.saveForm = function (data, type) {
+            var method, url;
+            /*if(type == "create"){
+                method = "POST";
+                url = this.props.config.dataUrl;
+            }else{
+                method = "PUT";
+                url = this.props.config.dataUrl+"/"+this.recordId+"/"
+            }*/
+            console.log(_this.state.record);
+            /*axios({
+                url:url,
+                method:method,
+                data:data
+            }).then((res)=> {
+                if(res.status >=200 && res.status <=301){
+                    message.success('保存成功!',10);
+                    this.props.config.saveFormCallBack(res,type);
+                    return;
+                }
+                message.error('保存失败!',10);
+                console.error(res.data);
+            })*/
+        };
+
+        _this.preview = function (file) {
+            _this.setState({
+                previewImage: file.url || file.thumbUrl,
+                previewVisible: true
+            });
+        };
+
+        _this.closePreview = function () {
+            _this.setState({
+                previewVisible: false
+            });
+        };
+
+        _this.onUploadChange = function (_ref) {
+            var file = _ref.file,
+                fileList = _ref.fileList;
+
+            console.log(file);
+        };
+
+        _this.inputChange = function (e, key) {
+            var record = _this.state.record;
+            record[key] = e.target.value;
+            _this.setState({ record: record });
         };
 
         _this.state = {
-            paginationMessage: _this.props.paginationMessage
+            visible: false,
+            modalType: "",
+            previewVisible: false,
+            previewImage: "",
+            fileList: [],
+            record: {}
         };
-
+        _this.model = props.model;
+        _this.formValues = {};
         return _this;
     }
 
-    (0, _createClass3.default)(Pagination, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            this.uiPagination = new UiPagination(this.state.paginationMessage.totalPages, this.$uiPagination);
-            this.uiPagination.init();
-            console.log(this.uiPagination);
-        }
+    (0, _createClass3.default)(EditModal, [{
+        key: 'open',
+        value: function open(record, type) {
+            this.setState({
+                record: record,
+                modalType: type
+            }, function () {
+                $("#editModal").modal("show");
+            });
+        } /*关闭modal*/
+
     }, {
-        key: "render",
-        value: function render() {
+        key: 'setFormValue',
+        value: function setFormValue(record) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = (0, _getIterator3.default)(this.model), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var prop = _step.value;
+
+                    if (!prop.edit) continue;
+                    var obj = {};
+                    if (prop.type == "date") {
+                        obj[prop.key] = (0, _moment2.default)(record[prop.key] || new Date(), prop.format || "YYYY-MM-DD");
+                    } else {
+                        obj[prop.key] = record[prop.key];
+                    }
+                    this.recordId = record.id;
+                    if (this._isMounted) this.props.form.setFieldsValue(obj);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+        } /*给表单赋值*/
+
+    }, {
+        key: 'submitForm',
+        value: function submitForm() {
             var _this2 = this;
 
+            this.props.form.validateFieldsAndScroll(function (err, values) {
+                if (err) {
+                    console.debug(err);
+                    message.error('表单有误请检查');
+                    return;
+                }
+                for (var prop in values) {
+                    if (typeof values[prop] === "undefined") continue;
+                    if (values[prop] instanceof _moment2.default) {
+                        _this2.formValues[prop] = values[prop]._d;
+                    } else {
+                        _this2.formValues[prop] = values[prop];
+                    }
+                } /*收集表单各个字段的值*/
+                _this2.saveForm(_this2.formValues, _this2.state.modalType); /*调用父组件的保存表单方法*/
+            });
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {}
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this._isMounted = false;
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this._isMounted = true;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            var record = this.state.record;
             return _react2.default.createElement(
-                "div",
-                null,
+                'div',
+                { className: 'modal fade', 'data-backdrop': 'static', 'data-effect': 'zoom', 'data-tabindex': '-1', 'data-role': 'dialog', id: 'editModal' },
                 _react2.default.createElement(
-                    "div",
-                    { style: { float: "left" } },
+                    'div',
+                    { className: 'modal-dialog modal-lg' },
                     _react2.default.createElement(
-                        "span",
-                        null,
-                        "一共" + this.state.paginationMessage.totalRecords + "条数据，" + "分为" + this.state.paginationMessage.totalPages + "页，" + "当前" + this.state.paginationMessage.currentPage + "页。"
-                    ),
-                    _react2.default.createElement(
-                        "span",
-                        { style: { display: "inline-block", width: "60px" } },
+                        'div',
+                        { className: 'modal-content' },
                         _react2.default.createElement(
-                            "select",
-                            { className: "custom-select", style: { width: "60px" }, onChange: this.everyPageSizeChange },
+                            'div',
+                            { className: 'modal-header' },
                             _react2.default.createElement(
-                                "option",
-                                null,
-                                "20"
+                                'button',
+                                { type: 'button', className: 'close', 'data-dismiss': 'modal', 'data-aria-label': 'Close' },
+                                _react2.default.createElement(
+                                    'span',
+                                    {
+                                        'aria-hidden': 'true' },
+                                    '\xD7'
+                                )
                             ),
+                            _react2.default.createElement('h4', { className: 'modal-title' })
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-body' },
                             _react2.default.createElement(
-                                "option",
-                                null,
-                                "50"
-                            ),
+                                'form',
+                                { className: 'form-horizontal', 'data-role': 'form', id: 'editForm' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'row' },
+                                    this.model.map(function (model, index) {
+                                        var tpl;
+                                        switch (model.type) {
+                                            case 'text':
+                                                tpl = _react2.default.createElement(
+                                                    'div',
+                                                    { className: 'col-sm-6 col-md-6 col-xs-12', key: "_" + model.key },
+                                                    _react2.default.createElement(
+                                                        'div',
+                                                        { className: 'form-group' },
+                                                        _react2.default.createElement(
+                                                            'label',
+                                                            { htmlFor: "id_" + model.key, className: 'col-sm-3 col-md-3 col-xs-3 control-label' },
+                                                            model.title
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'div',
+                                                            { className: 'col-sm-8 col-md-8 col-xs-8' },
+                                                            _react2.default.createElement('input', { type: 'text', id: "id_" + model.key, name: model.key,
+                                                                placeholder: model.placeholder || '', className: 'form-control',
+                                                                value: record[model.key] || "",
+                                                                onChange: function onChange(e) {
+                                                                    _this3.inputChange(e, model.key);
+                                                                }
+                                                            })
+                                                        )
+                                                    )
+                                                );
+                                                break;
+                                            case 'number':
+                                                tpl = _react2.default.createElement(
+                                                    'div',
+                                                    { className: 'col-sm-6 col-md-6 col-xs-12', key: "_" + model.key },
+                                                    _react2.default.createElement(
+                                                        'div',
+                                                        { className: 'form-group' },
+                                                        _react2.default.createElement(
+                                                            'label',
+                                                            { htmlFor: "id_" + model.key, className: 'col-sm-3 col-md-3 col-xs-3 control-label' },
+                                                            model.title
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'div',
+                                                            { className: 'col-sm-8 col-md-8 col-xs-8' },
+                                                            _react2.default.createElement('input', { type: 'number', id: "id_" + model.key, name: model.key,
+                                                                placeholder: model.placeholder || '', className: 'form-control',
+                                                                value: record[model.key] || "",
+                                                                onChange: function onChange(e) {
+                                                                    _this3.inputChange(e, model.key);
+                                                                }
+                                                            })
+                                                        )
+                                                    )
+                                                );
+                                                break;
+                                        }
+                                        return tpl;
+                                    })
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'modal-footer' },
                             _react2.default.createElement(
-                                "option",
-                                null,
-                                "100"
-                            ),
-                            _react2.default.createElement(
-                                "option",
-                                null,
-                                "200"
+                                'span',
+                                { className: 'pull-right' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-warning', 'data-dismiss': 'modal' },
+                                    '\u53D6\u6D88'
+                                ),
+                                _react2.default.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-success', onClick: this.saveForm },
+                                    '\u4FDD\u5B58'
+                                )
                             )
                         )
                     )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { style: { float: "right" } },
-                    _react2.default.createElement("span", { ref: function ref(_ref) {
-                            _this2.$uiPagination = _ref;
-                        } })
-                ),
-                _react2.default.createElement("div", { style: { clear: "both" } })
+                )
             );
         }
     }]);
-    return Pagination;
-}(_react2.default.Component);
+    return EditModal;
+}(_react2.default.Component); /**
+                               * Created by luwenwe on 2017/9/11.
+                               */
 
-Pagination.defaultProps = {};
-exports.default = Pagination;
+
+EditModal.defaultProps = {};
+exports.default = EditModal;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(145)))
+
+/***/ }),
+
+/***/ 1312:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(1313), __esModule: true };
+
+/***/ }),
+
+/***/ 1313:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(350);
+__webpack_require__(349);
+module.exports = __webpack_require__(1314);
+
+/***/ }),
+
+/***/ 1314:
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(34)
+  , get      = __webpack_require__(351);
+module.exports = __webpack_require__(18).getIterator = function(it){
+  var iterFn = get(it);
+  if(typeof iterFn != 'function')throw TypeError(it + ' is not iterable!');
+  return anObject(iterFn.call(it));
+};
 
 /***/ }),
 
 /***/ 1346:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
+module.exports = { "default": __webpack_require__(1347), __esModule: true };
 
-var _typeof2 = __webpack_require__(347);
+/***/ }),
 
-var _typeof3 = _interopRequireDefault(_typeof2);
+/***/ 1347:
+/***/ (function(module, exports, __webpack_require__) {
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+__webpack_require__(1348);
+module.exports = __webpack_require__(18).Object.assign;
 
-/**
- * Created by luwenwei on 16/6/5.
- */
-(function (global, factory) {
-    ( false ? 'undefined' : (0, _typeof3.default)(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory() :  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : global.UploadFile = factory();
-})(undefined, function () {
-    function UiPagination(totalPage, targetElement) {
-        this.targetElement = null;
-        this.configure = null;
-        this.targetElement = $(targetElement); //目标节点
-        this.totalPage = totalPage || 1;
-        this.currentPage = 1;
-        this.etc = '<li class="not_allow"><a class="not_allow etc">...</a></li>';
-        this.paginationHead = '<ul style="margin-top:0;margin-bottom: 0;" class="pagination ui_pagination"><li class=""><a class="previous allow">&laquo;</a></li>';
-    }
+/***/ }),
 
-    UiPagination.prototype = {
-        init: function init() {
-            this.state = null;
-            if (this.totalPage <= 7) {
-                this.sevenPage();
-            } else {
-                this.exceedSevenPage();
-            }
-            this.setActivePage();
-            this.pageBindClick();
-            if (this.currentPage != 1) this.gotoPage(this.currentPage);
-        },
+/***/ 1348:
+/***/ (function(module, exports, __webpack_require__) {
 
-        setInputGoPage: function setInputGoPage() {
-            return '<span class="input-go-page"><input class="text-page form-control" value="' + this.currentPage + '"><button class="btn-go-page">Go</button></span>';
-        },
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__(43);
 
-        setActivePage: function setActivePage() {
-            var self = this;
-            var page_li = this.targetElement.find("li");
-            page_li.removeClass("active");
-            page_li.each(function (index, item) {
-                if ($(item).find("a").attr("current-page") == self.currentPage) {
-                    $(item).addClass("active");
-                    return;
-                }
-            });
-        },
+$export($export.S + $export.F, 'Object', {assign: __webpack_require__(1349)});
 
-        sevenPage: function sevenPage() {
-            if (this.state === "sevenPage") return;
-            this.paginationMain = this.paginationHead;
-            for (var i = 1; i <= this.totalPage; i++) {
-                this.paginationMain += "<li><a class='allow' current-page='" + i + "'>" + i + "</a></li>";
-            }
-            this.paginationMain += '<li><a class="next allow">&raquo;</a></li></ul>';
-            this.paginationMain += this.setInputGoPage();
-            $(this.targetElement).empty();
-            $(this.targetElement).append($(this.paginationMain));
-            this.state = "sevenPage";
-        },
+/***/ }),
 
-        exceedSevenPage: function exceedSevenPage() {
-            this.paginationMain = this.paginationHead;
-            for (var i = 1; i <= 6; i++) {
-                this.paginationMain += "<li><a class='allow' current-page='" + i + "'>" + i + "</a></li>";
-            }
-            this.paginationMain += this.etc;
-            this.paginationMain += "<li><a class='allow' current-page='" + this.totalPage + "'>" + this.totalPage + "</a></li>";
-            this.paginationMain += '<li><a class="next allow">&raquo;</a></li></ul>';
-            this.paginationMain += this.setInputGoPage();
-            $(this.targetElement).empty();
-            $(this.targetElement).append($(this.paginationMain));
-            this.state = "exceedSevenPage";
-        },
+/***/ 1349:
+/***/ (function(module, exports, __webpack_require__) {
 
-        middlePage: function middlePage() {
-            var previousPage = this.currentPage - 1,
-                nextPage = this.currentPage + 1;
-            if (this.state === "middlePage") {
-                var prev_previous_page = this.middleCurrentPage - 1,
-                    next_next_page = this.middleCurrentPage + 1;
-                var next_page_a = this.targetElement.find("a[current-page=" + next_next_page + "]");
-                var previous_page_a = this.targetElement.find("a[current-page=" + prev_previous_page + "]");
-                var current_page_a = this.targetElement.find("a[current-page=" + this.middleCurrentPage + "]");
-                next_page_a.attr("current-page", nextPage).text(nextPage);
-                previous_page_a.attr("current-page", previousPage).text(previousPage);
-                current_page_a.attr("current-page", this.currentPage).text(this.currentPage);
-                this.middleCurrentPage = this.currentPage;
-                return;
-            }
-            this.paginationMain = this.paginationHead;
-            this.paginationMain += "<li><a class='allow' current-page='1'>1</a></li>";
-            this.paginationMain += this.etc;
-            this.paginationMain += "<li><a class='allow' current-page='" + previousPage + "'>" + previousPage + "</a></li>";
-            this.paginationMain += "<li><a class='allow' current-page='" + this.currentPage + "'>" + this.currentPage + "</a></li>";
-            this.paginationMain += "<li><a class='allow' current-page='" + nextPage + "'>" + nextPage + "</a></li>";
-            this.paginationMain += this.etc;
-            this.paginationMain += "<li><a class='allow' current-page='" + this.totalPage + "'>" + this.totalPage + "</a></li>";
-            this.paginationMain += '<li><a class="next allow">&raquo;</a></li></ul>';
-            this.paginationMain += this.setInputGoPage();
-            $(this.targetElement).empty();
-            $(this.targetElement).append($(this.paginationMain));
-            this.state = "middlePage";
-            this.middleCurrentPage = this.currentPage;
-        },
+// 19.1.2.1 Object.assign(target, source, ...)
+var $        = __webpack_require__(11)
+  , toObject = __webpack_require__(528)
+  , IObject  = __webpack_require__(359);
 
-        backPage: function backPage() {
-            if (this.state === "backPage") return;
-            this.paginationMain = this.paginationHead;
-            this.paginationMain += "<li><a class='allow' current-page='1'>1</a></li>";
-            this.paginationMain += this.etc;
-            for (var i = this.totalPage - 5; i <= this.totalPage; i++) {
-                this.paginationMain += "<li><a class='allow' current-page='" + i + "'>" + i + "</a></li>";
-            }
-            this.paginationMain += '<li><a class="next allow">&raquo;</a></li></ul>';
-            this.paginationMain += this.setInputGoPage();
-            $(this.targetElement).empty();
-            $(this.targetElement).append($(this.paginationMain));
-            this.state = "backPage";
-        },
-
-        setPagination: function setPagination() {
-            var totalPage = this.totalPage || 1;
-            if (totalPage <= 7) {
-                this.sevenPage();
-            } else {
-                this.exceedSevenPage();
-            }
-        },
-
-        pageBindClick: function pageBindClick() {
-            var self = this;
-            this.targetElement.unbind();
-            this.targetElement.bind("click", function (event) {
-                var page;
-                if ($(event.target).hasClass("not_allow")) return;
-                if ($(event.target).hasClass("previous")) {
-                    if (self.currentPage == 1) return; //如果是第一页则禁止向前翻页
-                    page = self.currentPage - 1;
-                } else if ($(event.target).hasClass("next")) {
-                    if (self.currentPage == self.totalPage) return; //如果是最后一页则禁止向后翻页
-                    page = self.currentPage + 1;
-                } else if ($(event.target).hasClass("allow")) {
-                    page = $(event.target).attr("current-page");
-                } else if ($(event.target).hasClass("btn-go-page")) {
-                    var inputGoPage = $(self.targetElement).find(".text-page");
-                    page = inputGoPage.val();
-                    if (!page || page > self.totalPage || page <= 0 || isNaN(Number(page)) || parseInt(page) != parseFloat(page)) return;
-                } else {
-                    return;
-                }
-                if (parseInt(page) == self.currentPage) return;
-                self.gotoPage(parseInt(page));
-            });
-        },
-
-        gotoPage: function gotoPage(currentPage) {
-            this.targetElement.trigger("gotoPage", [currentPage]);
-            this.currentPage = currentPage;
-            if (currentPage <= 4) {
-                this.setPagination();
-            }
-            if (4 < currentPage && currentPage < this.totalPage - 4) {
-                this.middlePage();
-            }
-            if (4 < currentPage && currentPage >= this.totalPage - 4 && this.totalPage > 7) {
-                this.backPage();
-            }
-            this.setActivePage();
-            this.targetElement.find(".text-page").val(currentPage);
-            return;
-        }
-    };
-
-    return UiPagination;
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(333)))
+// should work with symbols and should have deterministic property order (V8 bug)
+module.exports = __webpack_require__(88)(function(){
+  var a = Object.assign
+    , A = {}
+    , B = {}
+    , S = Symbol()
+    , K = 'abcdefghijklmnopqrst';
+  A[S] = 7;
+  K.split('').forEach(function(k){ B[k] = k; });
+  return a({}, A)[S] != 7 || Object.keys(a({}, B)).join('') != K;
+}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
+  var T     = toObject(target)
+    , $$    = arguments
+    , $$len = $$.length
+    , index = 1
+    , getKeys    = $.getKeys
+    , getSymbols = $.getSymbols
+    , isEnum     = $.isEnum;
+  while($$len > index){
+    var S      = IObject($$[index++])
+      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
+      , length = keys.length
+      , j      = 0
+      , key;
+    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
+  }
+  return T;
+} : Object.assign;
 
 /***/ }),
 
@@ -361,7 +491,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _model = __webpack_require__(873);
+var _model = __webpack_require__(874);
 
 var _dateRange = __webpack_require__(786);
 
@@ -371,7 +501,7 @@ var _dataTable = __webpack_require__(859);
 
 var _dataTable2 = _interopRequireDefault(_dataTable);
 
-var _pagination = __webpack_require__(1345);
+var _pagination = __webpack_require__(860);
 
 var _pagination2 = _interopRequireDefault(_pagination);
 
@@ -379,11 +509,11 @@ var _axios = __webpack_require__(137);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactSelect = __webpack_require__(345);
+var _reactSelect = __webpack_require__(344);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _commonMethods = __webpack_require__(883);
+var _commonMethods = __webpack_require__(884);
 
 var _commonMethods2 = _interopRequireDefault(_commonMethods);
 
@@ -441,9 +571,8 @@ var Page_b = function (_CommonMethodsClass) {
     (0, _createClass3.default)(Page_b, [{
         key: 'expandedRow',
         value: function expandedRow(record) {
-            /*var promise = axios.get("../data.json");
-            return promise;*/
-            return null;
+            var promise = _axios2.default.get("../data.json");
+            return promise;
         }
     }, {
         key: 'getExpandedRow',
@@ -457,47 +586,52 @@ var Page_b = function (_CommonMethodsClass) {
                     { colSpan: '30' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'table-responsive' },
+                        { className: 'expanded-row-main' },
                         _react2.default.createElement(
-                            'table',
-                            { className: 'table table-hover table-striped table-bordered' },
+                            'div',
+                            { className: 'table-responsive' },
                             _react2.default.createElement(
-                                'thead',
-                                null,
+                                'table',
+                                { className: 'table table-hover table-striped table-bordered' },
                                 _react2.default.createElement(
-                                    'tr',
+                                    'thead',
                                     null,
                                     _react2.default.createElement(
-                                        'th',
+                                        'tr',
                                         null,
-                                        'ID'
-                                    ),
-                                    _react2.default.createElement(
-                                        'th',
-                                        null,
-                                        '\u6027\u522B'
+                                        _react2.default.createElement(
+                                            'th',
+                                            null,
+                                            'ID'
+                                        ),
+                                        _react2.default.createElement(
+                                            'th',
+                                            null,
+                                            '\u5C0F\u540D'
+                                        )
                                     )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                'tbody',
-                                null,
+                                ),
                                 _react2.default.createElement(
-                                    'tr',
+                                    'tbody',
                                     null,
                                     _react2.default.createElement(
-                                        'td',
+                                        'tr',
                                         null,
-                                        expandedRowData.id
-                                    ),
-                                    _react2.default.createElement(
-                                        'td',
-                                        null,
-                                        "$" + expandedRowData.sex
+                                        _react2.default.createElement(
+                                            'td',
+                                            null,
+                                            expandedRowData.id
+                                        ),
+                                        _react2.default.createElement(
+                                            'td',
+                                            null,
+                                            "$" + expandedRowData.username
+                                        )
                                     )
                                 )
                             )
-                        )
+                        ),
+                        _react2.default.createElement(_pagination2.default, { paginationMessage: expandedRowData.$expandedRowData })
                     )
                 )
             );
@@ -565,18 +699,9 @@ var Page_b = function (_CommonMethodsClass) {
                                 )
                             )
                         ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'table-responsive' },
-                            _react2.default.createElement(_dataTable2.default, { config: this.dataTableConfig, ref: function ref(_ref) {
-                                    _this2.$dataTable = _ref;
-                                } })
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'panel-footer' },
-                        _react2.default.createElement(_pagination2.default, { paginationMessage: this.dataTableConfig.pagination })
+                        _react2.default.createElement(_dataTable2.default, { config: this.dataTableConfig, ref: function ref(_ref) {
+                                _this2.$dataTable = _ref;
+                            } })
                     )
                 )
             );
@@ -607,7 +732,7 @@ exports.default = Page_b;
 
 
 var React = __webpack_require__(4);
-var factory = __webpack_require__(346);
+var factory = __webpack_require__(347);
 
 if (typeof React === 'undefined') {
   throw Error(
@@ -6432,7 +6557,7 @@ module.exports = exports['default'];
 /***/ 679:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(342);
+__webpack_require__(343);
 __webpack_require__(341);
 module.exports = __webpack_require__(834);
 
@@ -6442,7 +6567,7 @@ module.exports = __webpack_require__(834);
 /***/ 680:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(342);
+__webpack_require__(343);
 __webpack_require__(341);
 module.exports = __webpack_require__(836);
 
@@ -9999,7 +10124,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = __webpack_require__(345);
+var _reactSelect = __webpack_require__(344);
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
@@ -17368,7 +17493,7 @@ exports.push([module.i, "/**\n * React Select\n * ============\n * Created by Je
 "use strict";
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-var _typeof2 = __webpack_require__(347);
+var _typeof2 = __webpack_require__(342);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -17759,17 +17884,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _regenerator = __webpack_require__(343);
+var _regenerator = __webpack_require__(345);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(344);
+var _asyncToGenerator2 = __webpack_require__(346);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _promise = __webpack_require__(141);
 
 var _promise2 = _interopRequireDefault(_promise);
+
+var _assign = __webpack_require__(1346);
+
+var _assign2 = _interopRequireDefault(_assign);
 
 var _getPrototypeOf = __webpack_require__(56);
 
@@ -17799,15 +17928,20 @@ var _axios = __webpack_require__(137);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _tableTr = __webpack_require__(860);
+var _pagination = __webpack_require__(860);
 
-var _tableTr2 = _interopRequireDefault(_tableTr);
+var _pagination2 = _interopRequireDefault(_pagination);
+
+var _editModal = __webpack_require__(1200);
+
+var _editModal2 = _interopRequireDefault(_editModal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(861); /**
-                                     * Created by luwenwe on 2017/9/11.
-                                     */
+/**
+ * Created by luwenwe on 2017/9/11.
+ */
+__webpack_require__(862);
 
 var DataTable = function (_React$Component) {
     (0, _inherits3.default)(DataTable, _React$Component);
@@ -17822,8 +17956,10 @@ var DataTable = function (_React$Component) {
             _this.fetchData();
         };
 
-        _this.tableChange = function (pagination, filters, sorter) {
-            _this.sorterChange(sorter);
+        _this.gotoPage = function (param) {
+            console.log(param);
+            _this.loadDataParams = (0, _assign2.default)(_this.loadDataParams, param);
+            _this.fetchData();
         };
 
         _this.getExpandedRowData = function (record) {
@@ -17835,7 +17971,6 @@ var DataTable = function (_React$Component) {
                 r.then(function (res) {
                     _serverData[0].$expandedRowData = res.data;
                     serverData[_serverData[1]] = _serverData[0];
-                    console.log(serverData);
                     _this.setState({
                         serverData: serverData
                     });
@@ -17852,12 +17987,6 @@ var DataTable = function (_React$Component) {
             }
         };
 
-        props.config.pagination.onChange = function (page, pageSize) {
-            _this.gotoPage(page, pageSize);
-        };
-        props.config.pagination.onShowSizeChange = function (page, pageSize) {
-            _this.gotoPage(1, pageSize);
-        };
         _this.state = {
             serverData: [],
             pagination: props.config.pagination,
@@ -17878,38 +18007,37 @@ var DataTable = function (_React$Component) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                console.log(this.loadDataParams);
                                 requestUrl = this.requestUrl;
-                                _context.prev = 2;
-                                _context.next = 5;
+                                _context.prev = 1;
+                                _context.next = 4;
                                 return _axios2.default.get(requestUrl, { params: this.loadDataParams });
 
-                            case 5:
+                            case 4:
                                 res = _context.sent;
 
                                 if (!(res.status >= 200 && res.status <= 300)) {
-                                    _context.next = 8;
+                                    _context.next = 7;
                                     break;
                                 }
 
                                 return _context.abrupt('return', this.parseResponse(res.data));
 
-                            case 8:
-                                _context.next = 13;
+                            case 7:
+                                _context.next = 12;
                                 break;
 
-                            case 10:
-                                _context.prev = 10;
-                                _context.t0 = _context['catch'](2);
+                            case 9:
+                                _context.prev = 9;
+                                _context.t0 = _context['catch'](1);
 
                                 console.debug(_context.t0);
 
-                            case 13:
+                            case 12:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this, [[2, 10]]);
+                }, _callee, this, [[1, 9]]);
             }));
 
             function fetchData() {
@@ -17932,13 +18060,6 @@ var DataTable = function (_React$Component) {
             });
         }
     }, {
-        key: 'gotoPage',
-        value: function gotoPage(page, pageSize) {
-            this.loadDataParams.page = page;
-            this.loadDataParams.page_size = pageSize;
-            this.loadFirstPage();
-        }
-    }, {
         key: 'sorterChange',
         value: function sorterChange(sorter) {
             /*排序改变*/
@@ -17948,9 +18069,6 @@ var DataTable = function (_React$Component) {
             this.loadDataParams.order = order == "descend" ? "-" + key : key;
             this.fetchData();
         }
-    }, {
-        key: 'edit',
-        value: function edit(id) {}
     }, {
         key: 'findRecordById',
         value: function findRecordById(id) {
@@ -17977,6 +18095,11 @@ var DataTable = function (_React$Component) {
             this.getExpandedRowData(record);
         }
     }, {
+        key: 'edit',
+        value: function edit(record) {
+            this.$editModal.open(record, "edit");
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.loadFirstPage();
@@ -17989,60 +18112,72 @@ var DataTable = function (_React$Component) {
             var dataTableModel = this.state.dataTableModel;
             var serverData = this.state.serverData;
             return _react2.default.createElement(
-                'table',
-                { className: 'table table-hover table-striped table-bordered' },
+                'div',
+                null,
                 _react2.default.createElement(
-                    'thead',
-                    null,
+                    'div',
+                    { className: 'table-responsive' },
                     _react2.default.createElement(
-                        'tr',
-                        null,
-                        dataTableModel.map(function (item, index) {
-                            return _react2.default.createElement(
-                                'th',
-                                { 'data-field': item.key, key: item.key, style: item.style },
-                                item.title,
-                                item.sorter ? _react2.default.createElement('i', { className: 'fa fa-sort sort', style: { marginLeft: "5px" }, 'data-sort-name': item.sortName || item.key }) : null
-                            );
-                        })
+                        'table',
+                        { className: 'table table-hover table-striped table-bordered' },
+                        _react2.default.createElement(
+                            'thead',
+                            null,
+                            _react2.default.createElement(
+                                'tr',
+                                null,
+                                dataTableModel.map(function (item, index) {
+                                    return _react2.default.createElement(
+                                        'th',
+                                        { 'data-field': item.key, key: item.key, style: item.style },
+                                        item.title,
+                                        item.sorter ? _react2.default.createElement('i', { className: 'fa fa-sort sort', style: { marginLeft: "5px" }, 'data-sort-name': item.sortName || item.key }) : null
+                                    );
+                                })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'tbody',
+                            null,
+                            this.state.serverData.length === 0 ? _react2.default.createElement(
+                                'tr',
+                                null,
+                                _react2.default.createElement(
+                                    'td',
+                                    { colSpan: '30' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'alert alert-info' },
+                                        _react2.default.createElement(
+                                            'h4',
+                                            null,
+                                            _react2.default.createElement('i', { className: 'icon fa fa-warning' }),
+                                            '\u6CA1\u6709\u6570\u636E'
+                                        )
+                                    )
+                                )
+                            ) : serverData.map(function (item, index) {
+                                return [_react2.default.createElement(
+                                    'tr',
+                                    { key: '_' + index },
+                                    dataTableModel.map(function (modelItem, index) {
+                                        var val = item[modelItem.key];
+                                        return _react2.default.createElement(
+                                            'td',
+                                            { key: modelItem.key },
+                                            modelItem.render ? modelItem.render(val, item, _this2) : val
+                                        );
+                                    })
+                                ), item["showDetail"] ? _this2.props.config.getExpandedRow(item) : null];
+                            }),
+                            _react2.default.createElement('tr', null)
+                        )
                     )
                 ),
-                _react2.default.createElement(
-                    'tbody',
-                    null,
-                    this.state.serverData.length === 0 ? _react2.default.createElement(
-                        'tr',
-                        null,
-                        _react2.default.createElement(
-                            'td',
-                            { colSpan: '30' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'alert alert-info' },
-                                _react2.default.createElement(
-                                    'h4',
-                                    null,
-                                    _react2.default.createElement('i', { className: 'icon fa fa-warning' }),
-                                    '\u6CA1\u6709\u6570\u636E'
-                                )
-                            )
-                        )
-                    ) : serverData.map(function (item, index) {
-                        return [_react2.default.createElement(
-                            'tr',
-                            { key: '_' + index },
-                            dataTableModel.map(function (modelItem, index) {
-                                var val = item[modelItem.key];
-                                return _react2.default.createElement(
-                                    'td',
-                                    { key: modelItem.key },
-                                    modelItem.render ? modelItem.render(val, item, _this2) : val
-                                );
-                            })
-                        ), item["showDetail"] ? _this2.props.config.getExpandedRow(item) : null];
-                    }),
-                    _react2.default.createElement('tr', null)
-                )
+                _react2.default.createElement(_pagination2.default, { paginationMessage: this.state.pagination, gotoPage: this.gotoPage }),
+                _react2.default.createElement(_editModal2.default, { model: this.state.dataTableModel, ref: function ref(_ref2) {
+                        _this2.$editModal = _ref2;
+                    } })
             );
         }
     }]);
@@ -18058,7 +18193,7 @@ exports.default = DataTable;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function($) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -18090,38 +18225,307 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TableTr = function (_React$Component) {
-    (0, _inherits3.default)(TableTr, _React$Component);
+var UiPagination = __webpack_require__(861); /**
+                                                        * Created by luwenwei on 17/9/26.
+                                                        */
 
-    function TableTr(props) {
-        (0, _classCallCheck3.default)(this, TableTr);
-        return (0, _possibleConstructorReturn3.default)(this, (TableTr.__proto__ || (0, _getPrototypeOf2.default)(TableTr)).call(this, props));
+var Pagination = function (_React$Component) {
+    (0, _inherits3.default)(Pagination, _React$Component);
+
+    function Pagination(props) {
+        (0, _classCallCheck3.default)(this, Pagination);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Pagination.__proto__ || (0, _getPrototypeOf2.default)(Pagination)).call(this, props));
+
+        _this.everyPageSizeChange = function (e) {
+            _this.props.gotoPage({ page_size: e.target.value, page: 1 });
+            _this.uiPagination.currentPage = 1;
+            _this.uiPagination.init();
+        };
+
+        _this.state = {
+            paginationMessage: _this.props.paginationMessage
+        };
+
+        return _this;
     }
 
-    (0, _createClass3.default)(TableTr, [{
+    (0, _createClass3.default)(Pagination, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.uiPagination = new UiPagination(this.state.paginationMessage.totalPages, this.$uiPagination);
+            this.uiPagination.init();
+            $(this.$uiPagination).on("gotoPage", function (e, page) {
+                _this2.props.gotoPage({ page: page });
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
-            var data = this.props.data;
-            return _react2.default.createElement("tr", null);
+            var _this3 = this;
+
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                    "div",
+                    { style: { float: "left" } },
+                    _react2.default.createElement(
+                        "span",
+                        null,
+                        "一共" + this.state.paginationMessage.totalRecords + "条数据，" + "分为" + this.state.paginationMessage.totalPages + "页，" + "当前" + this.state.paginationMessage.currentPage + "页。"
+                    ),
+                    _react2.default.createElement(
+                        "span",
+                        { style: { display: "inline-block", width: "60px" } },
+                        _react2.default.createElement(
+                            "select",
+                            { className: "custom-select", style: { width: "60px" }, onChange: this.everyPageSizeChange },
+                            _react2.default.createElement(
+                                "option",
+                                null,
+                                "20"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                null,
+                                "50"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                null,
+                                "100"
+                            ),
+                            _react2.default.createElement(
+                                "option",
+                                null,
+                                "200"
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { style: { float: "right" } },
+                    _react2.default.createElement("span", { ref: function ref(_ref) {
+                            _this3.$uiPagination = _ref;
+                        } })
+                ),
+                _react2.default.createElement("div", { style: { clear: "both" } })
+            );
         }
     }]);
-    return TableTr;
-}(_react2.default.Component); /**
-                               * Created by luwenwe on 2017/9/25.
-                               */
+    return Pagination;
+}(_react2.default.Component);
 
-
-exports.default = TableTr;
+Pagination.defaultProps = {};
+exports.default = Pagination;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(145)))
 
 /***/ }),
 
 /***/ 861:
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+var _typeof2 = __webpack_require__(342);
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Created by luwenwei on 16/6/5.
+ */
+(function (global, factory) {
+    ( false ? 'undefined' : (0, _typeof3.default)(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory() :  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : global.UploadFile = factory();
+})(undefined, function () {
+    function UiPagination(totalPage, targetElement) {
+        this.targetElement = null;
+        this.configure = null;
+        this.targetElement = $(targetElement); //目标节点
+        this.totalPage = totalPage || 1;
+        this.currentPage = 1;
+        this.etc = '<li class="not_allow"><a class="not_allow etc">...</a></li>';
+        this.paginationHead = '<ul style="margin-top:0;margin-bottom: 0;" class="pagination ui_pagination"><li class=""><a class="previous allow">&laquo;</a></li>';
+    }
+
+    UiPagination.prototype = {
+        init: function init() {
+            this.state = null;
+            if (this.totalPage <= 7) {
+                this.sevenPage();
+            } else {
+                this.exceedSevenPage();
+            }
+            this.setActivePage();
+            this.pageBindClick();
+            if (this.currentPage != 1) this.gotoPage(this.currentPage);
+        },
+
+        setInputGoPage: function setInputGoPage() {
+            return '<span class="input-go-page"><input class="text-page form-control" value="' + this.currentPage + '"><button class="btn-go-page">Go</button></span>';
+        },
+
+        setActivePage: function setActivePage() {
+            var self = this;
+            var page_li = this.targetElement.find("li");
+            page_li.removeClass("active");
+            page_li.each(function (index, item) {
+                if ($(item).find("a").attr("current-page") == self.currentPage) {
+                    $(item).addClass("active");
+                    return;
+                }
+            });
+        },
+
+        sevenPage: function sevenPage() {
+            if (this.state === "sevenPage") return;
+            this.paginationMain = this.paginationHead;
+            for (var i = 1; i <= this.totalPage; i++) {
+                this.paginationMain += "<li><a class='allow' current-page='" + i + "'>" + i + "</a></li>";
+            }
+            this.paginationMain += '<li><a class="next allow">&raquo;</a></li></ul>';
+            this.paginationMain += this.setInputGoPage();
+            $(this.targetElement).empty();
+            $(this.targetElement).append($(this.paginationMain));
+            this.state = "sevenPage";
+        },
+
+        exceedSevenPage: function exceedSevenPage() {
+            this.paginationMain = this.paginationHead;
+            for (var i = 1; i <= 6; i++) {
+                this.paginationMain += "<li><a class='allow' current-page='" + i + "'>" + i + "</a></li>";
+            }
+            this.paginationMain += this.etc;
+            this.paginationMain += "<li><a class='allow' current-page='" + this.totalPage + "'>" + this.totalPage + "</a></li>";
+            this.paginationMain += '<li><a class="next allow">&raquo;</a></li></ul>';
+            this.paginationMain += this.setInputGoPage();
+            $(this.targetElement).empty();
+            $(this.targetElement).append($(this.paginationMain));
+            this.state = "exceedSevenPage";
+        },
+
+        middlePage: function middlePage() {
+            var previousPage = this.currentPage - 1,
+                nextPage = this.currentPage + 1;
+            if (this.state === "middlePage") {
+                var prev_previous_page = this.middleCurrentPage - 1,
+                    next_next_page = this.middleCurrentPage + 1;
+                var next_page_a = this.targetElement.find("a[current-page=" + next_next_page + "]");
+                var previous_page_a = this.targetElement.find("a[current-page=" + prev_previous_page + "]");
+                var current_page_a = this.targetElement.find("a[current-page=" + this.middleCurrentPage + "]");
+                next_page_a.attr("current-page", nextPage).text(nextPage);
+                previous_page_a.attr("current-page", previousPage).text(previousPage);
+                current_page_a.attr("current-page", this.currentPage).text(this.currentPage);
+                this.middleCurrentPage = this.currentPage;
+                return;
+            }
+            this.paginationMain = this.paginationHead;
+            this.paginationMain += "<li><a class='allow' current-page='1'>1</a></li>";
+            this.paginationMain += this.etc;
+            this.paginationMain += "<li><a class='allow' current-page='" + previousPage + "'>" + previousPage + "</a></li>";
+            this.paginationMain += "<li><a class='allow' current-page='" + this.currentPage + "'>" + this.currentPage + "</a></li>";
+            this.paginationMain += "<li><a class='allow' current-page='" + nextPage + "'>" + nextPage + "</a></li>";
+            this.paginationMain += this.etc;
+            this.paginationMain += "<li><a class='allow' current-page='" + this.totalPage + "'>" + this.totalPage + "</a></li>";
+            this.paginationMain += '<li><a class="next allow">&raquo;</a></li></ul>';
+            this.paginationMain += this.setInputGoPage();
+            $(this.targetElement).empty();
+            $(this.targetElement).append($(this.paginationMain));
+            this.state = "middlePage";
+            this.middleCurrentPage = this.currentPage;
+        },
+
+        backPage: function backPage() {
+            if (this.state === "backPage") return;
+            this.paginationMain = this.paginationHead;
+            this.paginationMain += "<li><a class='allow' current-page='1'>1</a></li>";
+            this.paginationMain += this.etc;
+            for (var i = this.totalPage - 5; i <= this.totalPage; i++) {
+                this.paginationMain += "<li><a class='allow' current-page='" + i + "'>" + i + "</a></li>";
+            }
+            this.paginationMain += '<li><a class="next allow">&raquo;</a></li></ul>';
+            this.paginationMain += this.setInputGoPage();
+            $(this.targetElement).empty();
+            $(this.targetElement).append($(this.paginationMain));
+            this.state = "backPage";
+        },
+
+        setPagination: function setPagination() {
+            var totalPage = this.totalPage || 1;
+            if (totalPage <= 7) {
+                this.sevenPage();
+            } else {
+                this.exceedSevenPage();
+            }
+        },
+
+        pageBindClick: function pageBindClick() {
+            var self = this;
+            this.targetElement.unbind();
+            this.targetElement.bind("click", function (event) {
+                var page;
+                if ($(event.target).hasClass("not_allow")) return;
+                if ($(event.target).hasClass("previous")) {
+                    if (self.currentPage == 1) return; //如果是第一页则禁止向前翻页
+                    page = self.currentPage - 1;
+                } else if ($(event.target).hasClass("next")) {
+                    if (self.currentPage == self.totalPage) return; //如果是最后一页则禁止向后翻页
+                    page = self.currentPage + 1;
+                } else if ($(event.target).hasClass("allow")) {
+                    page = $(event.target).attr("current-page");
+                } else if ($(event.target).hasClass("btn-go-page")) {
+                    var inputGoPage = $(self.targetElement).find(".text-page");
+                    page = inputGoPage.val();
+                    if (!page || page > self.totalPage || page <= 0 || isNaN(Number(page)) || parseInt(page) != parseFloat(page)) return;
+                } else {
+                    return;
+                }
+                if (parseInt(page) == self.currentPage) return;
+                self.gotoPage(parseInt(page));
+            });
+        },
+
+        gotoPage: function gotoPage(currentPage) {
+            this.targetElement.trigger("gotoPage", [currentPage]);
+            this.currentPage = currentPage;
+            if (currentPage <= 4) {
+                this.setPagination();
+            }
+            if (4 < currentPage && currentPage < this.totalPage - 4) {
+                this.middlePage();
+            }
+            if (4 < currentPage && currentPage >= this.totalPage - 4 && this.totalPage > 7) {
+                this.backPage();
+            }
+            this.setActivePage();
+            this.targetElement.find(".text-page").val(currentPage);
+            return;
+        }
+    };
+
+    return UiPagination;
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(145)))
+
+/***/ }),
+
+/***/ 862:
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(862);
+var content = __webpack_require__(863);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -18147,7 +18551,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 862:
+/***/ 863:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(54)(undefined);
@@ -18162,7 +18566,7 @@ exports.push([module.i, ".ant-table{\n    font-size: 14px;\n}\n\n.ant-table-thea
 
 /***/ }),
 
-/***/ 873:
+/***/ 874:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18177,7 +18581,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _renderData = __webpack_require__(874);
+var _renderData = __webpack_require__(875);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18316,7 +18720,9 @@ var model = {
                     null,
                     _react2.default.createElement(
                         'button',
-                        { className: 'btn btn-primary btn-xs' },
+                        { className: 'btn btn-primary btn-xs', onClick: function onClick() {
+                                dataTableRef.edit(record);
+                            } },
                         '\u7F16\u8F91'
                     ),
                     _react2.default.createElement('span', { className: 'seperate-line' }),
@@ -18338,7 +18744,7 @@ exports.action = _action;
 
 /***/ }),
 
-/***/ 874:
+/***/ 875:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18361,15 +18767,15 @@ var _icon = __webpack_require__(340);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _css3 = __webpack_require__(875);
+var _css3 = __webpack_require__(876);
 
-var _popover = __webpack_require__(878);
+var _popover = __webpack_require__(879);
 
 var _popover2 = _interopRequireDefault(_popover);
 
-var _css4 = __webpack_require__(879);
+var _css4 = __webpack_require__(880);
 
-var _avatar = __webpack_require__(882);
+var _avatar = __webpack_require__(883);
 
 var _avatar2 = _interopRequireDefault(_avatar);
 
@@ -18422,7 +18828,7 @@ exports.renderTooltip = renderTooltip;
 
 /***/ }),
 
-/***/ 875:
+/***/ 876:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18430,17 +18836,17 @@ exports.renderTooltip = renderTooltip;
 
 __webpack_require__(334);
 
-__webpack_require__(876);
+__webpack_require__(877);
 
 /***/ }),
 
-/***/ 876:
+/***/ 877:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(877);
+var content = __webpack_require__(878);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -18466,7 +18872,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 877:
+/***/ 878:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(54)(undefined);
@@ -18481,7 +18887,7 @@ exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-
 
 /***/ }),
 
-/***/ 878:
+/***/ 879:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18588,7 +18994,7 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 879:
+/***/ 880:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18596,17 +19002,17 @@ module.exports = exports['default'];
 
 __webpack_require__(334);
 
-__webpack_require__(880);
+__webpack_require__(881);
 
 /***/ }),
 
-/***/ 880:
+/***/ 881:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(881);
+var content = __webpack_require__(882);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -18632,7 +19038,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 881:
+/***/ 882:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(54)(undefined);
@@ -18647,7 +19053,7 @@ exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-
 
 /***/ }),
 
-/***/ 882:
+/***/ 883:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18826,7 +19232,7 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 883:
+/***/ 884:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

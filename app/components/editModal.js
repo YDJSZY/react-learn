@@ -4,9 +4,7 @@
 import React from "react";
 import moment from 'moment';
 import axios from 'axios';
-import { Modal,message, Upload, Row, Col, Form, Input, InputNumber, Select, DatePicker, Switch, Icon } from 'antd';
-const FormItem = Form.Item;
-class EditModal extends React.Component {
+export default class EditModal extends React.Component {
     static defaultProps = {}
 
     constructor(props) {
@@ -16,19 +14,22 @@ class EditModal extends React.Component {
             modalType:"",
             previewVisible:false,
             previewImage:"",
-            fileList:[]
+            fileList:[],
+            record:{
+
+            }
         }
-        this.model = props.config.model;
+        this.model = props.model;
         this.formValues = {};
     }
 
-    open(modalType) {
-        if(this._isMounted) {
-            this.setState({
-                visible: true,
-                modalType: modalType
-            })
-        }
+    open(record,type) {
+        this.setState({
+            record:record,
+            modalType:type
+        },function () {
+            $("#editModal").modal("show");
+        })
     }
 
     handleCancel = ()=> {
@@ -88,15 +89,15 @@ class EditModal extends React.Component {
 
     saveForm = (data,type)=> {
         var method,url;
-        if(type == "create"){
+        /*if(type == "create"){
             method = "POST";
             url = this.props.config.dataUrl;
         }else{
             method = "PUT";
             url = this.props.config.dataUrl+"/"+this.recordId+"/"
-        }
-        console.log(data)
-        axios({
+        }*/
+        console.log(this.state.record);
+        /*axios({
             url:url,
             method:method,
             data:data
@@ -108,7 +109,7 @@ class EditModal extends React.Component {
             }
             message.error('保存失败!',10);
             console.error(res.data);
-        })
+        })*/
     }
 
     preview = (file)=> {
@@ -128,6 +129,12 @@ class EditModal extends React.Component {
         console.log(file)
     }
 
+    inputChange = (e,key)=>{
+        var record = this.state.record;
+        record[key] = e.target.value
+        this.setState({record})
+    }
+
     componentWillReceiveProps(nextProps) {
     }
 
@@ -140,172 +147,69 @@ class EditModal extends React.Component {
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
-        var modelRules = {};
-        for(var model of this.props.config.model) {
-            if(!model.options) continue;
-            modelRules[model.key] = model.options;
-        }
-        return  <div>
-                    <Modal
-                    width="620px"
-                    okText="保存"
-                    maskClosable={false}
-                    title={this.props.config.title}
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                >
-                    <Form layout="horizontal" onSubmit={this.submitForm}>
-                        <Row>
-                            {
-                                this.model.map((model,index)=>{
-                                    var tpl;
-                                    switch (model.type) {
-                                        case 'text':
-                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
-                                                    <FormItem
-                                                        xs={ {span: 24} }
-                                                        sm={ {span: 6} }
-                                                        label={model.title}
-                                                        help={model.help}
-                                                    >
-                                                        {getFieldDecorator(model.key, modelRules[model.key])(
-                                                            <Input placeholder={model.placeholder} name={model.key} />
-                                                        )}
-                                                    </FormItem>
-                                                </Col>
-                                            break;
-                                        case 'number':
-                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
-                                                    <FormItem
-                                                        xs={ {span: 24} }
-                                                        sm={ {span: 6} }
-                                                        label={model.title}
-                                                        help={model.help}
-                                                    >
-                                                        {getFieldDecorator(model.key, modelRules[model.key])(
-                                                            <InputNumber min={model.min} max={model.max}placeholder={model.placeholder} name={model.key} style={{"width":"100%"}} />
-                                                        )}
-                                                    </FormItem>
-                                                </Col>
-                                            break;
-                                        case 'select':
-                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
-                                                    <FormItem
-                                                        xs={ {span: 24} }
-                                                        sm={ {span: 6} }
-                                                        label={model.title}
-                                                        help={model.help}
-                                                    >
-                                                        {getFieldDecorator(model.key, modelRules[model.key])(
-                                                            <Select
-                                                                mode={model.mode}
-                                                                allowClear
-                                                                showSearch
-                                                                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                                                                optionFilterProp="'value'"
-                                                                placeholder={model.placeholder || '请选择'}
-                                                                //onChange={this.selectChange.bind(this)}
-                                                            >
-                                                                {model.source.map(function(item,index){
-                                                                    return <Select.Option key={'_'+index} value={item.id}>{item.name}</Select.Option>
-                                                                })}
-                                                            </Select>
-                                                        )}
-                                                    </FormItem>
-                                                </Col>
-                                            break;
-                                        case 'date':
-                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
-                                                    <FormItem
-                                                        xs={ {span: 24} }
-                                                        sm={ {span: 6} }
-                                                        label={model.title}
-                                                        help={model.help}
-                                                    >
-                                                        {getFieldDecorator(model.key, modelRules[model.key])(
-                                                            <DatePicker placeholder={model.placeholder} name={model.key} format={model.config.format} style={{"width":"100%"}}>
-                                                            </DatePicker>
-                                                        )}
-                                                    </FormItem>
-                                                </Col>
-                                            break;
-                                        case 'switch':
-                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px","height":"88px"}}>
-                                                    <FormItem
-                                                        xs={ {span: 24} }
-                                                        sm={ {span: 6} }
-                                                        label={model.title}
-                                                        help={model.help}
-                                                    >
-                                                        {getFieldDecorator(model.key, modelRules[model.key])(
-                                                            <Switch checkedChildren={<Icon type="check" />} checked={this.props.form.getFieldValue(model.key)} unCheckedChildren={<Icon type="cross" />} >
-                                                            </Switch>
-                                                        )}
-                                                    </FormItem>
-                                                </Col>
-                                            break;
-                                        case 'textarea':
-                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px"}}>
-                                                    <FormItem
-                                                        xs={ {span: 24} }
-                                                        sm={ {span: 6} }
-                                                        label={model.title}
-                                                        help={model.help}
-                                                    >
-                                                        {getFieldDecorator(model.key, modelRules[model.key])(
-                                                            <Input.TextArea placeholder={model.placeholder} style={{"width":"100%","padding":"7px 6px","border":"1px solid #d9d9d9","borderRadius":"4px"}}>
-                                                            </Input.TextArea>
-                                                        )}
-                                                    </FormItem>
-                                                </Col>
-                                            break;
-                                        case 'file':
-                                            const { previewVisible, previewImage,fileList } = this.state;
-                                            const uploadButton = (
-                                                <div>
-                                                    <Icon type="plus" />
-                                                    <div className="ant-upload-text">{model.uploadBtnText || "上传"}</div>
+        var record = this.state.record;
+        return  <div className="modal fade" data-backdrop="static" data-effect="zoom" data-tabindex="-1" data-role="dialog" id="editModal">
+            <div className="modal-dialog modal-lg">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <button type="button" className="close" data-dismiss="modal" data-aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                        <h4 className="modal-title"></h4>
+                    </div>
+                    <div className="modal-body">
+                        <form className="form-horizontal" data-role="form" id="editForm">
+                            <div className="row">
+                                {
+                                    this.model.map((model,index)=>{
+                                        var tpl;
+                                        switch (model.type) {
+                                            case 'text':
+                                                tpl = <div className="col-sm-6 col-md-6 col-xs-12" key={"_"+model.key}>
+                                                    <div className="form-group">
+                                                        <label htmlFor={"id_"+model.key} className="col-sm-3 col-md-3 col-xs-3 control-label">
+                                                            {model.title}
+                                                        </label>
+                                                        <div className="col-sm-8 col-md-8 col-xs-8">
+                                                            <input type="text" id={"id_"+model.key} name={model.key}
+                                                                   placeholder={model.placeholder || ''} className="form-control"
+                                                                   value={record[model.key] || ""}
+                                                                   onChange={(e) => {this.inputChange(e,model.key)}}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            );
-                                            var fileCount = model.fileCount || 1;
-                                            tpl = <Col xs={24} sm={12} md={12} lg={12} key={'_'+index} style={{"padding":"0 10px"}}>
-                                                <FormItem
-                                                    xs={ {span: 24} }
-                                                    sm={ {span: 6} }
-                                                    label={model.title}
-                                                    help={model.help}
-                                                >
-                                                    {getFieldDecorator(model.key, modelRules[model.key])(
-                                                        <Upload
-                                                            action={model.uploadUrl}
-                                                            listType="picture-card"
-                                                            fileList={fileList}
-                                                            name={model.filename || "file_name"}
-                                                            onPreview={this.preview}
-                                                            onChange={this.onUploadChange}
-                                                        >
-                                                            {fileList.length >= fileCount ? null : uploadButton}
-                                                        </Upload>
-                                                    )}
-                                                </FormItem>
-                                            </Col>
-                                            break;
-                                    }
-                                    return tpl;
-                                })
-                            }
-                        </Row>
-                    </Form>
-                </Modal>
-                <Modal title="预览"
-                    visible={this.state.previewVisible} footer={null} onCancel={this.closePreview}>
-                    <img alt="example" style={{ width: '100%' }} src={this.state.previewImage} />
-                </Modal>
+                                                break;
+                                            case 'number':
+                                                tpl = <div className="col-sm-6 col-md-6 col-xs-12" key={"_"+model.key}>
+                                                    <div className="form-group">
+                                                        <label htmlFor={"id_"+model.key} className="col-sm-3 col-md-3 col-xs-3 control-label">
+                                                            {model.title}
+                                                        </label>
+                                                        <div className="col-sm-8 col-md-8 col-xs-8">
+                                                            <input type="number" id={"id_"+model.key} name={model.key}
+                                                                   placeholder={model.placeholder || ''} className="form-control"
+                                                                   value={record[model.key] || ""}
+                                                                   onChange={(e) => {this.inputChange(e,model.key)}}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                break;
+                                        }
+                                        return tpl;
+                                    })
+                                }
+                            </div>
+                        </form>
+                    </div>
+                    <div className="modal-footer">
+                        <span className="pull-right">
+                            <button type="button" className="btn btn-warning" data-dismiss="modal">取消</button>
+                            <button type="button" className="btn btn-success" onClick={this.saveForm}>保存</button>
+                        </span>
+                    </div>
                 </div>
+            </div>
+        </div>
     }
 }
-
-const EditModalForm = Form.create()(EditModal);
-export default EditModalForm

@@ -140,7 +140,7 @@ var model = {
                 style:{width:"20px"},
                 render: (text, record, dataTableRef) => {
                     return <span>
-                            <button className="btn btn-primary btn-xs">编辑</button>
+                            <button className="btn btn-primary btn-xs" onClick={()=>{dataTableRef.edit(record)}}>编辑</button>
                             <span className="seperate-line"></span>
                             <button className="btn btn-success btn-xs" onClick={()=>{dataTableRef.expandedRow(record)}}>详情</button>
                         </span>
