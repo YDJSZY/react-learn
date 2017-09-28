@@ -2,10 +2,11 @@
  * Created by Apple on 17/2/6.
  */
 import React from "react";
-import { model,action } from '../page_a/model';
+import { model } from '../page_a/model';
 import DateRange from '../../components/dateRange';
 import DataTable from '../../components/dataTable';
 import Pagination from '../../components/pagination';
+import EditModal from '../../components/editModal';
 import axios from 'axios';
 import Select from 'react-select';
 import CommonMethodsClass from '../../untils/commonMethods';
@@ -41,6 +42,11 @@ export default class Page_b extends CommonMethodsClass{
                 pageSize: 20
             }
         }
+    }
+
+    beforeSaveForm = (record)=> {
+        record.age = record.age+10;
+        return record
     }
 
     logChange = (val)=> {
@@ -112,9 +118,13 @@ export default class Page_b extends CommonMethodsClass{
                                             onChange={this.logChange}
                                         />
                                     </div>
+                                    <div className="form-group pull-right">
+                                        <a className="btn btn-success" onClick={this.create}>新增</a>
+                                    </div>
                                 </form>
                             </div>
                             <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
+                            <EditModal model={this.dataTableModel} beforeSaveForm={this.beforeSaveForm} ref={(ref) => { this.$editModal = ref; }}></EditModal>
                         </div>
                     </div>
                 </section>

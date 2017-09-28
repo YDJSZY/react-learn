@@ -2,19 +2,8 @@
  * Created by luwenwei on 17/9/3.
  */
 import React from 'react';
-import { Popover, Icon, Avatar } from 'antd';
 import { renderAvatar,renderEnabled,renderTooltip } from '../../untils/renderData';
-var action = function () {
-    var self = this;
-    action = function (actionName,args) {
-        if(!actionName) return;
-        if(!this[actionName]){
-            console.error("The function "+actionName+" is not exits");
-            return;
-        }
-        this[actionName](args)
-    }.bind(self)
-}
+
 var model = {
     getFields:function (context) {
         var self = context;
@@ -24,7 +13,7 @@ var model = {
                 dataIndex: 'id',
                 key: 'id',
                 sorter:true,/*服务端排序*/
-                render: text => <a href="#">{text}</a>,
+                render: (text) => <a href="#">{text}</a>,
             },
             {
                 title: '名字',
@@ -32,29 +21,24 @@ var model = {
                 key: 'username',
                 edit:true,
                 type:'text',
-                placeholder:'请输入您的名字',
-                options:{rules:[
-                    {required: true, message: '请填写名字'}
-                ]},
-                render: text => <a href="#">{text}</a>,
+                placeholder:'必填',
+                validate: function (record) {
+                    if(!record[this.key]) return "required";
+                },
+                render: (text) => <a href="#">{text}</a>,
             }, {
                 title: '年龄',
                 dataIndex: 'age',
                 key: 'age',
                 edit:true,
                 type:'number',
-                min:0,
-                max:10,
-                options:{rules:[
-                    {required: true, message: '请填写年龄'},
-                    {validator: function (rule, value, callback) {
-                        if(value < 0 || value > 10){
-                            callback("年龄必须在0和10之间")
-                        }else{
-                            callback();
-                        }
-                    }}
-                ]},
+                placeholder:'必填',
+                validate: function (record) {
+                    if(!record[this.key]) return "required";
+                    if(record[this.key] < 0 || record[this.key] > 10) {
+                        return "年龄必须在0和10之间";
+                    }
+                },
                 sorter:true/*服务端排序*/
             },
             {
@@ -140,7 +124,7 @@ var model = {
                 style:{width:"20px"},
                 render: (text, record, dataTableRef) => {
                     return <span>
-                            <button className="btn btn-primary btn-xs" onClick={()=>{dataTableRef.edit(record)}}>编辑</button>
+                            <button className="btn btn-primary btn-xs" onClick={()=>{self.edit(record)}}>编辑</button>
                             <span className="seperate-line"></span>
                             <button className="btn btn-success btn-xs" onClick={()=>{dataTableRef.expandedRow(record)}}>详情</button>
                         </span>
@@ -150,4 +134,4 @@ var model = {
     }
 }
 
-export {model,action};
+export {model};

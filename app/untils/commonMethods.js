@@ -46,7 +46,7 @@ export default class CommonMethodsClass extends React.Component{
 
     create = ()=> {
         var obj = this.beforeCreate();
-        this.$editModalForm.create(obj);
+        this.$editModal.open(obj,"create");
     }
 
     beforeEdit =(record)=> {
@@ -55,7 +55,11 @@ export default class CommonMethodsClass extends React.Component{
 
     edit = (record)=> {
         var record = this.beforeEdit(record)
-        this.$editModalForm.edit(record);
+        this.$editModal.open(record,"edit");
+    }
+
+    beforeSaveForm = (record)=> {
+        return record;
     }
 
     saveFormCallBack = (res,type)=> {

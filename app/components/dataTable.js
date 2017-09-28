@@ -4,7 +4,6 @@
 import React from "react";
 import axios from 'axios';
 import Pagination from './pagination';
-import EditModal from './editModal';
 require('../styles/dataTable.css');
 export default class DataTable extends React.Component {
     static defaultProps = {
@@ -171,7 +170,6 @@ export default class DataTable extends React.Component {
                         </table>
                     </div>
                     <Pagination paginationMessage={this.state.pagination} gotoPage={this.gotoPage}></Pagination>
-                    <EditModal model={this.state.dataTableModel} ref={(ref) => { this.$editModal = ref; }}></EditModal>
                 </div>
     }
 }

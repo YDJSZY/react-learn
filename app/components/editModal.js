@@ -3,6 +3,9 @@
  */
 import React from "react";
 import moment from 'moment';
+import AlertContainer from 'react-alert'
+import Switch from 'rc-switch';
+require('../../node_modules/rc-switch/assets/index.css')
 import axios from 'axios';
 export default class EditModal extends React.Component {
     static defaultProps = {}
@@ -15,12 +18,16 @@ export default class EditModal extends React.Component {
             previewVisible:false,
             previewImage:"",
             fileList:[],
-            record:{
-
-            }
+            record:{}
+        };
+        this.alertOptions = {
+            offset: 14,
+            position: 'top right',
+            theme: 'light',
+            time: 5000,
+            transition: 'scale'
         }
         this.model = props.model;
-        this.formValues = {};
     }
 
     open(record,type) {
@@ -32,62 +39,28 @@ export default class EditModal extends React.Component {
         })
     }
 
-    handleCancel = ()=> {
-        this.setState({
-            visible:false,
-            modalType:""
-        })
-    }/*关闭modal*/
-
-    handleOk = ()=> {
-        this.submitForm();
-    }
-
-    create = (initialValue)=> {
-        this.setFormValue(initialValue);
-        this.open("create");
-    }
-
-    edit = (record)=> {
-        this.props.form.resetFields();
-        this.setFormValue(record);
-        this.open("edit");
-    }
-
-    setFormValue(record){
-        for(var prop of this.model){
-            if(!prop.edit) continue;
-            var obj = {};
-            if(prop.type=="date"){
-                obj[prop.key] = moment(record[prop.key] || new Date(),prop.format || "YYYY-MM-DD");
-            }else{
-                obj[prop.key] = record[prop.key];
+    validateForm(record) {
+        var errors = [];
+        for(var model of this.model){
+            if(model.validate){
+                var validateResult = model.validate(record)
+                if(validateResult) errors.push(validateResult);
             }
-            this.recordId = record.id;
-            if(this._isMounted) this.props.form.setFieldsValue(obj);
         }
-    }/*给表单赋值*/
-    
-    submitForm() {
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (err) {
-                console.debug(err);
-                message.error('表单有误请检查');
-                return;
-            }
-            for(var prop in values) {
-                if(typeof values[prop] === "undefined") continue;
-                if(values[prop] instanceof moment){
-                    this.formValues[prop] = values[prop]._d;
-                } else{
-                    this.formValues[prop] = values[prop]
-                }
-            }/*收集表单各个字段的值*/
-            this.saveForm(this.formValues,this.state.modalType);/*调用父组件的保存表单方法*/
-        });
+        errors = errors.join(";").replace(/required/,"必填项不能为空").replace(/required/g,"");/*将所有的required替换为一段字符串*/
+        if(errors.length) {
+            this.$alert.show(errors, {
+                type: 'error'
+            })
+            return "error";
+        }
+        return "right";
     }
 
     saveForm = (data,type)=> {
+        if(this.validateForm(this.state.record) === "error") return;
+        var record = Object.assign({},this.state.record);
+        record = this.props.beforeSaveForm(record)
         var method,url;
         /*if(type == "create"){
             method = "POST";
@@ -96,7 +69,7 @@ export default class EditModal extends React.Component {
             method = "PUT";
             url = this.props.config.dataUrl+"/"+this.recordId+"/"
         }*/
-        console.log(this.state.record);
+        console.log(record);
         /*axios({
             url:url,
             method:method,
@@ -112,28 +85,11 @@ export default class EditModal extends React.Component {
         })*/
     }
 
-    preview = (file)=> {
-        this.setState({
-            previewImage: file.url || file.thumbUrl,
-            previewVisible: true,
-        });
-    }
-
-    closePreview = ()=> {
-        this.setState({
-            previewVisible: false,
-        });
-    }
-
-    onUploadChange = ({ file, fileList })=> {
-        console.log(file)
-    }
-
     inputChange = (e,key)=>{
         var record = this.state.record;
-        record[key] = e.target.value
+        record[key] = e.target ? e.target.value : e
         this.setState({record})
-    }
+    }/*监听表单填写*/
 
     componentWillReceiveProps(nextProps) {
     }
@@ -195,6 +151,30 @@ export default class EditModal extends React.Component {
                                                     </div>
                                                 </div>
                                                 break;
+                                            case 'switch':
+                                                tpl = <div className="col-sm-6 col-md-6 col-xs-12" key={"_"+model.key}>
+                                                    <div className="form-group">
+                                                        <label htmlFor={"id_"+model.key} className="col-sm-3 col-md-3 col-xs-3 control-label">
+                                                            {model.title}
+                                                        </label>
+                                                        <div className="col-sm-8 col-md-8 col-xs-8" style={{height:"34px",lineHeight:"34px"}}>
+                                                            <Switch checked={record[model.key] || false} onChange={(e) => {this.inputChange(e,model.key)}}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                break;
+                                            case 'singleSelect':
+                                                tpl = <div className="col-sm-6 col-md-6 col-xs-12" key={"_"+model.key}>
+                                                    <div className="form-group">
+                                                        <label htmlFor={"id_"+model.key} className="col-sm-3 col-md-3 col-xs-3 control-label">
+                                                            {model.title}
+                                                        </label>
+                                                        <div className="col-sm-8 col-md-8 col-xs-8" style={{height:"34px",lineHeight:"34px"}}>
+                                                            <Switch checked={record[model.key] || false} onChange={(e) => {this.inputChange(e,model.key)}}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                break;
                                         }
                                         return tpl;
                                     })
@@ -210,6 +190,7 @@ export default class EditModal extends React.Component {
                     </div>
                 </div>
             </div>
+            <AlertContainer ref={ref => this.$alert = ref} {...this.alertOptions} />
         </div>
     }
 }
