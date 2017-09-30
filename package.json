@@ -6,8 +6,8 @@
   "scripts": {
     "clean:dev": "rm -rf assets",
     "clean:prod": "rm -rf dist",
-    "dev": "export NODE_ENV=development && rm -rf assets && webpack --w",
-    "prod": "export NODE_ENV=production && rm -rf dist && webpack",
+    "dev": "export NODE_ENV=development && rm -rf assets && webpack --w --progress --colors",
+    "prod": "export NODE_ENV=production && rm -rf dist && webpack --progress --colors",
     "server": "export NODE_ENV=server && webpack-dev-server --devtool eval --progress --colors --content-base server --inline --hot"
   },
   "author": "lww",

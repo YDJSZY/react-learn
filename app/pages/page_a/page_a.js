@@ -2,98 +2,41 @@
  * Created by Apple on 17/2/6.
  */
 import React from "react";
-import DateRange from '../../components/dateRange';
-import SelectComponent from '../../components/select';
-import DataTable from '../../components/dataTable';
-import EditModalForm from '../../components/editModal';
-import { Form, Table, Input, Button,Breadcrumb,Badge,Dropdown,Menu,Icon } from 'antd';
 import { model } from './model';
-import {myInfo,constants} from '../../untils/global';
+import DateRange from '../../components/dateRange';
+import DataTable from '../../components/dataTable';
+import Pagination from '../../components/pagination';
+import EditModal from '../../components/editModal';
+import axios from 'axios';
+import Select from 'react-select';
 import CommonMethodsClass from '../../untils/commonMethods';
-require("./style.css");
-const FormItem = Form.Item;
-const menu = (
-    <Menu>
-        <Menu.Item>
-            Action 1
-        </Menu.Item>
-        <Menu.Item>
-            Action 2
-        </Menu.Item>
-    </Menu>
-);
-const expandedRowRender = () => {
-    const _columns = [
-        {title: 'Date', dataIndex: 'date', key: 'date'},
-        {title: 'Name', dataIndex: 'name', key: 'name'},
-        {title: 'Status', key: 'state', render: () => <span><Badge status="success"/>Finished</span>},
-        {title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum'},
-        {
-            title: 'Action',
-            dataIndex: 'operation',
-            key: 'operation',
-            render: () => (
-                <span className={'table-operation'}>
-                    <a href="#">Pause</a>
-                    <a href="#">Stop</a>
-                    <Dropdown overlay={menu}>
-                        <a href="#">
-                            More <Icon type="down"/>
-                        </a>
-                    </Dropdown>
-                </span>
-            ),
-        },
-    ];
-    const data = [];
-    for (let i = 0; i < 3; ++i) {
-        data.push({
-            key: i,
-            date: '2014-12-24 23:12:00',
-            name: 'This is production name',
-            upgradeNum: 'Upgraded: 56',
-        });
-    }
-    return (
-        <Table
-            columns={_columns}
-            dataSource={data}
-            pagination={false}
-        />
-    );
-}
-const styles = {
-    "demoSpan":{
-        "color":"#ddd",
-        "fontSize":"18px"
-    }
-}
-
-export default class Page_a extends CommonMethodsClass {
-    static defaultProps = {
-        selectSource: [{id: "1", name: "篮球"}, {id: "2", name: "音乐"}, {id: "3", name: "足球"}]
-    }
-
+export default class Page_b extends CommonMethodsClass{
     constructor(props) {
         super(props);
+        this.options = [
+            { value: 'one', label: 'One' },
+            { value: 'two', label: 'Two' },
+            { value: 'three', label: 'Three' },
+            { value: 'four', label: 'Four' }
+        ];
+        this.state = {
+            mySelect:null
+        }
         this.dataTableModel = model.getFields(this);
-        this.baseUrl = "../data.json";
-        this.state = {}
         this.editModalConfig = {
-            dataUrl: "../data.json",
-            dataTableModel: this.dataTableModel,
-            visible: false,
-            title: "新增",
-            modalType: "",
-            saveFormCallBack: this.saveFormCallBack
+            model:this.dataTableModel,
+            requestUrl: "../data.json",
+            beforeSaveForm:this.beforeSaveForm,
+            Sex:[{ value: '1', label: '男' },{ value: '2', label: '女' }]
         }
         this.dataTableConfig = {
-            expandedRowRender: expandedRowRender,
             requestUrl: "../data.json",
-            dataTableModel: this.dataTableModel,
+            dataTableModel:this.dataTableModel,
+            expandedRow:this.expandedRow,
+            getExpandedRow:this.getExpandedRow,
             loadDataParams: {
                 hobby:"2",
-                dateRangeName:"本月份",
+                dateRangeName:"昨天",
                 order: "",
                 page: 1,
                 page_size: 20,
@@ -101,70 +44,99 @@ export default class Page_a extends CommonMethodsClass {
                 end_time: ""
             },
             pagination: {
-                showSizeChanger: true,
-                defaultCurrent: 1,
-                total: 0,
+                currentPage: 1,
+                totalRecords: 20,
+                totalPages:10,
                 pageSize: 20
             }
         }
     }
 
-    beforeCreate =()=> {
-        return {enabled:true};
+    beforeSaveForm = (record)=> {
+        record.age = record.age+10;
+        return record
     }
 
-    /*componentWillMount() {
-        console.log(95)
-    }*/
-
-    componentDidMount() {
+    logChange = (val)=> {
+        //var selectVal = val ? val.value : null;
+        this.setState({
+            mySelect:val
+        })
+        //this.mySelect = val.value;
+        console.log("Selected: " + JSON.stringify(val));
     }
 
-    render(match) {
-        return <div>
-                    <Breadcrumb style={{ margin: '12px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>page_a</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div style={{ padding: '0 15px 15px 15px', background: '#fff'}}>
-                        <Form layout="inline" className="filter-form">
-                            <FormItem>
-                                <DateRange dateRangeName={this.dataTableConfig.loadDataParams.dateRangeName} cacheParams={this.dataTableConfig.loadDataParams}
-                                           onDateRangeChange={this.dateRangeChange}></DateRange>
-                            </FormItem>
-                            <FormItem>
-                                <SelectComponent
-                                    config={
-                                                {
-                                                    value:this.dataTableConfig.loadDataParams.hobby,
-                                                    mode:'',source:this.props.selectSource,
-                                                    onSelect:this.selectCallBack,model:'hobby',
-                                                    style:{width:"152px",marginTop:"2px"},placeholder:'爱好'
-                                                }
-                                            }>
-                                </SelectComponent>
-                            </FormItem>
-                            <FormItem>
-                                <Input placeholder="搜索" size="default" onChange={this.searchChange} onKeyUp={this.inputEnter}/>
-                            </FormItem>
-                            <FormItem>
-                                <Button type="primary" size="default" onClick={this.search}>Search</Button>
-                            </FormItem>
-                            <FormItem>
-                                <span className="test">test</span>
-                                <span style={styles.demoSpan}>test style!</span>
-                            </FormItem>
-                            <FormItem style={{"float":"right","marginRight":0}}>
-                                <Button type="primary" size="default" onClick={this.create}>新增</Button>
-                            </FormItem>
-                        </Form>
-                        <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
+    expandedRow(record) {
+        var promise = axios.get("../data.json");
+        return promise;
+
+    }
+
+    getExpandedRow(data) {
+        var expandedRowData = data;
+        return <tr>
+            <td colSpan="30">
+                <div className="expanded-row-main">
+                    <div className="table-responsive">
+                        <table className="table table-hover table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>小名</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{expandedRowData.id}</td>
+                                <td>{"$"+expandedRowData.username}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <EditModalForm config={this.editModalConfig}
-                                   wrappedComponentRef={(ref) => { this.$editModalForm = ref; }}>
-                    </EditModalForm>
+                    <Pagination paginationMessage={expandedRowData.$expandedRowData}></Pagination>
                 </div>
+            </td>
+        </tr>
     }
-}
 
-//export default iiHOC(Page_a)
+    render () {
+        return  <section className="content">
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h5 className="panel-title-text">
+                        <span className="parent-menu-title">首页</span>
+                        <span className="separator">/</span>
+                        <span className="children-menu-title">page_a</span>
+                    </h5>
+                </div>
+                <div className="panel-body" style={{paddingTop: 0}}>
+                    <div className="row" style={{marginBottom: "15px"}}>
+                        <form className="form-inline filter-form" style={{margin:0}}>
+                            <DateRange dateRangeName={this.dataTableConfig.loadDataParams.dateRangeName} cacheParams={this.dataTableConfig.loadDataParams}
+                                       onDateRangeChange={this.dateRangeChange}></DateRange>
+                            <div className="form-group">
+                                <input className="form-control" placeholder="搜索"/>
+                            </div>
+                            <div className="form-group">
+                                <Select
+                                    multi={true}
+                                    style={{width:"170px"}}
+                                    name="form-field-name"
+                                    value={this.state.mySelect}
+                                    options={this.options}
+                                    onChange={this.logChange}
+                                />
+                            </div>
+                            <div className="form-group pull-right">
+                                <a className="btn btn-success" onClick={this.create}>新增</a>
+                            </div>
+                        </form>
+                    </div>
+                    <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
+                    <EditModal config={this.editModalConfig} ref={(ref) => { this.$editModal = ref; }}></EditModal>
+                </div>
+            </div>
+        </section>
+
+    }
+};

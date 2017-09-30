@@ -198,3 +198,15 @@ ul.ui_pagination li:last-child{
     background-color: #108ee9;
     border-color: #108ee9;
 }/*重写bootstrap的分页部分样式*/
+
+.btn-icon-round {
+    border-radius: 100%;
+    width:25px;
+    height:25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.btn-icon i{
+    line-height: 25px;
+}

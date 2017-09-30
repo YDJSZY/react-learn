@@ -15,12 +15,20 @@ export default class Page_b extends CommonMethodsClass{
         super(props);
         this.options = [
             { value: 'one', label: 'One' },
-            { value: 'two', label: 'Two' }
+            { value: 'two', label: 'Two' },
+            { value: 'three', label: 'Three' },
+            { value: 'four', label: 'Four' }
         ];
         this.state = {
             mySelect:null
         }
         this.dataTableModel = model.getFields(this);
+        this.editModalConfig = {
+            model:this.dataTableModel,
+            requestUrl: "../data.json",
+            beforeSaveForm:this.beforeSaveForm,
+            Sex:[{ value: '1', label: '男' },{ value: '2', label: '女' }]
+        }
         this.dataTableConfig = {
             requestUrl: "../data.json",
             dataTableModel:this.dataTableModel,
@@ -50,9 +58,9 @@ export default class Page_b extends CommonMethodsClass{
     }
 
     logChange = (val)=> {
-        var selectVal = val ? val.value : null;
+        //var selectVal = val ? val.value : null;
         this.setState({
-            mySelect:selectVal
+            mySelect:val
         })
         //this.mySelect = val.value;
         console.log("Selected: " + JSON.stringify(val));
@@ -111,6 +119,7 @@ export default class Page_b extends CommonMethodsClass{
                                     </div>
                                     <div className="form-group">
                                         <Select
+                                            multi={true}
                                             style={{width:"170px"}}
                                             name="form-field-name"
                                             value={this.state.mySelect}
@@ -124,7 +133,7 @@ export default class Page_b extends CommonMethodsClass{
                                 </form>
                             </div>
                             <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
-                            <EditModal model={this.dataTableModel} beforeSaveForm={this.beforeSaveForm} ref={(ref) => { this.$editModal = ref; }}></EditModal>
+                            <EditModal config={this.editModalConfig} ref={(ref) => { this.$editModal = ref; }}></EditModal>
                         </div>
                     </div>
                 </section>

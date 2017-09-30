@@ -53,11 +53,12 @@ var model = {
                 dataIndex: 'sex',
                 key: 'sex',
                 edit:true,
-                type:'select',
+                placeholder:"请选择性别",
+                type:'multiSelect',
                 options:{rules:[
                     {required: true, message: '请填写性别'}
                 ]},
-                source:[{id:"1",name:"男"},{id:"2",name:"女"},{id:"3",name:"未知"}]
+                source:'Sex'
             },
             {
                 title: '身高',
@@ -75,10 +76,8 @@ var model = {
                 key: 'birthday',
                 edit:true,
                 type:"date",
-                options:{rules:[
-                    {required: true, message: '请填写生日'}
-                ]},
                 config:{
+                    //showTime:true,
                     format:"YYYY-MM-DD",/*默认*/
                 }
             },

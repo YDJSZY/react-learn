@@ -6,7 +6,9 @@ var plugins = {
         "./node_modules/font-awesome/css/font-awesome.min.css",
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         "./app/styles/app.css",
-        './node_modules/react-select/dist/react-select.min.css'
+        './node_modules/react-select/dist/react-select.min.css',
+        './node_modules/antd/lib/date-picker/style/index.css',
+        './app/packages/fileUpload/dist/css/upload-file.min.css',
     ],
     "js":[
         "./node_modules/whatwg-fetch/fetch.js",

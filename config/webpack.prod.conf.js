@@ -4,7 +4,6 @@
 var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 var config = {
     output: {
@@ -15,7 +14,7 @@ var config = {
     },
 
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({names: ['vendor', 'manifest'],filename:'[name].[chunkhash:5].js',minChunks: Infinity,children: true }),
+        new webpack.optimize.CommonsChunkPlugin({names: ['jquery','vendor', 'manifest'],filename:'[name].[chunkhash:5].js'}),
         new ExtractTextPlugin('[name].[chunkhash:5].css'),
         new webpack.optimize.UglifyJsPlugin({
             // Don't beautify output (enable for neater output)  
@@ -23,6 +22,7 @@ var config = {
             // Eliminate comments  
             comments: false,
             compress: {
+                dead_code:true,
                 warnings: false,
                 // Drop `console` statements  
                 drop_console: true
