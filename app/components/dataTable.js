@@ -57,12 +57,28 @@ export default class DataTable extends React.Component {
         })
     }
 
-    sorterChange(sorter) {/*排序改变*/
-        var order = sorter.order;
-        if(!order) return;
-        var key = sorter.column.sortKey || sorter.columnKey;
-        this.loadDataParams.order = order=="descend" ? "-"+key : key;
+    sorting = (e)=> {/*排序改变*/
+        var sortName = e.target.getAttribute("data-sort-name");
+        if(this.fingSortPropFirst(sortName)){
+            this.loadDataParams.order = sortName.substr(1);
+        }else{
+            this.loadDataParams.order = "-"+sortName;
+        }
         this.fetchData()
+    }
+
+    fingSortPropFirst (prop) {
+        if(prop.indexOf("-") === 0) return true;
+        return false;
+    }
+
+    getSortClass (prop) {
+        if(!prop) return;
+        if(this.fingSortPropFirst(prop)){
+            return "fa fa-sort-amount-desc";
+        } else{
+            return "fa fa-sort-amount-asc";
+        }
     }
     
     findRecordById(id) {
@@ -129,10 +145,14 @@ export default class DataTable extends React.Component {
                         <table className="table table-hover table-striped table-bordered">
                             <thead>
                             <tr>
-                                {dataTableModel.map(function (item,index) {
+                                {dataTableModel.map((item,index)=> {
+                                    var sortName = item.sortName || item.key;
+                                    var order = this.loadDataParams.order
+                                    var className = order.indexOf(item.key) !==-1 ? this.getSortClass(order) : "fa fa-sort";
+                                    sortName = this.fingSortPropFirst(order) ? "-"+sortName : sortName;
                                     return <th data-field={item.key} key={item.key} style={item.style}>
                                             {item.title}
-                                            {item.sorter ? <i className="fa fa-sort sort" style={{marginLeft:"5px"}} data-sort-name={item.sortName || item.key}></i> : null}
+                                            {item.sorter ? <i className={className} style={{marginLeft:"5px"}} onClick={this.sorting} data-sort-name={sortName}></i> : null}
                                         </th>
                                 })}
                             </tr>

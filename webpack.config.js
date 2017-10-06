@@ -4,7 +4,7 @@
 var env = process.env.NODE_ENV;
 const webpackMerge = require('webpack-merge');
 if(env === "development"){
-    module.exports = webpackMerge(require("./webpack.base.conf"),require("./config/webpack.dev.conf"))
+    module.exports = webpackMerge(require("./webpack.base.conf"),require("./config/webpack.dev.conf"));
 }else if(env === "production"){
     module.exports = webpackMerge(require("./webpack.base.conf"),require("./config/webpack.prod.conf"))
 }else if(env === "server"){

@@ -288,7 +288,7 @@ export default class EditModal extends React.Component {
                                                                        placeholder={model.placeholder || ''} className="form-control"
                                                                        value={record[model.key] || ""} onChange={(e) => {this.inputChange(e,model.key)}} />
                                                                 <span className="input-group-btn">
-                                                                    <button className="btn btn-success" onClick={() => {this.showUploadFile(options)}}><i className="fa fa-upload"></i></button>
+                                                                    <a className="btn btn-success" onClick={() => {this.showUploadFile(options)}}><i className="fa fa-upload"></i></a>
                                                                 </span>
                                                             </div>
                                                         </div>
