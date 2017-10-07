@@ -9,18 +9,27 @@ export default class CommonMethodsClass extends React.Component{
         super(props);
     }
 
-    selectCallBack = (model,value)=> {
-        this.dataTableConfig.loadDataParams[model] = value;
-        this.search();
-    }
-
-    dateRangeChange = (dateRange,noReq)=> {
-        this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
-        this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
-        if(dateRange.dateRangeName == "自定义") return;
-        if(noReq) return;
-        this.search();
-    }/*日期查询范围改变*/
+    selectChange = (val,prop)=> {
+        console.log(val)
+        var $type = Object.prototype.toString.call(val)
+        var selectVal;
+        var loadDataParams = this.state.loadDataParams;
+        if($type === "[object Array]"){
+            var arr = [];
+            for(var v of val){
+                arr.push(v.value);
+            }
+            selectVal = arr;
+        }else{
+            selectVal = val ? val.value : null;
+        }
+        loadDataParams[prop] = selectVal;
+        this.setState({
+            loadDataParams
+        },()=>{
+            this.$dataTable.loadFirstPage();
+        })
+    }/*select搜索*/
 
     search = ()=> {
         if(!this.$dataTable){
@@ -30,8 +39,10 @@ export default class CommonMethodsClass extends React.Component{
         this.$dataTable.loadFirstPage();
     }
 
-    searchChange = (e)=> {
-        this.dataTableConfig.loadDataParams.search = e.target.value;
+    keyWordChange = (e)=> {
+        var loadDataParams = this.state.loadDataParams;
+        loadDataParams.search = e.target.value;
+        this.setState({loadDataParams})
     }
 
     inputEnter = (e)=> {
@@ -67,9 +78,10 @@ export default class CommonMethodsClass extends React.Component{
     }
 
     dateRangeChange = (dateRange,noReq)=> {
-        this.dataTableConfig.loadDataParams.dateRangeName = dateRange.dateRangeName;
-        this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
-        this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
+        var loadDataParams = this.state.loadDataParams;
+        loadDataParams.begin_time = +new Date(dateRange.begin_time);
+        loadDataParams.end_time = +new Date(dateRange.end_time);
+        this.setState({loadDataParams});
         if(dateRange.dateRangeName == "自定义") return;
         if(noReq) return;
         this.search();

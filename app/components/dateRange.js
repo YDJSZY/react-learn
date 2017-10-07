@@ -8,7 +8,6 @@ import 'react-select/dist/react-select.css';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 const dateRangeSelect = require("../untils/dateRangeSelect");
-require("../styles/resetAntd.css")
 moment.locale('zh-cn');
 const namedDateRanges = [
     {value:"今天",label:"今天"},

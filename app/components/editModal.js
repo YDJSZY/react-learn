@@ -233,6 +233,8 @@ export default class EditModal extends React.Component {
                                                         </label>
                                                         <div className="col-sm-8 col-md-8 col-xs-8" style={{height:"34px",lineHeight:"34px"}}>
                                                             <Select
+                                                                closeOnSelect={false}
+                                                                menuContainerStyle={{ zIndex: 9999 }}
                                                                 multi={true}
                                                                 placeholder={model.placeholder || "请选择"}
                                                                 name="form-field-name"
@@ -269,7 +271,7 @@ export default class EditModal extends React.Component {
                                                         </label>
                                                         <div className="col-sm-8 col-md-8 col-xs-8">
                                                             <DatePicker
-                                                                value={date} style={{width:"100%"}} showTime={model.config.showTime || false} format={model.config.format || "YYYY-MM-DD"} onChange={(e) => {this.dateChange(e,model.key,model.config.format)}}>
+                                                                value={date} style={{width:"100%",height:"34px"}} showTime={model.config.showTime || false} format={model.config.format || "YYYY-MM-DD"} onChange={(e) => {this.dateChange(e,model.key,model.config.format)}}>
                                                             </DatePicker>
                                                         </div>
                                                     </div>

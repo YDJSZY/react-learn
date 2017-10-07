@@ -57,7 +57,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _stringify = __webpack_require__(349);
+var _stringify = __webpack_require__(352);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -823,7 +823,7 @@ var model = {
             dataIndex: 'sex',
             key: 'sex',
             edit: true,
-            placeholder: "请选择性别",
+            placeholder: "性别",
             type: 'multiSelect',
             options: { rules: [{ required: true, message: '请填写性别' }] },
             source: 'Sex'
@@ -1986,7 +1986,6 @@ var dateRangeSelect = __webpack_require__(723); /**
                                                              * Created by luwenwei on 17/9/3.
                                                              */
 
-__webpack_require__(724);
 _moment2.default.locale('zh-cn');
 var namedDateRanges = [{ value: "今天", label: "今天" }, { value: "昨天", label: "昨天" }, { value: "前天", label: "前天" }, { value: "本周", label: "本周" }, { value: "上周", label: "上周" }, { value: "本月份", label: "本月份" }, { value: "上个月", label: "上个月" }, { value: "最近三个月", label: "最近三个月" }, { value: "上个季度", label: "上个季度" }, { value: "最近一年", label: "最近一年" }, { value: "本季度", label: "本季度" }, { value: "本年度", label: "本年度" }, { value: "上一年度", label: "上一年度" }, { value: "不限", label: "不限" }, { value: "自定义", label: "自定义" }];
 var dateFormat = 'YYYY-MM-DD';
@@ -2603,53 +2602,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 724:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(725);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(46)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./resetAntd.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./resetAntd.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 725:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(45)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".ant-input{\r\n    height: 36px;\r\n    font-style: 14px;\r\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ 726:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2660,11 +2612,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _regenerator = __webpack_require__(347);
+var _regenerator = __webpack_require__(348);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(348);
+var _asyncToGenerator2 = __webpack_require__(349);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -2774,7 +2726,7 @@ var DataTable = function (_React$Component) {
             pagination: props.config.pagination,
             dataTableModel: props.config.dataTableModel
         };
-        _this.loadDataParams = props.config.loadDataParams;
+        _this.loadDataParams = props.loadDataParams;
         _this.requestUrl = props.config.requestUrl;
 
         return _this;
@@ -2790,36 +2742,38 @@ var DataTable = function (_React$Component) {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 requestUrl = this.requestUrl;
-                                _context.prev = 1;
-                                _context.next = 4;
+
+                                delete this.loadDataParams.dateRangeName;
+                                _context.prev = 2;
+                                _context.next = 5;
                                 return _axios2.default.get(requestUrl, { params: this.loadDataParams });
 
-                            case 4:
+                            case 5:
                                 res = _context.sent;
 
                                 if (!(res.status >= 200 && res.status <= 300)) {
-                                    _context.next = 7;
+                                    _context.next = 8;
                                     break;
                                 }
 
                                 return _context.abrupt('return', this.parseResponse(res.data));
 
-                            case 7:
-                                _context.next = 12;
+                            case 8:
+                                _context.next = 13;
                                 break;
 
-                            case 9:
-                                _context.prev = 9;
-                                _context.t0 = _context['catch'](1);
+                            case 10:
+                                _context.prev = 10;
+                                _context.t0 = _context['catch'](2);
 
                                 console.debug(_context.t0);
 
-                            case 12:
+                            case 13:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this, [[1, 9]]);
+                }, _callee, this, [[2, 10]]);
             }));
 
             function fetchData() {
@@ -2886,6 +2840,11 @@ var DataTable = function (_React$Component) {
         key: 'edit',
         value: function edit(record) {
             this.$editModal.open(record, "edit");
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            console.log(nextProps);
         }
     }, {
         key: 'componentDidMount',
@@ -3238,7 +3197,7 @@ var _datePicker = __webpack_require__(346);
 
 var _datePicker2 = _interopRequireDefault(_datePicker);
 
-var _getIterator2 = __webpack_require__(350);
+var _getIterator2 = __webpack_require__(347);
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -3274,11 +3233,11 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactAlert = __webpack_require__(351);
+var _reactAlert = __webpack_require__(350);
 
 var _reactAlert2 = _interopRequireDefault(_reactAlert);
 
-var _rcSwitch = __webpack_require__(352);
+var _rcSwitch = __webpack_require__(351);
 
 var _rcSwitch2 = _interopRequireDefault(_rcSwitch);
 
@@ -3654,6 +3613,8 @@ var EditModal = function (_React$Component) {
                                                             'div',
                                                             { className: 'col-sm-8 col-md-8 col-xs-8', style: { height: "34px", lineHeight: "34px" } },
                                                             _react2.default.createElement(_reactSelect2.default, {
+                                                                closeOnSelect: false,
+                                                                menuContainerStyle: { zIndex: 9999 },
                                                                 multi: true,
                                                                 placeholder: model.placeholder || "请选择",
                                                                 name: 'form-field-name',
@@ -3709,7 +3670,7 @@ var EditModal = function (_React$Component) {
                                                             'div',
                                                             { className: 'col-sm-8 col-md-8 col-xs-8' },
                                                             _react2.default.createElement(_datePicker2.default, {
-                                                                value: date, style: { width: "100%" }, showTime: model.config.showTime || false, format: model.config.format || "YYYY-MM-DD", onChange: function onChange(e) {
+                                                                value: date, style: { width: "100%", height: "34px" }, showTime: model.config.showTime || false, format: model.config.format || "YYYY-MM-DD", onChange: function onChange(e) {
                                                                     _this2.dateChange(e, model.key, model.config.format);
                                                                 } })
                                                         )
@@ -4074,6 +4035,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _getIterator2 = __webpack_require__(347);
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
+
 var _getPrototypeOf = __webpack_require__(57);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -4115,17 +4080,48 @@ var CommonMethodsClass = function (_React$Component) {
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (CommonMethodsClass.__proto__ || (0, _getPrototypeOf2.default)(CommonMethodsClass)).call(this, props));
 
-        _this.selectCallBack = function (model, value) {
-            _this.dataTableConfig.loadDataParams[model] = value;
-            _this.search();
-        };
+        _this.selectChange = function (val, prop) {
+            console.log(val);
+            var $type = Object.prototype.toString.call(val);
+            var selectVal;
+            var loadDataParams = _this.state.loadDataParams;
+            if ($type === "[object Array]") {
+                var arr = [];
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
 
-        _this.dateRangeChange = function (dateRange, noReq) {
-            _this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
-            _this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
-            if (dateRange.dateRangeName == "自定义") return;
-            if (noReq) return;
-            _this.search();
+                try {
+                    for (var _iterator = (0, _getIterator3.default)(val), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var v = _step.value;
+
+                        arr.push(v.value);
+                    }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
+                    }
+                }
+
+                selectVal = arr;
+            } else {
+                selectVal = val ? val.value : null;
+            }
+            loadDataParams[prop] = selectVal;
+            _this.setState({
+                loadDataParams: loadDataParams
+            }, function () {
+                _this.$dataTable.loadFirstPage();
+            });
         };
 
         _this.search = function () {
@@ -4136,8 +4132,10 @@ var CommonMethodsClass = function (_React$Component) {
             _this.$dataTable.loadFirstPage();
         };
 
-        _this.searchChange = function (e) {
-            _this.dataTableConfig.loadDataParams.search = e.target.value;
+        _this.keyWordChange = function (e) {
+            var loadDataParams = _this.state.loadDataParams;
+            loadDataParams.search = e.target.value;
+            _this.setState({ loadDataParams: loadDataParams });
         };
 
         _this.inputEnter = function (e) {
@@ -4173,16 +4171,17 @@ var CommonMethodsClass = function (_React$Component) {
         };
 
         _this.dateRangeChange = function (dateRange, noReq) {
-            _this.dataTableConfig.loadDataParams.dateRangeName = dateRange.dateRangeName;
-            _this.dataTableConfig.loadDataParams.begin_time = +new Date(dateRange.begin_time);
-            _this.dataTableConfig.loadDataParams.end_time = +new Date(dateRange.end_time);
+            var loadDataParams = _this.state.loadDataParams;
+            loadDataParams.begin_time = +new Date(dateRange.begin_time);
+            loadDataParams.end_time = +new Date(dateRange.end_time);
+            _this.setState({ loadDataParams: loadDataParams });
             if (dateRange.dateRangeName == "自定义") return;
             if (noReq) return;
             _this.search();
         };
 
         return _this;
-    } /*日期查询范围改变*/
+    } /*select搜索*/
 
     /*enter搜索*/
 

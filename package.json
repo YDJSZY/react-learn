@@ -10,7 +10,7 @@
     "prod": "export NODE_ENV=production && rm -rf dist && webpack --progress --colors",
     "server": "export NODE_ENV=server && webpack-dev-server --devtool eval --progress --colors --content-base server --inline --hot",
     "dev:window": "set NODE_ENV=development&& webpack --w --progress --colors",
-    "prod:window": "set NODE_ENV=production&& rd /s /q dist && webpack --progress --colors",
+    "prod:window": "set NODE_ENV=production&& webpack --progress --colors",
     "server:window": "set NODE_ENV=server&& webpack-dev-server --devtool eval --progress --colors --content-base server --inline --hot"
   },
   "author": "lww",

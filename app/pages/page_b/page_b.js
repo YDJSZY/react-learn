@@ -14,13 +14,21 @@ export default class Page_b extends CommonMethodsClass{
     constructor(props) {
         super(props);
         this.options = [
-            { value: 'one', label: 'One' },
-            { value: 'two', label: 'Two' },
-            { value: 'three', label: 'Three' },
-            { value: 'four', label: 'Four' }
+            { value: '1', label: 'One' },
+            { value: '2', label: 'Two' },
+            { value: '3', label: 'Three' },
+            { value: '4', label: 'Four' }
         ];
         this.state = {
-            mySelect:null
+            loadDataParams: {
+                hobby:[1,2],
+                dateRangeName:"昨天",
+                order: "-id",
+                page: 1,
+                page_size: 20,
+                begin_time: "",
+                end_time: ""
+            }
         }
         this.dataTableModel = model.getFields(this);
         this.editModalConfig = {
@@ -34,15 +42,6 @@ export default class Page_b extends CommonMethodsClass{
             dataTableModel:this.dataTableModel,
             expandedRow:this.expandedRow,
             getExpandedRow:this.getExpandedRow,
-            loadDataParams: {
-                hobby:"2",
-                dateRangeName:"昨天",
-                order: "",
-                page: 1,
-                page_size: 20,
-                begin_time: "",
-                end_time: ""
-            },
             pagination: {
                 currentPage: 1,
                 totalRecords: 20,
@@ -55,15 +54,6 @@ export default class Page_b extends CommonMethodsClass{
     beforeSaveForm = (record)=> {
         record.age = record.age+10;
         return record
-    }
-
-    logChange = (val)=> {
-        //var selectVal = val ? val.value : null;
-        this.setState({
-            mySelect:val
-        })
-        //this.mySelect = val.value;
-        console.log("Selected: " + JSON.stringify(val));
     }
 
     expandedRow(record) {
@@ -112,27 +102,32 @@ export default class Page_b extends CommonMethodsClass{
                         <div className="panel-body" style={{paddingTop: 0}}>
                             <div className="row" style={{marginBottom: "15px"}}>
                                 <form className="form-inline filter-form" style={{margin:0}}>
-                                    <DateRange dateRangeName={this.dataTableConfig.loadDataParams.dateRangeName} cacheParams={this.dataTableConfig.loadDataParams}
+                                    <DateRange dateRangeName={this.state.loadDataParams.dateRangeName} cacheParams={this.state.loadDataParams}
                                                onDateRangeChange={this.dateRangeChange}></DateRange>
                                     <div className="form-group">
-                                        <input className="form-control" placeholder="搜索"/>
+                                        <input className="form-control" onChange={this.keyWordChange} id="quickSearch" placeholder="搜索"/>
                                     </div>
                                     <div className="form-group">
                                         <Select
                                             multi={true}
                                             style={{width:"170px"}}
                                             name="form-field-name"
-                                            value={this.state.mySelect}
+                                            value={this.state.loadDataParams.hobby.join()}
                                             options={this.options}
-                                            onChange={this.logChange}
+                                            onChange={(val)=>{this.selectChange(val,"hobby")}}
                                         />
+                                    </div>
+                                    <div className="form-group">
+                                        <a className="btn btn-default" onClick={this.search}>
+                                            <i className="fa fa-search"></i>
+                                        </a>
                                     </div>
                                     <div className="form-group pull-right">
                                         <a className="btn btn-success" onClick={this.create}>新增</a>
                                     </div>
                                 </form>
                             </div>
-                            <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
+                            <DataTable config={this.dataTableConfig} loadDataParams={this.state.loadDataParams} ref={(ref) => { this.$dataTable = ref; }}/>
                             <EditModal config={this.editModalConfig} ref={(ref) => { this.$editModal = ref; }}></EditModal>
                         </div>
                     </div>

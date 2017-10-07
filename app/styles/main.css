@@ -12,7 +12,7 @@ section.content{
     padding: 0 15px;
 }
 
-.filter-form .form-group{
+.filter-form .form-group,.filter-form .input-group{
     margin:15px 5px 0 0;
 }
 

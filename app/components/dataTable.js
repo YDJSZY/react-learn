@@ -17,7 +17,7 @@ export default class DataTable extends React.Component {
             pagination:props.config.pagination,
             dataTableModel:props.config.dataTableModel
         }
-        this.loadDataParams = props.config.loadDataParams;
+        this.loadDataParams = props.loadDataParams;
         this.requestUrl = props.config.requestUrl;
 
     }
@@ -34,7 +34,8 @@ export default class DataTable extends React.Component {
     }
 
     async fetchData() {
-        var requestUrl = this.requestUrl
+        var requestUrl = this.requestUrl;
+        delete this.loadDataParams.dateRangeName;
         try{
             var res = await axios.get(requestUrl, {params:this.loadDataParams});
             if(res.status >=200 && res.status<=300){
@@ -131,6 +132,10 @@ export default class DataTable extends React.Component {
     
     edit(record) {
         this.$editModal.open(record,"edit")
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
     }
 
     componentDidMount() {

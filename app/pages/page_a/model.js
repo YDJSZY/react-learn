@@ -53,7 +53,7 @@ var model = {
                 dataIndex: 'sex',
                 key: 'sex',
                 edit:true,
-                placeholder:"请选择性别",
+                placeholder:"性别",
                 type:'multiSelect',
                 options:{rules:[
                     {required: true, message: '请填写性别'}
