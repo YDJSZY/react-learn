@@ -1,10 +1,8 @@
 /**
  * Created by luwenwei on 17/8/29.
  */
-import MyMenu from '../components/nav';
-import Main from '../route/routes';
-import { Layout, Icon } from 'antd';
-const { Header, Content, Footer, Sider } = Layout;
+import MyMenu from './components/nav';
+import Main from './route/routes';
 import React from "react";
 export default class App extends React.Component {
     constructor(props){

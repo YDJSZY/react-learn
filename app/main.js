@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import axios from 'axios';
-import App from './pages/app';
+import App from './app';
 import {myInfo,constants,setMyInfo,setConstants} from './untils/global'
 require("./styles/main.css");
 require("./styles/someReset.css");
