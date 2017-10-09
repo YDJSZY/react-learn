@@ -5,3 +5,15 @@
 .ant-calendar-picker .ant-input{
     height: 34px;
 }
+
+.ant-select-allow-clear .ant-select-selection--multiple .ant-select-selection__rendered{
+    height: 32px;
+}
+
+.ant-select .ant-select-selection--single{
+    height: 32px;
+}
+
+.ant-select .ant-select-selection__rendered{
+    line-height: 30px;
+}

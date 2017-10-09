@@ -9,6 +9,7 @@ var plugins = {
         './node_modules/react-select/dist/react-select.min.css',
         './node_modules/antd/lib/date-picker/style/index.css',
         './app/packages/fileUpload/dist/css/upload-file.min.css',
+        './node_modules/antd/lib/select/style/index.css'
     ],
     "js":[
         "./node_modules/whatwg-fetch/fetch.js",

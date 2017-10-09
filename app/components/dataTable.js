@@ -51,7 +51,7 @@ export default class DataTable extends React.Component {
         pagination.defaultCurrent = data.currentPage;
         pagination.total = data.total;
         pagination.pageSize = this.loadDataParams.page_size;
-        pagination.current = this.loadDataParams.page;
+        pagination.currentPage = this.loadDataParams.page;
         this.setState({
             serverData:data.results,
             pagination:pagination

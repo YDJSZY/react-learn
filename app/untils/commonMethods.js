@@ -10,20 +10,8 @@ export default class CommonMethodsClass extends React.Component{
     }
 
     selectChange = (val,prop)=> {
-        console.log(val)
-        var $type = Object.prototype.toString.call(val)
-        var selectVal;
         var loadDataParams = this.state.loadDataParams;
-        if($type === "[object Array]"){
-            var arr = [];
-            for(var v of val){
-                arr.push(v.value);
-            }
-            selectVal = arr;
-        }else{
-            selectVal = val ? val.value : null;
-        }
-        loadDataParams[prop] = selectVal;
+        loadDataParams[prop] = val;
         this.setState({
             loadDataParams
         },()=>{

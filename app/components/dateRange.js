@@ -3,28 +3,28 @@
  */
 import React from "react";
 import { DatePicker } from 'antd';
-import Select from 'react-select';
+import SelectComponent from './select';
 import 'react-select/dist/react-select.css';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 const dateRangeSelect = require("../untils/dateRangeSelect");
 moment.locale('zh-cn');
 const namedDateRanges = [
-    {value:"今天",label:"今天"},
-    {value:"昨天",label:"昨天"},
-    {value:"前天",label:"前天"},
-    {value:"本周",label:"本周"},
-    {value:"上周",label:"上周"},
-    {value:"本月份",label:"本月份"},
-    {value:"上个月",label:"上个月"},
-    {value:"最近三个月",label:"最近三个月"},
-    {value:"上个季度",label:"上个季度"},
-    {value:"最近一年",label:"最近一年"},
-    {value:"本季度",label:"本季度"},
-    {value:"本年度",label:"本年度"},
-    {value:"上一年度",label:"上一年度"},
-    {value:"不限",label:"不限"},
-    {value:"自定义",label:"自定义"}
+    {value:"今天",name:"今天"},
+    {value:"昨天",name:"昨天"},
+    {value:"前天",name:"前天"},
+    {value:"本周",name:"本周"},
+    {value:"上周",name:"上周"},
+    {value:"本月份",name:"本月份"},
+    {value:"上个月",name:"上个月"},
+    {value:"最近三个月",name:"最近三个月"},
+    {value:"上个季度",name:"上个季度"},
+    {value:"最近一年",name:"最近一年"},
+    {value:"本季度",name:"本季度"},
+    {value:"本年度",name:"本年度"},
+    {value:"上一年度",name:"上一年度"},
+    {value:"不限",name:"不限"},
+    {value:"自定义",name:"自定义"}
 ];
 const dateFormat = 'YYYY-MM-DD';
 export default class DateRange extends React.Component {
@@ -100,14 +100,13 @@ export default class DateRange extends React.Component {
     render() {
         return  <div style={{display:"inline-block"}}>
             <div className="form-group">
-                <Select
-                    clearable={false}
-                    style={{width:"110px"}}
-                    name="form-field-name"
+                <SelectComponent
+                    optionValue="value"
                     value={this.state.selectDateRangeName}
-                    options={namedDateRanges}
-                    onChange={this.dateRangeChange}>
-                </Select>
+                    style={{width:"110px"}}
+                    onSelect={this.dateRangeChange}
+                    source={namedDateRanges}>
+                </SelectComponent>
             </div>
             <div className="form-group">
                 <DatePicker

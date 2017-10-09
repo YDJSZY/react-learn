@@ -2,47 +2,46 @@
  * Created by Apple on 17/2/6.
  */
 import React from "react";
-import { model } from './model';
+import { model } from '../page_a/model';
 import DateRange from '../../components/dateRange';
 import DataTable from '../../components/dataTable';
 import Pagination from '../../components/pagination';
 import EditModal from '../../components/editModal';
+import SelectComponent from '../../components/select';
 import axios from 'axios';
-import Select from 'react-select';
 import CommonMethodsClass from '../../untils/commonMethods';
 export default class Page_b extends CommonMethodsClass{
     constructor(props) {
         super(props);
         this.options = [
-            { value: 'one', label: 'One' },
-            { value: 'two', label: 'Two' },
-            { value: 'three', label: 'Three' },
-            { value: 'four', label: 'Four' }
+            { id: '1', name: 'One' },
+            { id: '2', name: 'Two' },
+            { id: '3', name: 'Three' },
+            { id: '4', name: 'Four' }
         ];
         this.state = {
-            mySelect:null
+            loadDataParams: {
+                hobby:"1",
+                dateRangeName:"昨天",
+                order: "-id",
+                page: 1,
+                page_size: 20,
+                begin_time: "",
+                end_time: ""
+            }
         }
         this.dataTableModel = model.getFields(this);
         this.editModalConfig = {
             model:this.dataTableModel,
             requestUrl: "../data.json",
             beforeSaveForm:this.beforeSaveForm,
-            Sex:[{ value: '1', label: '男' },{ value: '2', label: '女' }]
+            Sex:[{ id: '1', name: '男' },{ id: '2', name: '女' }]
         }
         this.dataTableConfig = {
             requestUrl: "../data.json",
             dataTableModel:this.dataTableModel,
             expandedRow:this.expandedRow,
             getExpandedRow:this.getExpandedRow,
-            loadDataParams: {
-                hobby:"2",
-                dateRangeName:"昨天",
-                order: "",
-                page: 1,
-                page_size: 20,
-                begin_time: "",
-                end_time: ""
-            },
             pagination: {
                 currentPage: 1,
                 totalRecords: 20,
@@ -55,15 +54,6 @@ export default class Page_b extends CommonMethodsClass{
     beforeSaveForm = (record)=> {
         record.age = record.age+10;
         return record
-    }
-
-    logChange = (val)=> {
-        //var selectVal = val ? val.value : null;
-        this.setState({
-            mySelect:val
-        })
-        //this.mySelect = val.value;
-        console.log("Selected: " + JSON.stringify(val));
     }
 
     expandedRow(record) {
@@ -106,33 +96,31 @@ export default class Page_b extends CommonMethodsClass{
                     <h5 className="panel-title-text">
                         <span className="parent-menu-title">首页</span>
                         <span className="separator">/</span>
-                        <span className="children-menu-title">page_a</span>
+                        <span className="children-menu-title">page_b</span>
                     </h5>
                 </div>
                 <div className="panel-body" style={{paddingTop: 0}}>
                     <div className="row" style={{marginBottom: "15px"}}>
                         <form className="form-inline filter-form" style={{margin:0}}>
-                            <DateRange dateRangeName={this.dataTableConfig.loadDataParams.dateRangeName} cacheParams={this.dataTableConfig.loadDataParams}
+                            <DateRange dateRangeName={this.state.loadDataParams.dateRangeName} cacheParams={this.state.loadDataParams}
                                        onDateRangeChange={this.dateRangeChange}></DateRange>
                             <div className="form-group">
-                                <input className="form-control" placeholder="搜索"/>
+                                <input className="form-control" onChange={this.keyWordChange} id="quickSearch" placeholder="搜索"/>
                             </div>
                             <div className="form-group">
-                                <Select
-                                    multi={true}
-                                    style={{width:"170px"}}
-                                    name="form-field-name"
-                                    value={this.state.mySelect}
-                                    options={this.options}
-                                    onChange={this.logChange}
-                                />
+                                <SelectComponent model="hobby" value={this.state.loadDataParams.hobby} style={{width:"170px"}} onSelect={this.selectChange} source={this.options}></SelectComponent>
+                            </div>
+                            <div className="form-group">
+                                <a className="btn btn-default" onClick={this.search}>
+                                    <i className="fa fa-search"></i>
+                                </a>
                             </div>
                             <div className="form-group pull-right">
                                 <a className="btn btn-success" onClick={this.create}>新增</a>
                             </div>
                         </form>
                     </div>
-                    <DataTable config={this.dataTableConfig} ref={(ref) => { this.$dataTable = ref; }}/>
+                    <DataTable config={this.dataTableConfig} loadDataParams={this.state.loadDataParams} ref={(ref) => { this.$dataTable = ref; }}/>
                     <EditModal config={this.editModalConfig} ref={(ref) => { this.$editModal = ref; }}></EditModal>
                 </div>
             </div>

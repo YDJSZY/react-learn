@@ -7,7 +7,7 @@ import { DatePicker } from 'antd';
 import AlertContainer from 'react-alert'
 import Switch from 'rc-switch';
 require('../../node_modules/rc-switch/assets/index.css');
-import Select from 'react-select';
+import SelectComponent from './select';
 import axios from 'axios';
 import {constants} from '../untils/global';
 import UploadFileModal from '../components/uploadFileModal';
@@ -100,9 +100,8 @@ export default class EditModal extends React.Component {
     }/*监听表单填写*/
 
     singleSelectChange = (e,key)=> {
-        var selectVal = e ? e.value : null;
         var record = this.state.record;
-        record[key] = selectVal;
+        record[key] = e;
         this.setState({record})
     }
 
@@ -207,20 +206,21 @@ export default class EditModal extends React.Component {
                                                     </div>
                                                 </div>
                                                 break;
-                                            case 'singleSelect':
+                                            case 'select':
                                                 tpl = <div className="col-sm-6 col-md-6 col-xs-12" key={"_"+model.key}>
                                                     <div className="form-group">
                                                         <label htmlFor={"id_"+model.key} className="col-sm-3 col-md-3 col-xs-3 control-label">
                                                             {model.title}
                                                         </label>
                                                         <div className="col-sm-8 col-md-8 col-xs-8" style={{height:"34px",lineHeight:"34px"}}>
-                                                            <Select
-                                                                name="form-field-name"
+                                                            <SelectComponent
+                                                                mode={model.mode}
+                                                                style={{width:"100%"}}
+                                                                value={record[model.key]}
                                                                 placeholder={model.placeholder || "请选择"}
-                                                                value={record[model.key] || ""}
-                                                                options={this.props.config[model.source] || constants[model.source]}
-                                                                onChange={(e) => {this.singleSelectChange(e,model.key)}}
-                                                            />
+                                                                onSelect={(e) => {this.singleSelectChange(e,model.key)}}
+                                                                source={this.props.config[model.source] || constants[model.source]}>
+                                                            </SelectComponent>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -232,16 +232,6 @@ export default class EditModal extends React.Component {
                                                             {model.title}
                                                         </label>
                                                         <div className="col-sm-8 col-md-8 col-xs-8" style={{height:"34px",lineHeight:"34px"}}>
-                                                            <Select
-                                                                closeOnSelect={false}
-                                                                menuContainerStyle={{ zIndex: 9999 }}
-                                                                multi={true}
-                                                                placeholder={model.placeholder || "请选择"}
-                                                                name="form-field-name"
-                                                                value={record[model.key] || ""}
-                                                                options={this.props.config[model.source] || constants[model.source]}
-                                                                onChange={(e) => {this.multiSelectChange(e,model.key)}}
-                                                            />
                                                         </div>
                                                     </div>
                                                 </div>

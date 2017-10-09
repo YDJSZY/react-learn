@@ -7,21 +7,21 @@ import DateRange from '../../components/dateRange';
 import DataTable from '../../components/dataTable';
 import Pagination from '../../components/pagination';
 import EditModal from '../../components/editModal';
+import SelectComponent from '../../components/select';
 import axios from 'axios';
-import Select from 'react-select';
 import CommonMethodsClass from '../../untils/commonMethods';
 export default class Page_b extends CommonMethodsClass{
     constructor(props) {
         super(props);
         this.options = [
-            { value: '1', label: 'One' },
-            { value: '2', label: 'Two' },
-            { value: '3', label: 'Three' },
-            { value: '4', label: 'Four' }
+            { id: '1', name: 'One' },
+            { id: '2', name: 'Two' },
+            { id: '3', name: 'Three' },
+            { id: '4', name: 'Four' }
         ];
         this.state = {
             loadDataParams: {
-                hobby:[1,2],
+                hobby:"1",
                 dateRangeName:"昨天",
                 order: "-id",
                 page: 1,
@@ -35,7 +35,7 @@ export default class Page_b extends CommonMethodsClass{
             model:this.dataTableModel,
             requestUrl: "../data.json",
             beforeSaveForm:this.beforeSaveForm,
-            Sex:[{ value: '1', label: '男' },{ value: '2', label: '女' }]
+            Sex:[{ id: '1', name: '男' },{ id: '2', name: '女' }]
         }
         this.dataTableConfig = {
             requestUrl: "../data.json",
@@ -108,14 +108,7 @@ export default class Page_b extends CommonMethodsClass{
                                         <input className="form-control" onChange={this.keyWordChange} id="quickSearch" placeholder="搜索"/>
                                     </div>
                                     <div className="form-group">
-                                        <Select
-                                            multi={true}
-                                            style={{width:"170px"}}
-                                            name="form-field-name"
-                                            value={this.state.loadDataParams.hobby.join()}
-                                            options={this.options}
-                                            onChange={(val)=>{this.selectChange(val,"hobby")}}
-                                        />
+                                        <SelectComponent model="hobby" value={this.state.loadDataParams.hobby} style={{width:"170px"}} onSelect={this.selectChange} source={this.options}></SelectComponent>
                                     </div>
                                     <div className="form-group">
                                         <a className="btn btn-default" onClick={this.search}>

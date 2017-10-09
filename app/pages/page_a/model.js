@@ -53,11 +53,11 @@ var model = {
                 dataIndex: 'sex',
                 key: 'sex',
                 edit:true,
-                placeholder:"性别",
-                type:'multiSelect',
-                options:{rules:[
-                    {required: true, message: '请填写性别'}
-                ]},
+                placeholder:"必选",
+                type:'select',
+                validate: function (record) {
+                    if(!record[this.key]) return "required";
+                },
                 source:'Sex'
             },
             {

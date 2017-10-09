@@ -8,13 +8,14 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var bootstrap = path.resolve(__dirname, './node_modules/bootstrap/dist/js/bootstrap.min.js');
 var datePicker = path.resolve(__dirname,'./node_modules/antd/lib/date-picker/index.js');
+var select = path.resolve(__dirname,'./node_modules/antd/lib/select/index.js');
 var config = {
     //入口文件输出配置
     entry: {
         app:path.resolve(__dirname, './app/main.js'),
         styles:plugins.css,
         jquery:path.resolve(__dirname, './node_modules/jquery/dist/jquery.min.js'),
-        vendor:["react","react-dom","moment","react-router","react-router-dom","classnames","axios","react-select","rc-switch","react-alert",bootstrap,datePicker],
+        vendor:["react","react-dom","moment","react-router","react-router-dom","classnames","axios","rc-switch","react-alert",bootstrap,datePicker,select],
     },
     module: {
         //加载器配置
