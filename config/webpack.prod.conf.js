@@ -14,7 +14,7 @@ var config = {
     },
 
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({names: ['jquery','vendor', 'manifest'],filename:'[name].[chunkhash:5].js'}),
+        new webpack.optimize.CommonsChunkPlugin({names: ['jquery','react','vendor', 'manifest'],filename:'[name].[chunkhash:5].js'}),
         new ExtractTextPlugin('[name].[chunkhash:5].css'),
         new webpack.optimize.UglifyJsPlugin({
             // Don't beautify output (enable for neater output)  

@@ -22,7 +22,7 @@ var config = {
             'process.env.NODE.ENV':"development"
         }),*/
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({names: ['vendor', 'manifest']}),
+        new webpack.optimize.CommonsChunkPlugin({names: ['jquery','react','vendor', 'manifest']}),
         //new ExtractTextPlugin('styles.css')
     ]
 };

@@ -4,7 +4,6 @@
 import React from "react";
 import { DatePicker } from 'antd';
 import SelectComponent from './select';
-import 'react-select/dist/react-select.css';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 const dateRangeSelect = require("../untils/dateRangeSelect");

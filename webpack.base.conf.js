@@ -15,7 +15,8 @@ var config = {
         app:path.resolve(__dirname, './app/main.js'),
         styles:plugins.css,
         jquery:path.resolve(__dirname, './node_modules/jquery/dist/jquery.min.js'),
-        vendor:["react","react-dom","moment","react-router","react-router-dom","classnames","axios","rc-switch","react-alert",bootstrap,datePicker,select],
+        react:["react","react-dom","react-router","react-router-dom"],
+        vendor:["moment","classnames","axios","rc-switch","react-alert",bootstrap,datePicker,select],
     },
     module: {
         //加载器配置
@@ -23,7 +24,7 @@ var config = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                include: path.join(__dirname, './app'),
+                //include: path.join(__dirname, './app'),
                 loader: 'babel-loader',
                 query: {
                     cacheDirectory: true,
