@@ -4,7 +4,7 @@
 import React from "react";
 import axios from 'axios';
 import Pagination from './pagination';
-require('../styles/dataTable.css');
+
 export default class DataTable extends React.Component {
     static defaultProps = {
         
@@ -101,7 +101,7 @@ export default class DataTable extends React.Component {
                 serverData:serverData
             });
             return;
-        }
+        }/*关闭*/
         this.getExpandedRowData(record);
     }
 
@@ -139,7 +139,7 @@ export default class DataTable extends React.Component {
     }
 
     componentDidMount() {
-        this.loadFirstPage();
+        this.loadFirstPage();/*请求第一页数据*/
     }
     
     render() {
@@ -152,12 +152,14 @@ export default class DataTable extends React.Component {
                             <tr>
                                 {dataTableModel.map((item,index)=> {
                                     var sortName = item.sortName || item.key;
-                                    var order = this.loadDataParams.order
+                                    var order = this.loadDataParams.order;
                                     var className = order.indexOf(item.key) !==-1 ? this.getSortClass(order) : "fa fa-sort";
                                     sortName = this.fingSortPropFirst(order) ? "-"+sortName : sortName;
                                     return <th data-field={item.key} key={item.key} style={item.style}>
                                             {item.title}
-                                            {item.sorter ? <i className={className} style={{marginLeft:"5px"}} onClick={this.sorting} data-sort-name={sortName}></i> : null}
+                                            {item.sorter ? 
+                                                <i className={className} style={{marginLeft:"5px"}} onClick={this.sorting} data-sort-name={sortName}></i>
+                                                : null}
                                         </th>
                                 })}
                             </tr>

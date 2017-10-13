@@ -99,20 +99,9 @@ export default class EditModal extends React.Component {
         this.setState({record})
     }/*监听表单填写*/
 
-    singleSelectChange = (e,key)=> {
+    selectChange = (e,key)=> {
         var record = this.state.record;
         record[key] = e;
-        this.setState({record})
-    }
-
-    multiSelectChange = (e,key)=> {
-        var cache = [];
-        for(var v of e) {
-            cache.push(v.value);
-        }
-        var record = this.state.record;
-        record[key] = record[key] || [];
-        record[key] = cache;
         this.setState({record})
     }
 
@@ -218,20 +207,9 @@ export default class EditModal extends React.Component {
                                                                 style={{width:"100%"}}
                                                                 value={record[model.key]}
                                                                 placeholder={model.placeholder || "请选择"}
-                                                                onSelect={(e) => {this.singleSelectChange(e,model.key)}}
+                                                                onSelect={(e) => {this.selectChange(e,model.key)}}
                                                                 source={this.props.config[model.source] || constants[model.source]}>
                                                             </SelectComponent>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                break;
-                                            case 'multiSelect':
-                                                tpl = <div className="col-sm-6 col-md-6 col-xs-12" key={"_"+model.key}>
-                                                    <div className="form-group">
-                                                        <label htmlFor={"id_"+model.key} className="col-sm-3 col-md-3 col-xs-3 control-label">
-                                                            {model.title}
-                                                        </label>
-                                                        <div className="col-sm-8 col-md-8 col-xs-8" style={{height:"34px",lineHeight:"34px"}}>
                                                         </div>
                                                     </div>
                                                 </div>

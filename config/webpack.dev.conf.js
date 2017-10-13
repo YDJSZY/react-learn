@@ -15,7 +15,7 @@ var config = {
     },
     plugins:[
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['jquery','vendor','manifest']
+            names: ['jquery','react','vendor','manifest']
         }),
         new ExtractTextPlugin('styles.css')
     ]
