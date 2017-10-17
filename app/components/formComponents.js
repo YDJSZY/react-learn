@@ -28,7 +28,8 @@ class InputComponent extends React.Component {
         var key = config.key;
         var type = config.type;
         var placeholder = config.placeholder;
-        return <input type={type} className={'form-control '+(config.className || '')} placeholder={placeholder} value={dataSource[key] || ''} onChange={this.valueChange} />
+        return type === "textarea" ? <textarea type={type} className={'form-control '+(config.className || '')} placeholder={placeholder} value={dataSource[key] || ''} onChange={this.valueChange}></textarea> :
+                <input type={type} className={'form-control '+(config.className || '')} placeholder={placeholder} value={dataSource[key] || ''} onChange={this.valueChange} />
     }
 }
 

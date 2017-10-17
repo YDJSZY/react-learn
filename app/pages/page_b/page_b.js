@@ -121,7 +121,13 @@ export default class Page_b extends CommonMethodsClass{
                                 </form>
                             </div>
                             <DataTable config={this.dataTableConfig} loadDataParams={this.state.loadDataParams} ref={(ref) => { this.$dataTable = ref; }}/>
-                            <EditModal config={this.editModalConfig} ref={(ref) => { this.$editModal = ref; }}></EditModal>
+                            <EditModal config={this.editModalConfig} ref={(ref) => { this.$editModal = ref; }}>
+                                <fieldset style={{padding:"10px 10px 10px"}}>
+                                    <legend>健康信息:</legend>
+                                    <label>身高:<input type="text" /></label>
+                                    <label>体重:<input type="text" /></label>
+                                </fieldset>
+                            </EditModal>
                         </div>
                     </div>
                 </section>

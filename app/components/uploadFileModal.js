@@ -10,21 +10,23 @@ export default class UploadFileModal extends React.Component {
         super(props);
     }
     
-    showModal() {
+    showModal(options) {
+        this.options = options;
         if(!this.uploadFile) {
-            this.uploadFile = new UploadFile("fileContainer")
+            this.uploadFile = new UploadFile("fileContainer",options.multi)
         }
         $("#uploadModal").modal("show")
     }
 
     closeModal = ()=> {
-        $("#uploadModal").modal("hide")
+        $("#uploadModal").modal("hide");
+        this.uploadFile.removeFile();
     }
 
     emitFile = ()=> {
         var file = this.uploadFile.getFiles();
         if(!file.length) return;
-        this.props.acceptFile(file);
+        this.props.acceptFile(file,this.options);
     }
     
     render() {

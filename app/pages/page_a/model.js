@@ -22,6 +22,7 @@ var model = {
                 edit:true,
                 type:'text',
                 placeholder:'必填',
+                required:true,
                 validate: function (record) {
                     if(!record[this.key]) return "required";
                 },
@@ -33,6 +34,7 @@ var model = {
                 edit:true,
                 type:'number',
                 placeholder:'必填',
+                required:true,
                 validate: function (record) {
                     if(!record[this.key]) return "required";
                     if(record[this.key] < 0 || record[this.key] > 10) {

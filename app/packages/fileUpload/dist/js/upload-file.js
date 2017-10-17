@@ -97,6 +97,7 @@
     }
 
     UploadFile.prototype.removeFile = function () {
+        if(!this.files.length) return;
         this.files = [];
         this.tip.textContent = this.tipOriginalContent;
         this.tip.style.display = "block";

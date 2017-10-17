@@ -1,8 +1,8 @@
 /**
  * Created by luwenwei on 2017/9/13.
  */
-import config from '../config/base';
-var myInfo,constants,$localStorage,localStorageName = config.localStorageName;
+import baseConfig from '../config/baseConfig';
+var myInfo,constants,$localStorage,localStorageName = baseConfig.localStorageName;
 
 var setMyInfo = function (data) {
     return myInfo = data;

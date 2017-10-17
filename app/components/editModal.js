@@ -133,7 +133,7 @@ export default class EditModal extends React.Component {
     }/*上传文件*/
 
     acceptFile(file,options) {
-        var url = options.url,filename = options.filename,multi = options.multi;
+        var url = options.url,key = options.key,filename = options.filename,multi = options.multi,callBack = options.callBack;
         var formData = new FormData();
         formData.append(filename || "filename", multi ? file : file[0]);
         axios({
@@ -147,7 +147,10 @@ export default class EditModal extends React.Component {
                     type: 'success'
                 });
                 this.$uploadFileModal.closeModal();
-                return;
+                var record = this.state.record;
+                record[key] = res.data.filename;
+                this.setState({record});
+                return callBack ? callBack(res) : null;
             }
             this.$alert.show('上传失败!'+res.data, {
                 type: 'error'
@@ -212,7 +215,6 @@ export default class EditModal extends React.Component {
                                                     </div>
                                                 </div>
                                                 break;
-                                                break;
                                             case 'switch':
                                                 tpl = <div className="col-sm-6 col-md-6 col-xs-12" key={"_"+model.key}>
                                                     <div className="form-group">
@@ -245,7 +247,7 @@ export default class EditModal extends React.Component {
                                                 </div>
                                                 break;
                                             case 'textarea':
-                                                var config = {key:model.key,type:"text",dataSource:record,placeholder:model.placeholder,callBack:this.inputChange};
+                                                var config = {key:model.key,type:"textarea",dataSource:record,placeholder:model.placeholder,callBack:this.inputChange};
                                                 if(model.required && !record[model.key]) config.className = "warning-border";
                                                 tpl = <div className="col-sm-6 col-md-6 col-xs-12" key={"_"+model.key}>
                                                     <div className="form-group">
@@ -257,7 +259,6 @@ export default class EditModal extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                break;
                                                 break;
                                             case 'date':
                                                 var date = record[model.key] ? moment(record[model.key],model.config.format || "YYYY-MM-DD") : undefined
@@ -298,6 +299,13 @@ export default class EditModal extends React.Component {
                                         return tpl;
                                     })
                                 }
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-12 col-md-12 col-xs-12">
+                                    {
+                                        this.props.children
+                                    }
+                                </div>
                             </div>
                         </form>
                     </div>
