@@ -20,19 +20,19 @@ export default class SelectComponent extends React.Component {
 
     render() {
         return <Select
-                    mode={this.props.mode}
-                    value={this.props.value}
-                    allowClear
-                    showSearch
-                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                    optionFilterProp="'value'"
-                    style={this.props.style}
-                    placeholder={this.props.placeholder || '请选择'}
-                    onChange={this.selectChange.bind(this)}
-                        >
-                    {this.props.source.map((item,index)=>{
-                        return <Select.Option key={'_'+index} value={item[this.props.optionValue || 'id']}>{item.name}</Select.Option>
-                    })}
-                </Select>
+            mode={this.props.mode}
+            value={this.props.value}
+            allowClear
+            showSearch
+            filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            optionFilterProp="'value'"
+            style={this.props.style}
+            placeholder={this.props.placeholder || '请选择'}
+            onChange={this.selectChange.bind(this)}
+        >
+            {this.props.source.map((item,index)=>{
+                return <Select.Option key={'_'+index} value={item[this.props.optionValue || 'id']}>{item.name}</Select.Option>
+            })}
+        </Select>
     }
 }
