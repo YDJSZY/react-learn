@@ -9,8 +9,8 @@ import Pagination from '../../components/pagination';
 import EditModal from '../../components/editModal';
 import SelectComponent from '../../components/select';
 import axios from 'axios';
-import CommonMethodsClass from '../../untils/commonMethods';
-export default class Page_b extends CommonMethodsClass{
+import TableCrud from '../../untils/tableCrud';
+export default class Page_b extends TableCrud{
     constructor(props) {
         super(props);
         this.options = [

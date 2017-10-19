@@ -2,20 +2,24 @@
  * Created by luwenwe on 2017/9/11.
  */
 import React from "react";
-import axios from 'axios';
+import axios from '../config/axiosConfig';
 import Pagination from './pagination';
+import baseConfig from '../config/baseConfig';
+import QueueAnim from 'rc-queue-anim';
+const apiPrefix = baseConfig.apiPrefix;
 
 export default class DataTable extends React.Component {
     static defaultProps = {
-        
+
     }
 
     constructor(props) {
         super(props);
         this.state = {
             serverData:[],
-            pagination:props.config.pagination,
-            dataTableModel:props.config.dataTableModel
+            pagination:props.config.pagination || { currentPage: 1,totalRecords:null, totalPages:1,pageSize: 20},
+            dataTableModel:props.config.dataTableModel,
+            switchTdCache:{}
         }
         this.loadDataParams = props.loadDataParams;
         this.requestUrl = props.config.requestUrl;
@@ -28,16 +32,15 @@ export default class DataTable extends React.Component {
     }
 
     gotoPage = (param)=> {
-        console.log(param)
         this.loadDataParams = Object.assign(this.loadDataParams,param)
         this.fetchData();
     }
 
     async fetchData() {
-        var requestUrl = this.requestUrl;
+        var requestUrl = apiPrefix+this.requestUrl;
         delete this.loadDataParams.dateRangeName;
         try{
-            var res = await axios.get(requestUrl, {params:this.loadDataParams});
+            var res = await axios({url:requestUrl,method:"get", params:this.loadDataParams,loading:true});
             if(res.status >=200 && res.status<=300){
                 return this.parseResponse(res.data);
             }
@@ -49,7 +52,8 @@ export default class DataTable extends React.Component {
     parseResponse(data) {
         var pagination = this.state.pagination;
         pagination.defaultCurrent = data.currentPage;
-        pagination.total = data.total;
+        pagination.totalRecords = data.count;
+        pagination.totalPages = data.num_pages;
         pagination.pageSize = this.loadDataParams.page_size;
         pagination.currentPage = this.loadDataParams.page;
         this.setState({
@@ -61,9 +65,9 @@ export default class DataTable extends React.Component {
     sorting = (e)=> {/*排序改变*/
         var sortName = e.target.getAttribute("data-sort-name");
         if(this.fingSortPropFirst(sortName)){
-            this.loadDataParams.order = sortName.substr(1);
+            this.loadDataParams.ordering = sortName.substr(1);
         }else{
-            this.loadDataParams.order = "-"+sortName;
+            this.loadDataParams.ordering = "-"+sortName;
         }
         this.fetchData()
     }
@@ -81,7 +85,7 @@ export default class DataTable extends React.Component {
             return "fa fa-sort-amount-asc";
         }
     }
-    
+
     findRecordById(id) {
         var serverData = this.state.serverData;
         for(var i = 0,l = serverData.length;i < l;i++){
@@ -92,10 +96,10 @@ export default class DataTable extends React.Component {
     }
 
     expandedRow(record) {
-        if(record.showDetail){
+        if(record.$showDetail){
             var serverData = this.state.serverData;
             var _serverData = this.findRecordById(record.id);
-            _serverData[0].showDetail = false;
+            _serverData[0].$showDetail = false;
             serverData[_serverData[1]] = _serverData[0];
             this.setState({
                 serverData:serverData
@@ -109,7 +113,7 @@ export default class DataTable extends React.Component {
         var r = this.props.config.expandedRow(record);
         var serverData = this.state.serverData;
         var _serverData = this.findRecordById(record.id);
-        _serverData[0].showDetail = true;
+        _serverData[0].$showDetail = true;
         if(r && r instanceof Promise){
             r.then((res)=> {
                 _serverData[0].$expandedRowData = res.data;
@@ -129,9 +133,18 @@ export default class DataTable extends React.Component {
             });
         }
     }
-    
+
     edit(record) {
         this.$editModal.open(record,"edit")
+    }
+
+    setSwitchTdCache() {
+        var switchTdCache = this.state.switchTdCache;
+        for(var model of this.state.dataTableModel){
+            switchTdCache[model.key] = model.show || false;
+        }
+        this.setState({switchTdCache})
+        console.log(switchTdCache)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -140,63 +153,66 @@ export default class DataTable extends React.Component {
 
     componentDidMount() {
         this.loadFirstPage();/*请求第一页数据*/
+        this.setSwitchTdCache();
     }
-    
+
     render() {
         var dataTableModel = this.state.dataTableModel;
         var serverData = this.state.serverData;
-        return <div>
-                    <div className="table-responsive">
-                        <table className="table table-hover table-striped table-bordered">
-                            <thead>
-                            <tr>
-                                {dataTableModel.map((item,index)=> {
-                                    var sortName = item.sortName || item.key;
-                                    var order = this.loadDataParams.order;
-                                    var className = order.indexOf(item.key) !==-1 ? this.getSortClass(order) : "fa fa-sort";
-                                    sortName = this.fingSortPropFirst(order) ? "-"+sortName : sortName;
-                                    return <th data-field={item.key} key={item.key} style={item.style}>
-                                            {item.title}
-                                            {item.sorter ? 
-                                                <i className={className} style={{marginLeft:"5px"}} onClick={this.sorting} data-sort-name={sortName}></i>
-                                                : null}
-                                        </th>
-                                })}
-                            </tr>
-                            </thead>
-                            <tbody>
+        return <QueueAnim delay={300} className="queue-simple">
+            <div className="table-responsive" key="table">
+                <table className="table table-hover table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        {dataTableModel.map((item,index)=> {
+                            var sortName = item.sortName || item.key;
+                            var order = this.loadDataParams.ordering;
+                            var className = order.indexOf(item.key) !==-1 ? this.getSortClass(order) : "fa fa-sort";
+                            sortName = this.fingSortPropFirst(order) ? "-"+sortName : sortName;
+                            return <th data-field={item.key} key={item.key} style={item.style}>
+                                {item.title}
                                 {
-                                    this.state.serverData.length === 0 ?
-                                        <tr>
-                                            <td colSpan="30">
-                                                <div className="alert alert-info">
-                                                    <h4><i className="icon fa fa-warning"></i>没有数据</h4>
-                                                </div>
-                                            </td>
-                                        </tr> :
-                                        serverData.map((item,index)=> {
-                                            return [
-                                                <tr key={'_'+index}>
-                                                    {
-                                                        dataTableModel.map((modelItem,index)=> {
-                                                            var val = item[modelItem.key];
-                                                            return <td key={modelItem.key}>{
-                                                                    modelItem.render ? modelItem.render(val,item,this) : val
-                                                                }</td>
-                                                        })
-                                                    }
-                                                </tr>,
-                                                item["showDetail"] ? this.props.config.getExpandedRow(item) : null
-                                            ]
-                                        })
+                                    item.sorter ?
+                                        <i className={className} style={{marginLeft:"5px"}} onClick={this.sorting} data-sort-name={sortName}></i>
+                                        : null
                                 }
-
+                            </th>
+                        })}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        this.state.pagination.totalRecords === 0 ?
                             <tr>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <Pagination paginationMessage={this.state.pagination} gotoPage={this.gotoPage}></Pagination>
-                </div>
+                                <td colSpan="30">
+                                    <div className="alert alert-info">
+                                        <h4><i className="icon fa fa-warning"></i>没有数据</h4>
+                                    </div>
+                                </td>
+                            </tr> :
+                            serverData.map((item,index)=> {
+                                return [
+                                    <tr key={'_'+index}>
+                                        {
+                                            dataTableModel.map((modelItem,index)=> {
+                                                var val = item[modelItem.key];
+                                                return <td key={modelItem.key}>{
+                                                    modelItem.render ? modelItem.render(val,item,this) : val
+                                                }</td>
+                                            })
+                                        }
+                                    </tr>,
+                                    item["$showDetail"] ? this.props.config.getExpandedRow(item) : null
+                                ]
+                            })
+                    }
+
+                    <tr>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <Pagination paginationMessage={this.state.pagination} gotoPage={this.gotoPage}></Pagination>
+        </QueueAnim>
     }
 }

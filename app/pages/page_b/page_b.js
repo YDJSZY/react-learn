@@ -9,8 +9,10 @@ import Pagination from '../../components/pagination';
 import EditModal from '../../components/editModal';
 import SelectComponent from '../../components/select';
 import axios from 'axios';
-import CommonMethodsClass from '../../untils/commonMethods';
-export default class Page_b extends CommonMethodsClass{
+import TableCrud from '../../untils/tableCrud';
+import QueueAnim from 'rc-queue-anim';
+import EyeComponent from '../../components/eyeComponent';
+export default class Page_b extends TableCrud{
     constructor(props) {
         super(props);
         this.options = [
@@ -90,7 +92,11 @@ export default class Page_b extends CommonMethodsClass{
     }
     
     render () {
-        return  <section className="content">
+        return  <QueueAnim delay={300} className="queue-simple" animConfig={[
+                    { opacity: [1, 0], translateY: [0, 50] },
+                    { opacity: [1, 0], translateY: [0, -50] }
+                  ]} onEnd={this.clearQueueAnimStyle}>
+                <section className="content" key="animation">
                     <div className="panel panel-default">
                         <div className="panel-heading">
                             <h5 className="panel-title-text">
@@ -115,6 +121,9 @@ export default class Page_b extends CommonMethodsClass{
                                             <i className="fa fa-search"></i>
                                         </a>
                                     </div>
+                                    <div className="form-group">
+                                        <EyeComponent fieldModel={this.dataTableModel}/>
+                                    </div>
                                     <div className="form-group pull-right">
                                         <a className="btn btn-success" onClick={this.create}>新增</a>
                                     </div>
@@ -131,6 +140,7 @@ export default class Page_b extends CommonMethodsClass{
                         </div>
                     </div>
                 </section>
+            </QueueAnim>
         
     }
 };

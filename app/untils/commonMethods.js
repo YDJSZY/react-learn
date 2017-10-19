@@ -1,109 +1,91 @@
 /**
- * Created by luwenwe on 2017/9/13.
+ * Created by luwenwe on 2017/10/11.
  */
-import React from "react";
-import { getLocalStorage,setLocalStorage } from '../untils/global';
-const $localStorage = getLocalStorage();
-export default class CommonMethodsClass extends React.Component{
-    constructor(props) {
-        super(props);
+import { constants } from './global';
+var loading;
+var getConstantArrayValue = function(group, value) {
+    var cs = constants[group];
+    if(!cs) {
+        console.log("found invalid constant: " + group + name);
+        return -1;
     }
-
-    selectChange = (val,prop)=> {
-        var loadDataParams = this.state.loadDataParams;
-        loadDataParams[prop] = val;
-        this.setState({
-            loadDataParams
-        },()=>{
-            this.$dataTable.loadFirstPage();
-        })
-    }/*select搜索*/
-
-    search = ()=> {
-        if(!this.$dataTable){
-            console.debug("$dataTable is not exist");
-            return;
+    for(var i = 0; i < cs.length; ++i) {
+        if(cs[i][0] === value){
+            return cs[i][2];
         }
-        this.$dataTable.loadFirstPage();
     }
-
-    keyWordChange = (e)=> {
-        var loadDataParams = this.state.loadDataParams;
-        loadDataParams.search = e.target.value;
-        this.setState({loadDataParams})
-    }
-
-    inputEnter = (e)=> {
-        if(e.keyCode === 13) {
-            this.search();
-        }
-    }/*enter搜索*/
-
-    beforeCreate =()=> {
-        return {};
-    }
-
-    create = ()=> {
-        var obj = this.beforeCreate();
-        this.$editModal.open(obj,"create");
-    }
-
-    beforeEdit =(record)=> {
-        return record;
-    }
-
-    edit = (record)=> {
-        var record = this.beforeEdit(record)
-        this.$editModal.open(record,"edit");
-    }
-
-    beforeSaveForm = (record)=> {
-        return record;
-    }
-
-    saveFormCallBack = (res,type)=> {
-        console.log(res)
-    }
-
-    dateRangeChange = (dateRange,noReq)=> {
-        var loadDataParams = this.state.loadDataParams;
-        loadDataParams.begin_time = +new Date(dateRange.begin_time);
-        loadDataParams.end_time = +new Date(dateRange.end_time);
-        this.setState({loadDataParams});
-        if(dateRange.dateRangeName == "自定义") return;
-        if(noReq) return;
-        this.search();
-    }/*日期查询范围改变*/
-
-    cutPath(path) {/*切割路由*/
-        this.currentRoute = path.split("/")[1];
-        this.setLocalStorage();
-        //this.getStorageByCurrentRoute(this.currentRoute);
-    }
-
-    getStorageByCurrentRoute(currentRoute) {
-        this.currentRouteStorage = $localStorage[currentRoute] ? $localStorage[currentRoute] : ($localStorage[currentRoute] = {});
-        this.setSomeParams();
-    }/*获取当前路由下的一些参数*/
-
-    setSomeParams() {
-        if(this.currentRouteStorage.loadDataParams){
-            this.dataTableConfig.loadDataParams = this.currentRouteStorage.loadDataParams
-        } else{
-            this.currentRouteStorage.loadDataParams = this.dataTableConfig.loadDataParams;
-        }/*从localstorage获取当前页面的一些请求参数*/
-    }
-
-    setLocalStorage() {
-        $localStorage.route = this.currentRoute;
-        setLocalStorage($localStorage);
-    }
-
-    componentWillMount() {
-        this.cutPath(this.props.match.match.path)
-    }
-
-    componentWillUnmount() {
-        this.setLocalStorage();
-    }
+    return "";
 }
+
+var getConstantObjectValue = function(group, name) {
+    var cs = constants[group];
+    if(!cs) {
+        console.log("found invalid constant: " + group + name);
+        return -1;
+    }
+    for(var i = 0; i < cs.length; ++i) {
+        if(cs[i]["code"] === name){
+            return cs[i]["description"];
+        }
+    }
+    return -1;
+}
+
+var showLoading = function (global) {
+    if(loading) return;
+    var p, c;
+    if(global){
+        p = "fakeloader1";
+        c = "spinner7";
+    }else{
+        p = "fakeloader6";
+        c = "spinner2";
+    }
+    $('.' + c).show();
+    $("." + p).fadeIn("fast",function () {
+        loading = true;
+    });
+};
+
+var hideLoading = function (global) {
+    var p;
+    if(global){
+        p = "fakeloader1";
+    }else{
+        p = "fakeloader6";
+    }
+    $("."+p).fadeOut("fast",function () {
+        loading = false;
+    });
+};
+
+var translateSelectSource = function (source) {
+    var newSource = []
+    for(var s of source){
+        var obj = {id:''+s.code,name:s.description};
+        newSource.push(obj);
+    }
+    return newSource;
+};
+
+var findObjectById = function (objectList, id) {
+    for(var i = 0; i < objectList.length; ++i) {
+        var obj = objectList[i];
+        if(obj.id == id) {
+            return obj;
+        }
+    }
+    return null;
+};
+
+var findObjectIndexById = function (objectList, id) {
+    for(var i = 0; i < objectList.length; ++i) {
+        var obj = objectList[i];
+        if(obj.id == id) {
+            return i;
+        }
+    }
+    return null;
+}
+
+export { getConstantArrayValue,getConstantObjectValue,showLoading,hideLoading,translateSelectSource,findObjectById,findObjectIndexById }

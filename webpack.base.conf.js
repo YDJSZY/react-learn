@@ -9,6 +9,7 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var bootstrap = path.resolve(__dirname, './node_modules/bootstrap/dist/js/bootstrap.min.js');
 var datePicker = path.resolve(__dirname,'./node_modules/antd/lib/date-picker/index.js');
 var select = path.resolve(__dirname,'./node_modules/antd/lib/select/index.js');
+var QueueAnim = path.resolve(__dirname,'./node_modules/rc-queue-anim/lib/index.js')
 var config = {
     //入口文件输出配置
     entry: {
@@ -16,7 +17,7 @@ var config = {
         styles:plugins.css,
         jquery:path.resolve(__dirname, './node_modules/jquery/dist/jquery.min.js'),
         react:["react","react-dom","react-router","react-router-dom"],
-        vendor:["moment","classnames","axios","rc-switch","react-alert",bootstrap,datePicker,select],
+        vendor:["moment","classnames","axios","rc-switch","react-alert",QueueAnim,bootstrap,datePicker,select],
     },
     module: {
         //加载器配置
