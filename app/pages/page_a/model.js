@@ -12,6 +12,7 @@ var model = {
                 title: 'ID',
                 dataIndex: 'id',
                 key: 'id',
+                show:true,
                 sorter:true,/*服务端排序*/
                 render: (text) => <a href="#">{text}</a>,
             },
@@ -20,6 +21,7 @@ var model = {
                 dataIndex: 'username',
                 key: 'username',
                 edit:true,
+                show:true,
                 type:'text',
                 placeholder:'必填',
                 required:true,
@@ -32,6 +34,7 @@ var model = {
                 dataIndex: 'age',
                 key: 'age',
                 edit:true,
+                show:true,
                 type:'number',
                 placeholder:'必填',
                 required:true,
@@ -47,6 +50,7 @@ var model = {
                 title: '住址',
                 dataIndex: 'address',
                 key: 'address',
+                show:true,
                 edit:true,
                 type:'text'
             },
@@ -54,6 +58,7 @@ var model = {
                 title: '性别',
                 dataIndex: 'sex',
                 key: 'sex',
+                show:true,
                 edit:true,
                 placeholder:"必选",
                 type:'select',
@@ -66,11 +71,13 @@ var model = {
                 title: '身高',
                 dataIndex: 'height',
                 key: 'height',
+                show:true,
             },
             {
                 title: '体重',
                 dataIndex: 'weight',
                 key: 'weight',
+                show:true,
             },
             {
                 title: '生日',
@@ -78,6 +85,7 @@ var model = {
                 key: 'birthday',
                 edit:true,
                 type:"date",
+                show:true,
                 config:{
                     //showTime:true,
                     format:"YYYY-MM-DD",/*默认*/
@@ -88,6 +96,7 @@ var model = {
                 dataIndex: 'enabled',
                 key: 'enabled',
                 edit:true,
+                show:true,
                 type:"switch",
                 options:{
                     initialValue:true
@@ -101,6 +110,7 @@ var model = {
                 dataIndex: 'description',
                 key: 'description',
                 edit:true,
+                show:true,
                 type:"textarea",
                 render:(text,record) =>{
                     return renderTooltip(text,10);
@@ -110,6 +120,7 @@ var model = {
                 title: '头像',
                 dataIndex: 'head',
                 key: 'head',
+                show:true,
                 edit:true,
                 type:"file",
                 uploadBtnText:"上传头像",
@@ -122,6 +133,7 @@ var model = {
                 key: 'action',
                 fixed: 'right',
                 width: 100,
+                eyeWatch:false,
                 style:{width:"20px"},
                 render: (text, record, dataTableRef) => {
                     return <span>

@@ -10,13 +10,7 @@ export default class EyeComponent extends React.Component {
 
         };
         this.fieldModel = this.props.fieldModel;
-        this.init()
-    }
-
-    init() {
-        $(document).click(()=> {
-            this.hidePanel();
-        })
+        this.switchTdCache = this.props.switchTdCache;
     }
 
     openPanel = (e)=> {
@@ -29,13 +23,29 @@ export default class EyeComponent extends React.Component {
         $("#switchTdPanel").hide();
     }
 
-    selectField = ()=> {
+    switchTdShow = (key)=> {
+        var switchTdCache = this.state.switchTdCache;
+        switchTdCache[key] = !switchTdCache[key];
+        this.setState({switchTdCache});
+        this.props.callBack(switchTdCache)
+    }
 
+    componentDidMount() {
+        $(document).click(()=> {
+            this.hidePanel();
+        })
+        var switchTdCache = {};
+        for(var m of this.fieldModel){
+            switchTdCache[m.key] = m.show || false;
+        }
+         this.setState({
+            switchTdCache
+         })
     }
 
     render() {
         var fieldModel = this.fieldModel;
-        var switchTdCache = this.state.switchTdCache;
+        var switchTdCache = this.state.switchTdCache || {};
         return <div className="mySelectBox">
             <div className="openBtn">
                 <button className="btn btn-default" id="open" onClick={this.openPanel}>
@@ -45,9 +55,10 @@ export default class EyeComponent extends React.Component {
             <div className="switch-td-panel" data-tabindex="1" id="switchTdPanel" onClick={this.openPanel}>
                 <ul>
                     {
-                        fieldModel.map(function (item,index) {
-                            return <li key={item.key} onClick={(e)=>{this.selectField(e,item.fieldName)}} className="field_dl">
-                                <span id={'_'+item.key} className={"myCheckBox" + switchTdCache[item.fieldName] ? " selectSpan" : ""}>✔</span>
+                        fieldModel.map((item,index)=> {
+                            if(item.eyeWatch === false) return null;
+                            return <li key={item.key} onClick={(e)=>{this.switchTdShow(item.key)}} className="field_dl">
+                                <span id={'_'+item.key} className={"myCheckBox" +(switchTdCache[item.key] ? " selectSpan" : "")}>✔</span>
                                 <label htmlFor={item.key}>{item.title}</label>
                             </li>
                         })

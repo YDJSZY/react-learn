@@ -23,7 +23,7 @@ export default class Page_b extends TableCrud{
             loadDataParams: {
                 hobby:"1",
                 dateRangeName:"昨天",
-                order: "-id",
+                ordering: "-id",
                 page: 1,
                 page_size: 20,
                 begin_time: "",

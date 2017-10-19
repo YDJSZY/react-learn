@@ -344,4 +344,51 @@ legend {
     width: auto;
 }
 
+.mySelectBox {
+    position: relative;
+}
+
+.switch-td-panel{
+    outline-style: none;
+    width: 150px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: absolute;
+    z-index: 9999;
+    display: none;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px #888;
+    max-height: 370px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.switch-td-panel ul{
+    list-style: none;
+}
+
+.switch-td-panel ul li{
+
+}
+
+.switch-td-panel .myCheckBox{
+    display: inline-block;
+    width:18px;
+    height: 18px;
+    border-radius: 2px;
+    color: #fff;
+    text-align: center;
+    line-height: 18px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.switch-td-panel .selectSpan{
+    background: rgb(16, 142, 233);
+}
+
+
 

@@ -25,7 +25,7 @@ export default class Page_b extends TableCrud{
             loadDataParams: {
                 hobby:"1",
                 dateRangeName:"昨天",
-                order: "-id",
+                ordering: "-id",
                 page: 1,
                 page_size: 20,
                 begin_time: "",
@@ -122,7 +122,7 @@ export default class Page_b extends TableCrud{
                                         </a>
                                     </div>
                                     <div className="form-group">
-                                        <EyeComponent fieldModel={this.dataTableModel}/>
+                                        <EyeComponent fieldModel={this.dataTableModel} callBack={this.$dataTable ? this.$dataTable.switchTdCacheChange : null} />
                                     </div>
                                     <div className="form-group pull-right">
                                         <a className="btn btn-success" onClick={this.create}>新增</a>

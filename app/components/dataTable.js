@@ -2,7 +2,7 @@
  * Created by luwenwe on 2017/9/11.
  */
 import React from "react";
-import axios from '../config/axiosConfig';
+import axios from 'axios';
 import Pagination from './pagination';
 import baseConfig from '../config/baseConfig';
 import QueueAnim from 'rc-queue-anim';
@@ -37,7 +37,7 @@ export default class DataTable extends React.Component {
     }
 
     async fetchData() {
-        var requestUrl = apiPrefix+this.requestUrl;
+        var requestUrl = this.requestUrl;
         delete this.loadDataParams.dateRangeName;
         try{
             var res = await axios({url:requestUrl,method:"get", params:this.loadDataParams,loading:true});
@@ -147,18 +147,26 @@ export default class DataTable extends React.Component {
         console.log(switchTdCache)
     }
 
+    switchTdCacheChange = (switchTdCache)=> {
+        this.setState({switchTdCache})
+    }
+
     componentWillReceiveProps(nextProps) {
         console.log(nextProps)
     }
 
+    componentWillMount() {
+        this.setSwitchTdCache();
+    }
+
     componentDidMount() {
         this.loadFirstPage();/*请求第一页数据*/
-        this.setSwitchTdCache();
     }
 
     render() {
         var dataTableModel = this.state.dataTableModel;
         var serverData = this.state.serverData;
+        var switchTdCache = this.state.switchTdCache;
         return <QueueAnim delay={300} className="queue-simple">
             <div className="table-responsive" key="table">
                 <table className="table table-hover table-striped table-bordered">
@@ -169,14 +177,14 @@ export default class DataTable extends React.Component {
                             var order = this.loadDataParams.ordering;
                             var className = order.indexOf(item.key) !==-1 ? this.getSortClass(order) : "fa fa-sort";
                             sortName = this.fingSortPropFirst(order) ? "-"+sortName : sortName;
-                            return <th data-field={item.key} key={item.key} style={item.style}>
+                            return switchTdCache[item.key] ? <th data-field={item.key} key={item.key} style={item.style}>
                                 {item.title}
                                 {
                                     item.sorter ?
                                         <i className={className} style={{marginLeft:"5px"}} onClick={this.sorting} data-sort-name={sortName}></i>
                                         : null
                                 }
-                            </th>
+                            </th> : null
                         })}
                     </tr>
                     </thead>
@@ -196,9 +204,10 @@ export default class DataTable extends React.Component {
                                         {
                                             dataTableModel.map((modelItem,index)=> {
                                                 var val = item[modelItem.key];
-                                                return <td key={modelItem.key}>{
-                                                    modelItem.render ? modelItem.render(val,item,this) : val
-                                                }</td>
+                                                return switchTdCache[modelItem.key] ?
+                                                        <td key={modelItem.key}>{
+                                                        modelItem.render ? modelItem.render(val,item,this) : val
+                                                    }</td> : null
                                             })
                                         }
                                     </tr>,
