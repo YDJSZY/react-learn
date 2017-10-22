@@ -52,6 +52,9 @@ export default class MyMenu extends React.Component {
                                     <li>
                                         <Link to="/page_a/">page_a</Link>
                                     </li>
+                                    <li>
+                                        <Link to="/page_c/">page_c</Link>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>

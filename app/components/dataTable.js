@@ -6,6 +6,7 @@ import axios from 'axios';
 import Pagination from './pagination';
 import baseConfig from '../config/baseConfig';
 import QueueAnim from 'rc-queue-anim';
+import TableThComponent from './tableTh';
 const apiPrefix = baseConfig.apiPrefix;
 
 export default class DataTable extends React.Component {
@@ -151,6 +152,10 @@ export default class DataTable extends React.Component {
         this.setState({switchTdCache})
     }
 
+    dataTableModelChange = (dataTableModel) => {
+        this.setState({dataTableModel})
+    }
+
     componentWillReceiveProps(nextProps) {
         console.log(nextProps)
     }
@@ -177,14 +182,20 @@ export default class DataTable extends React.Component {
                             var order = this.loadDataParams.ordering;
                             var className = order.indexOf(item.key) !==-1 ? this.getSortClass(order) : "fa fa-sort";
                             sortName = this.fingSortPropFirst(order) ? "-"+sortName : sortName;
-                            return switchTdCache[item.key] ? <th data-field={item.key} key={item.key} style={item.style}>
+                            return switchTdCache[item.key] ?
+                                <TableThComponent titleModel={dataTableModel}
+                                                  titleModelChange={(dataTableModel)=>{this.dataTableModelChange(dataTableModel)}}
+                                                  dataIndex={index} key={"_"+index} title={item.title}>
+                                    {
+                                        item.sorter ?
+                                            <i className={className} style={{marginLeft:"5px",cursor:"pointer"}} onClick={this.sorting} data-sort-name={sortName}></i>
+                                            : null
+                                    }
+                                </TableThComponent>
+                                /*<th data-field={item.key} key={item.key} style={item.style}>
                                 {item.title}
-                                {
-                                    item.sorter ?
-                                        <i className={className} style={{marginLeft:"5px"}} onClick={this.sorting} data-sort-name={sortName}></i>
-                                        : null
-                                }
-                            </th> : null
+                                
+                            </th>*/ : null
                         })}
                     </tr>
                     </thead>
