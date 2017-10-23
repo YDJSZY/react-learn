@@ -48,7 +48,7 @@ export default class EyeComponent extends React.Component {
         var switchTdCache = this.state.switchTdCache || {};
         return <div className="mySelectBox">
             <div className="openBtn">
-                <button className="btn btn-default" id="open" onClick={this.openPanel}>
+                <button type="button" className="btn btn-default" id="open" onClick={this.openPanel}>
                     <i className="fa fa-eye"></i>
                 </button>
             </div>

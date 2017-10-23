@@ -122,7 +122,7 @@ export default class Page_b extends TableCrud{
                                         </a>
                                     </div>
                                     <div className="form-group">
-                                        <EyeComponent fieldModel={this.dataTableModel} callBack={this.$dataTable ? this.$dataTable.switchTdCacheChange : null} />
+                                        <EyeComponent fieldModel={this.dataTableModel} callBack={(switchTdCache)=>{this.$dataTable ? this.$dataTable.switchTdCacheChange(switchTdCache) : null}} />
                                     </div>
                                     <div className="form-group pull-right">
                                         <a className="btn btn-success" onClick={this.create}>新增</a>
