@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import TableThComponent from '../../components/tableTh';
 import ReactDOM from 'react-dom';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+//import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 // fake data generator
 const getItems = count =>
