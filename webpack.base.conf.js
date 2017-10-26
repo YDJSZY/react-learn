@@ -73,7 +73,11 @@ var config = {
             jQuery: "jquery",
             'window.jQuery': 'jquery'
         })
-    ]
+    ],
+
+    node: {
+        fs: 'empty'
+    }
 };
 
 module.exports = config;

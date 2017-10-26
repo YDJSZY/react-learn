@@ -1,6 +1,6 @@
-webpackJsonp([2],{
+webpackJsonp([1],{
 
-/***/ 1000:
+/***/ 1038:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8,11 +8,11 @@ webpackJsonp([2],{
 
 exports.__esModule = true;
 
-var _isIterable2 = __webpack_require__(1001);
+var _isIterable2 = __webpack_require__(1039);
 
 var _isIterable3 = _interopRequireDefault(_isIterable2);
 
-var _getIterator2 = __webpack_require__(931);
+var _getIterator2 = __webpack_require__(970);
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -58,29 +58,29 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 1001:
+/***/ 1039:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1002), __esModule: true };
+module.exports = { "default": __webpack_require__(1040), __esModule: true };
 
 /***/ }),
 
-/***/ 1002:
+/***/ 1040:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(446);
-__webpack_require__(445);
-module.exports = __webpack_require__(1003);
+__webpack_require__(460);
+__webpack_require__(459);
+module.exports = __webpack_require__(1041);
 
 /***/ }),
 
-/***/ 1003:
+/***/ 1041:
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof   = __webpack_require__(193)
-  , ITERATOR  = __webpack_require__(23)('iterator')
-  , Iterators = __webpack_require__(71);
-module.exports = __webpack_require__(27).isIterable = function(it){
+var classof   = __webpack_require__(205)
+  , ITERATOR  = __webpack_require__(21)('iterator')
+  , Iterators = __webpack_require__(75);
+module.exports = __webpack_require__(24).isIterable = function(it){
   var O = Object(it);
   return O[ITERATOR] !== undefined
     || '@@iterator' in O
@@ -89,35 +89,35 @@ module.exports = __webpack_require__(27).isIterable = function(it){
 
 /***/ }),
 
-/***/ 1004:
+/***/ 1042:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1005), __esModule: true };
+module.exports = { "default": __webpack_require__(1043), __esModule: true };
 
 /***/ }),
 
-/***/ 1005:
+/***/ 1043:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(445);
-__webpack_require__(1006);
-module.exports = __webpack_require__(27).Array.from;
+__webpack_require__(459);
+__webpack_require__(1044);
+module.exports = __webpack_require__(24).Array.from;
 
 /***/ }),
 
-/***/ 1006:
+/***/ 1044:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ctx         = __webpack_require__(70)
-  , $export     = __webpack_require__(69)
-  , toObject    = __webpack_require__(448)
-  , call        = __webpack_require__(468)
-  , isArrayIter = __webpack_require__(469)
-  , toLength    = __webpack_require__(470)
-  , getIterFn   = __webpack_require__(447);
-$export($export.S + $export.F * !__webpack_require__(471)(function(iter){ Array.from(iter); }), 'Array', {
+var ctx         = __webpack_require__(74)
+  , $export     = __webpack_require__(73)
+  , toObject    = __webpack_require__(462)
+  , call        = __webpack_require__(472)
+  , isArrayIter = __webpack_require__(473)
+  , toLength    = __webpack_require__(474)
+  , getIterFn   = __webpack_require__(461);
+$export($export.S + $export.F * !__webpack_require__(475)(function(iter){ Array.from(iter); }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
   from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
     var O       = toObject(arrayLike)
@@ -149,7 +149,7 @@ $export($export.S + $export.F * !__webpack_require__(471)(function(iter){ Array.
 
 /***/ }),
 
-/***/ 929:
+/***/ 1062:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -159,35 +159,35 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _getPrototypeOf = __webpack_require__(93);
+var _getPrototypeOf = __webpack_require__(99);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _classCallCheck2 = __webpack_require__(94);
+var _classCallCheck2 = __webpack_require__(100);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(95);
+var _createClass2 = __webpack_require__(101);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = __webpack_require__(96);
+var _possibleConstructorReturn2 = __webpack_require__(102);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(97);
+var _inherits2 = __webpack_require__(103);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _extends2 = __webpack_require__(945);
+var _extends2 = __webpack_require__(980);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _slicedToArray2 = __webpack_require__(1000);
+var _slicedToArray2 = __webpack_require__(1038);
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
-var _from = __webpack_require__(1004);
+var _from = __webpack_require__(1042);
 
 var _from2 = _interopRequireDefault(_from);
 
@@ -195,11 +195,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _tableTh = __webpack_require__(944);
+var _tableTh = __webpack_require__(979);
 
 var _tableTh2 = _interopRequireDefault(_tableTh);
 
-var _reactDom = __webpack_require__(10);
+var _reactDom = __webpack_require__(11);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -346,35 +346,232 @@ exports.default = Page_c;
 
 /***/ }),
 
-/***/ 931:
+/***/ 968:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(938), __esModule: true };
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(99);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(100);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(101);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(102);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(103);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _extends2 = __webpack_require__(980);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _slicedToArray2 = __webpack_require__(1038);
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _from = __webpack_require__(1042);
+
+var _from2 = _interopRequireDefault(_from);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _tableTh = __webpack_require__(979);
+
+var _tableTh2 = _interopRequireDefault(_tableTh);
+
+var _reactDom = __webpack_require__(11);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+// fake data generator
+var getItems = function getItems(count) {
+    return (0, _from2.default)({ length: count }, function (v, k) {
+        return k;
+    }).map(function (k) {
+        return {
+            id: 'item-' + k,
+            content: 'item ' + k
+        };
+    });
+};
+
+// a little function to help us with reordering the result
+/**
+ * Created by luwenwei on 17/10/21.
+ */
+var reorder = function reorder(list, startIndex, endIndex) {
+    var result = (0, _from2.default)(list);
+
+    var _result$splice = result.splice(startIndex, 1),
+        _result$splice2 = (0, _slicedToArray3.default)(_result$splice, 1),
+        removed = _result$splice2[0];
+
+    result.splice(endIndex, 0, removed);
+
+    return result;
+};
+
+// using some little inline style helpers to make the app look okay
+var grid = 8;
+var getItemStyle = function getItemStyle(draggableStyle, isDragging) {
+    return (0, _extends3.default)({
+        // some basic styles to make the items look a bit nicer
+        userSelect: 'none',
+        padding: grid * 2,
+        marginBottom: grid,
+
+        // change background colour if dragging
+        background: isDragging ? 'lightgreen' : 'grey'
+
+    }, draggableStyle);
+};
+var getListStyle = function getListStyle(isDraggingOver) {
+    return {
+        background: isDraggingOver ? 'lightblue' : 'lightgrey',
+        padding: grid,
+        width: 250
+    };
+};
+
+var Page_c = function (_Component) {
+    (0, _inherits3.default)(Page_c, _Component);
+
+    function Page_c(props) {
+        (0, _classCallCheck3.default)(this, Page_c);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Page_c.__proto__ || (0, _getPrototypeOf2.default)(Page_c)).call(this, props));
+
+        _this.state = {
+            items: [{ id: 1, content: "aaa" }, { id: 2, content: "bbb" }, { id: 3, content: "ccc" }],
+            testTitles: ["id", "内容"]
+        };
+        _this.onDragEnd = _this.onDragEnd.bind(_this);
+        return _this;
+    }
+
+    (0, _createClass3.default)(Page_c, [{
+        key: 'onDragEnd',
+        value: function onDragEnd(result) {
+            // dropped outside the list
+            if (!result.destination) {
+                return;
+            } /*result.destination:拖拽目的地*/
+            console.log(result);
+
+            var items = reorder(this.state.items, result.source.index, /*拖拽源*/
+            result.destination.index);
+
+            this.setState({
+                items: items
+            });
+        }
+
+        // Normally you would want to split things out into separate components.
+        // But in this example everything is just done in one place for simplicity
+
+    }, {
+        key: 'render',
+        value: function render() {
+            var items = this.state.items;
+            var testTitles = this.state.testTitles;
+            return _react2.default.createElement(
+                'div',
+                { className: 'table-responsive', key: 'table' },
+                _react2.default.createElement(
+                    'table',
+                    { className: 'table table-hover table-striped table-bordered' },
+                    _react2.default.createElement(
+                        'thead',
+                        null,
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            testTitles.map(function (item, index) {
+                                return _react2.default.createElement(_tableTh2.default, { key: "_" + index, data: item });
+                            })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'tbody',
+                        null,
+                        items.map(function (item, index) {
+                            return _react2.default.createElement(
+                                'tr',
+                                { key: "_" + index },
+                                _react2.default.createElement(
+                                    'td',
+                                    null,
+                                    item.id
+                                ),
+                                _react2.default.createElement(
+                                    'td',
+                                    null,
+                                    item.content
+                                )
+                            );
+                        })
+                    )
+                )
+            );
+        }
+    }]);
+    return Page_c;
+}(_react.Component);
+
+exports.default = Page_c;
 
 /***/ }),
 
-/***/ 932:
+/***/ 970:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(940), __esModule: true };
+module.exports = { "default": __webpack_require__(974), __esModule: true };
 
 /***/ }),
 
-/***/ 938:
+/***/ 971:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(446);
-__webpack_require__(445);
-module.exports = __webpack_require__(939);
+module.exports = { "default": __webpack_require__(976), __esModule: true };
 
 /***/ }),
 
-/***/ 939:
+/***/ 974:
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(54)
-  , get      = __webpack_require__(447);
-module.exports = __webpack_require__(27).getIterator = function(it){
+__webpack_require__(460);
+__webpack_require__(459);
+module.exports = __webpack_require__(975);
+
+/***/ }),
+
+/***/ 975:
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(57)
+  , get      = __webpack_require__(461);
+module.exports = __webpack_require__(24).getIterator = function(it){
   var iterFn = get(it);
   if(typeof iterFn != 'function')throw TypeError(it + ' is not iterable!');
   return anObject(iterFn.call(it));
@@ -382,34 +579,34 @@ module.exports = __webpack_require__(27).getIterator = function(it){
 
 /***/ }),
 
-/***/ 940:
+/***/ 976:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(941);
-module.exports = __webpack_require__(27).Object.assign;
+__webpack_require__(977);
+module.exports = __webpack_require__(24).Object.assign;
 
 /***/ }),
 
-/***/ 941:
+/***/ 977:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__(69);
+var $export = __webpack_require__(73);
 
-$export($export.S + $export.F, 'Object', {assign: __webpack_require__(942)});
+$export($export.S + $export.F, 'Object', {assign: __webpack_require__(978)});
 
 /***/ }),
 
-/***/ 942:
+/***/ 978:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var $        = __webpack_require__(15)
-  , toObject = __webpack_require__(448)
-  , IObject  = __webpack_require__(454);
+var $        = __webpack_require__(16)
+  , toObject = __webpack_require__(462)
+  , IObject  = __webpack_require__(465);
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = __webpack_require__(125)(function(){
+module.exports = __webpack_require__(131)(function(){
   var a = Object.assign
     , A = {}
     , B = {}
@@ -439,7 +636,7 @@ module.exports = __webpack_require__(125)(function(){
 
 /***/ }),
 
-/***/ 944:
+/***/ 979:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -449,23 +646,23 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _getPrototypeOf = __webpack_require__(93);
+var _getPrototypeOf = __webpack_require__(99);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _classCallCheck2 = __webpack_require__(94);
+var _classCallCheck2 = __webpack_require__(100);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(95);
+var _createClass2 = __webpack_require__(101);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _possibleConstructorReturn2 = __webpack_require__(96);
+var _possibleConstructorReturn2 = __webpack_require__(102);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(97);
+var _inherits2 = __webpack_require__(103);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
@@ -613,13 +810,13 @@ exports.default = TableThComponent;
 
 /***/ }),
 
-/***/ 945:
+/***/ 980:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Object$assign = __webpack_require__(932)["default"];
+var _Object$assign = __webpack_require__(971)["default"];
 
 exports["default"] = _Object$assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {

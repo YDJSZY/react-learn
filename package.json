@@ -57,8 +57,10 @@
     "react-alert": "^2.3.0",
     "react-beautiful-dnd": "^2.4.1",
     "react-dom": "^15.6.1",
+    "react-keeper": "^2.1.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "systemjs": "^0.20.19",
     "whatwg-fetch": "^2.0.3"
   }
 }

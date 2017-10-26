@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { renderAvatar,renderEnabled,renderTooltip } from '../../untils/renderData';
-
+import { BrowserRouter as StaticRouter,Link } from 'react-router-dom';
 var model = {
     getFields:function (context) {
         var self = context;
@@ -132,6 +132,7 @@ var model = {
                 title: '操作',
                 key: 'action',
                 fixed: 'right',
+                show:true,
                 width: 100,
                 eyeWatch:false,
                 style:{width:"20px"},
@@ -139,7 +140,7 @@ var model = {
                     return <span>
                             <button className="btn btn-primary btn-xs" onClick={()=>{self.edit(record)}}>编辑</button>
                             <span className="seperate-line"></span>
-                            <button className="btn btn-success btn-xs" onClick={()=>{dataTableRef.expandedRow(record)}}>详情</button>
+                            <Link to={{pathname:"/page_b/",query:{id:2}}} target="_blank">跳转</Link>
                         </span>
                 },
             }
