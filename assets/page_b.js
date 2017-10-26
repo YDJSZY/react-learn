@@ -5366,7 +5366,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _renderData = __webpack_require__(986);
 
-var _reactRouterDom = __webpack_require__(948);
+var _reactKeeper = __webpack_require__(159);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5516,17 +5516,19 @@ var model = {
                     ),
                     _react2.default.createElement('span', { className: 'seperate-line' }),
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: { pathname: "/page_b/", query: { id: 2 } }, target: '_blank' },
+                        _reactKeeper.Link,
+                        { to: '/page_b/?id=1', target: '_blank' },
                         '\u8DF3\u8F6C'
                     )
                 );
             }
         }];
     }
-}; /**
-    * Created by luwenwei on 17/9/3.
-    */
+};
+//import { BrowserRouter as StaticRouter,Link } from 'react-router-dom';
+/**
+ * Created by luwenwei on 17/9/3.
+ */
 exports.model = model;
 
 /***/ }),

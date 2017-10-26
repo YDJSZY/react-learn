@@ -3,7 +3,8 @@
  */
 import React from 'react';
 import { renderAvatar,renderEnabled,renderTooltip } from '../../untils/renderData';
-import { BrowserRouter as StaticRouter,Link } from 'react-router-dom';
+//import { BrowserRouter as StaticRouter,Link } from 'react-router-dom';
+import { Link, Route } from 'react-keeper'
 var model = {
     getFields:function (context) {
         var self = context;
@@ -140,7 +141,7 @@ var model = {
                     return <span>
                             <button className="btn btn-primary btn-xs" onClick={()=>{self.edit(record)}}>编辑</button>
                             <span className="seperate-line"></span>
-                            <Link to={{pathname:"/page_b/",query:{id:2}}} target="_blank">跳转</Link>
+                            <Link to="/page_b/?id=1" target="_blank">跳转</Link>
                         </span>
                 },
             }
