@@ -390,24 +390,5 @@ legend {
     background: rgb(16, 142, 233);
 }
 
-.drag-table-th{
-    cursor: move;
-}
-
-[draggable] {
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    /* Required to make elements draggable in old WebKit */
-    -khtml-user-drag: element;
-    -webkit-user-drag: element;
-}
-
-.dragOver{
-    background: #108ee9;
-    color:#fff;
-}
-
 
 

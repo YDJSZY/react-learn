@@ -2,7 +2,7 @@
  * Created by luwenwei on 17/10/21.
  */
 import React, { Component } from 'react';
-import TableThComponent from '../../components/tableTh';
+import DragTableTh from '../../components/dragTableTh/dragTableTh';
 import ReactDOM from 'react-dom';
 //import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -88,7 +88,7 @@ export default class Page_c extends Component {
                     <tr>
                         {
                             testTitles.map((item,index) => {
-                                return <TableThComponent key={"_"+index} data={item} />
+                                return <DragTableTh key={"_"+index} data={item} />
                             })
                         }
                     </tr>
