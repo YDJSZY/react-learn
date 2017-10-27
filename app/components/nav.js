@@ -3,7 +3,8 @@
  */
 import cs from 'classnames'//引入classnames依赖库
 import React from "react";
-import { BrowserRouter as StaticRouter,Link } from 'react-router-dom';
+//import { BrowserRouter as StaticRouter,Link } from 'react-router-dom';
+import { Link, Route } from 'react-keeper'
 import { getLocalStorage } from '../untils/global';
 const $localStorage = getLocalStorage();
 const currentRoute = $localStorage.route;

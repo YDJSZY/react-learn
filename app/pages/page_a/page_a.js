@@ -10,7 +10,7 @@ import EditModal from '../../components/editModal';
 import SelectComponent from '../../components/select';
 import axios from 'axios';
 import TableCrud from '../../untils/tableCrud';
-export default class Page_b extends TableCrud{
+export default class Page_a extends TableCrud{
     constructor(props) {
         super(props);
         this.options = [
@@ -96,7 +96,7 @@ export default class Page_b extends TableCrud{
                     <h5 className="panel-title-text">
                         <span className="parent-menu-title">首页</span>
                         <span className="separator">/</span>
-                        <span className="children-menu-title">page_b</span>
+                        <span className="children-menu-title">page_a</span>
                     </h5>
                 </div>
                 <div className="panel-body" style={{paddingTop: 0}}>

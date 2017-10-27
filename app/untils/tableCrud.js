@@ -129,11 +129,12 @@ export default class TableCrud extends React.Component{
 
     componentWillMount() {
         showLoading();
-        this.routeMessage = this.props.match;/*当前页面的路由信息*/
-        this.cutPath(this.routeMessage.match.path)
+        console.log(this.props)
+        //this.routeMessage = this.props.match;/*当前页面的路由信息*/
+       // this.cutPath(this.routeMessage.match.path)
     }
 
     componentWillUnmount() {
-        this.setLocalStorage();
+        //this.setLocalStorage();
     }
 }

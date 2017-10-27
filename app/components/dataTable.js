@@ -145,7 +145,6 @@ export default class DataTable extends React.Component {
             switchTdCache[model.key] = model.show || false;
         }
         this.setState({switchTdCache})
-        console.log(switchTdCache)
     }
 
     switchTdCacheChange = (switchTdCache)=> {
@@ -157,7 +156,6 @@ export default class DataTable extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
     }
 
     componentWillMount() {
