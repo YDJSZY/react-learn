@@ -299,7 +299,277 @@ __webpack_require__(939);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 1019:
+=======
+<<<<<<< HEAD
+/***/ 1021:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(639);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+/***/ }),
+
+/***/ 1022:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _defineProperty2 = __webpack_require__(1021);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _getPrototypeOf = __webpack_require__(93);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(94);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(95);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(96);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(97);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(1023);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Created by luwenwei on 17/10/21.
+ */
+var classNames = {
+    "dragStart": { background: "#108ee9", color: "#fff", opacity: 0.5 }
+};
+
+var DragTableTh = function (_React$Component) {
+    (0, _inherits3.default)(DragTableTh, _React$Component);
+
+    function DragTableTh(props) {
+        (0, _classCallCheck3.default)(this, DragTableTh);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (DragTableTh.__proto__ || (0, _getPrototypeOf2.default)(DragTableTh)).call(this, props));
+
+        _this.dragStart = function (e) {
+            window.$dragRecord = {};
+            _this.addClassDragOver(e.target);
+            window.$dragRecord.$dragStartIndex = parseInt(e.target.getAttribute("data-index"));
+            window.$dragRecord.$dragStartElement = e.target;
+            e.dataTransfer.setData("Index", window.$dragRecord.$dragStartIndex);
+        };
+
+        _this.dragOver = function (e) {
+            e.preventDefault();
+            if (_this.dragStatus === "enter") {
+                return;
+            };
+            window.$dragRecord.$dragLastStartIndex = null;
+            return false;
+        };
+
+        _this.dragEnter = function (e) {
+            _this.dragStatus = "";
+            var $dragStartIndex = window.$dragRecord.$dragStartIndex;
+            var targetElement = e.target;
+            var titleModel = _this.props.titleModel;
+            var targetIndex = parseInt(e.target.getAttribute("data-index")); /*目标节点的index*/
+            if (window.$dragRecord.$dragStartIndex === targetIndex) return;
+            if (window.$dragRecord.$dragLastStartIndex === targetIndex) return;
+            if (isNaN(targetIndex)) return; /*防止当鼠标落在你不希望移动的节点上*/
+            _this.removeClassDragOver(window.$dragRecord.$dragTargetElement);
+            window.$dragRecord.$dragTargetIndex = targetIndex;
+            window.$dragRecord.$dragLastStartIndex = window.$dragRecord.$dragStartIndex;
+            window.$dragRecord.$dragStartIndex = window.$dragRecord.$dragTargetIndex;
+            window.$dragRecord.$dragTargetElement = targetElement;
+            window.$dragRecord.targetElementClass = targetElement.getAttribute("class");
+            _this.addClassDragOver(targetElement);
+            var startSource = titleModel[$dragStartIndex];
+            titleModel[$dragStartIndex] = titleModel[targetIndex];
+            titleModel[targetIndex] = startSource;
+            _this.dragStatus = "enter";
+            _this.setState({ dragStatus: "enter" });
+            _this.props.titleModelChange(titleModel);
+            return true;
+        };
+
+        _this.dragDrop = function (e) {
+            e.preventDefault();
+            var data = e.dataTransfer.getData("Index");
+            if (window.$dragRecord.$dragTargetElement) {
+                _this.removeClassDragOver(window.$dragRecord.$dragTargetElement);
+                _this.removeClassDragOver(window.$dragRecord.$dragStartElement);
+            }
+        };
+
+        _this.dragEnd = function (e) {
+            _this.setState({ dragStatus: "end" });
+            _this.removeClassDragOver(window.$dragRecord.$dragTargetElement);
+            _this.removeClassDragOver(window.$dragRecord.$dragStartElement);
+        };
+
+        _this.state = {
+            dragStatus: null
+        };
+        _this.dragOverClass = _this.props.dragOverClass || "dragOver";
+        _this.styles = {
+            start: { background: "#108ee9", color: "#fff", opacity: 0.5 },
+            end: null
+        };
+
+        return _this;
+    } /*拖拽元素在目标元素头上移动的时候*/
+
+    /*拖拽元素进入目标元素头上，同时鼠标松开的时候*/
+
+    (0, _createClass3.default)(DragTableTh, [{
+        key: "addClassDragOver",
+        value: function addClassDragOver(element) {
+            var classNames = element.getAttribute("class");
+            var newClassName = classNames + " dragOver";
+            element.setAttribute("class", newClassName);
+        }
+    }, {
+        key: "removeClassDragOver",
+        value: function removeClassDragOver(element) {
+            if (!element) return;
+            var classNames = element.getAttribute("class");
+            var newClassName = classNames.split(" ");
+            var index = newClassName.indexOf("dragOver");
+            if (index === -1) return;
+            newClassName.splice(index, 1).join();
+            element.setAttribute("class", newClassName);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var title = this.props.title;
+            var index = this.props.dataIndex;
+            return _react2.default.createElement(
+                "th",
+                { draggable: "true",
+                    "data-key": title,
+                    "data-index": index,
+                    onDragStart: this.dragStart,
+                    onDragOver: this.dragOver,
+                    onDragEnter: this.dragEnter,
+                    onDrop: this.dragDrop,
+                    onDragEnd: this.dragEnd,
+                    className: "drag-table-th"
+                },
+                _react2.default.createElement(
+                    "div",
+                    (0, _defineProperty3.default)({ style: this.styles[this.state.dragStatus] }, "style", { width: "100%", height: "100%", display: "inline-block" }),
+                    _react2.default.createElement(
+                        "span",
+                        { style: { cursor: "pointer" } },
+                        title
+                    ),
+                    this.props.children
+                )
+            );
+        }
+    }]);
+    return DragTableTh;
+}(_react2.default.Component);
+
+DragTableTh.defaultProps = {};
+exports.default = DragTableTh;
+
+/***/ }),
+
+/***/ 1023:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1024);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(68)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!./style.css", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!./style.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1024:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(67)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".drag-table-th{\n    cursor: move;\n}\n\n[draggable] {\n    -moz-user-select: none;\n    -khtml-user-select: none;\n    -webkit-user-select: none;\n    user-select: none;\n    /* Required to make elements draggable in old WebKit */\n    -khtml-user-drag: element;\n    -webkit-user-drag: element;\n}\n\n.dragOver{\n    background: #108ee9;\n    color:#fff;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 929:
+=======
+/***/ 1062:
+>>>>>>> b50b044bd23d54fa5b9221182fa5879db8829afd
+>>>>>>> origin/master
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -555,6 +825,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
             return [priorMonthFirstDay, priorMonthLastDay];
         };
 
+<<<<<<< HEAD
         this.getPreviousWeek = function () {
             var currentDate = this.getCurrentDate();
             var week = currentDate.getDay();
@@ -583,6 +854,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
             }
             return new Date(year, month, 1);
         };
+=======
+<<<<<<< HEAD
+var _dragTableTh = __webpack_require__(1022);
+=======
+var _tableTh = __webpack_require__(979);
+>>>>>>> b50b044bd23d54fa5b9221182fa5879db8829afd
+
+var _dragTableTh2 = _interopRequireDefault(_dragTableTh);
+>>>>>>> origin/master
 
         this.getPreviousSeason = function () {
             var currentDate = this.getCurrentDate();
@@ -1164,8 +1444,59 @@ height:this.yAxis.len}):this.clipBox&&(this.clipBox.width=this.xAxis.len,this.cl
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 447:
 /***/ (function(module, exports, __webpack_require__) {
+=======
+    }, {
+        key: 'render',
+        value: function render() {
+            var items = this.state.items;
+            var testTitles = this.state.testTitles;
+            return _react2.default.createElement(
+                'div',
+                { className: 'table-responsive', key: 'table' },
+                _react2.default.createElement(
+                    'table',
+                    { className: 'table table-hover table-striped table-bordered' },
+                    _react2.default.createElement(
+                        'thead',
+                        null,
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            testTitles.map(function (item, index) {
+                                return _react2.default.createElement(_dragTableTh2.default, { key: "_" + index, data: item });
+                            })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'tbody',
+                        null,
+                        items.map(function (item, index) {
+                            return _react2.default.createElement(
+                                'tr',
+                                { key: "_" + index },
+                                _react2.default.createElement(
+                                    'td',
+                                    null,
+                                    item.id
+                                ),
+                                _react2.default.createElement(
+                                    'td',
+                                    null,
+                                    item.content
+                                )
+                            );
+                        })
+                    )
+                )
+            );
+        }
+    }]);
+    return Page_c;
+}(_react.Component);
+>>>>>>> origin/master
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
@@ -1478,7 +1809,14 @@ __webpack_require__(1013);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 940:
+=======
+<<<<<<< HEAD
+/***/ 945:
+=======
+/***/ 979:
+>>>>>>> origin/master
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1578,7 +1916,12 @@ exports.default = SelectComponent;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 949:
+=======
+/***/ 980:
+>>>>>>> b50b044bd23d54fa5b9221182fa5879db8829afd
+>>>>>>> origin/master
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -6,7 +6,7 @@ import axios from 'axios';
 import Pagination from './pagination';
 import baseConfig from '../config/baseConfig';
 import QueueAnim from 'rc-queue-anim';
-import TableThComponent from './tableTh';
+import DragTableTh from './dragTableTh/dragTableTh';
 const apiPrefix = baseConfig.apiPrefix;
 
 export default class DataTable extends React.Component {
@@ -181,7 +181,7 @@ export default class DataTable extends React.Component {
                             var className = order.indexOf(item.key) !==-1 ? this.getSortClass(order) : "fa fa-sort";
                             sortName = this.fingSortPropFirst(order) ? "-"+sortName : sortName;
                             return switchTdCache[item.key] ?
-                                <TableThComponent titleModel={dataTableModel}
+                                <DragTableTh titleModel={dataTableModel}
                                                   titleModelChange={(dataTableModel)=>{this.dataTableModelChange(dataTableModel)}}
                                                   dataIndex={index} key={"_"+index} title={item.title}>
                                     {
@@ -189,8 +189,16 @@ export default class DataTable extends React.Component {
                                             <i className={className} style={{marginLeft:"5px",cursor:"pointer"}} onClick={this.sorting} data-sort-name={sortName}></i>
                                             : null
                                     }
+<<<<<<< HEAD
                                 </TableThComponent>
                                 : null
+=======
+                                </DragTableTh>
+                                /*<th data-field={item.key} key={item.key} style={item.style}>
+                                {item.title}
+                                
+                            </th>*/ : null
+>>>>>>> origin/master
                         })}
                     </tr>
                     </thead>

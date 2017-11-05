@@ -2,10 +2,11 @@
  * Created by luwenwei on 17/10/21.
  */
 import React from "react";
+import "./style.css";
 const classNames = {
     "dragStart":{background: "#108ee9", color: "#fff", opacity: 0.5}
 }
-export default class TableThComponent extends React.Component {
+export default class DragTableTh extends React.Component {
     static defaultProps = {}
 
     constructor(props) {
@@ -23,7 +24,7 @@ export default class TableThComponent extends React.Component {
 
     dragStart = (e) => {
         window.$dragRecord = {};
-        this.setState({dragStatus:"start"});
+        this.addClassDragOver(e.target)
         window.$dragRecord.$dragStartIndex = parseInt(e.target.getAttribute("data-index"));
         window.$dragRecord.$dragStartElement = e.target;
         e.dataTransfer.setData("Index",window.$dragRecord.$dragStartIndex);
@@ -106,12 +107,13 @@ export default class TableThComponent extends React.Component {
                    onDrop={this.dragDrop}
                    onDragEnd={this.dragEnd}
                    className="drag-table-th"
-                   style={this.styles[this.state.dragStatus]}
                     >
-                    <span style={{cursor:"pointer"}}>{title}</span>
-            {
-                this.props.children
-            }
+                    <div style={this.styles[this.state.dragStatus]} style={{width:"100%",height:"100%",display:"inline-block"}}>
+                        <span style={{cursor:"pointer"}}>{title}</span>
+                        {
+                            this.props.children
+                        }
+                    </div>
         </th>
     }
 }
