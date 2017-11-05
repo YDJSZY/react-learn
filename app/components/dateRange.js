@@ -48,6 +48,7 @@ export default class DateRange extends React.Component {
     }
 
     componentDidMount(){
+        console.log("child")
         this.dateRangeChange(this.props.dateRangeName,true);
     }
 

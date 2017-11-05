@@ -36,13 +36,13 @@ export default class EditModal extends React.Component {
         this.model = props.config.model;
     }
 
-    open(record,type) {
+    open(record,element,type) {
         this.setState({
             record:Object.assign({},record),
             modalType:type,
             modalTitle:modalTitleObj[type]
         },function () {
-            $("#editModal").modal("show");
+            $(element).modal("show");
         })
     }
 
@@ -67,10 +67,14 @@ export default class EditModal extends React.Component {
         return "right";
     }
 
+    beforeSaveForm(record) {
+        return record;
+    }
+
     saveForm = (data,type)=> {
         var record = Object.assign({},this.state.record);
         if(this.validateForm(record) === "error") return;
-        record = this.props.config.beforeSaveForm(record);
+        record = this.beforeSaveForm(record);
         var method,url;
         if(type == "create"){
             method = "POST";
@@ -79,7 +83,6 @@ export default class EditModal extends React.Component {
             method = "PUT";
             url = this.props.config.requestUrl+"/"+record.id
         }
-        console.log(record);
         axios({
             url:baseConfig.apiPrefix+url,
             method:method,
@@ -89,7 +92,7 @@ export default class EditModal extends React.Component {
                 this.$alert.show('操作成功!', {
                     type: 'success'
                 })
-                this.props.config.saveFormCallBack(res,type);
+                this.saveFormCallBack(res,type);
                 return;
             }
             this.$alert.show('操作失败!', {
@@ -97,6 +100,10 @@ export default class EditModal extends React.Component {
             })
             console.error(res.data);
         })
+    }
+
+    saveFormCallBack(res,type) {
+        
     }
 
     inputChange = (record)=> {

@@ -5,6 +5,7 @@ import React from "react";
 import { getLocalStorage,setLocalStorage } from '../untils/global';
 import baseConfig from '../config/baseConfig';
 import { showLoading } from './commonMethods';
+import TableAction from './tableAction';
 const $localStorage = getLocalStorage();
 export default class TableCrud extends React.Component{
     constructor(props) {
@@ -58,28 +59,6 @@ export default class TableCrud extends React.Component{
         }
     }/*enter搜索*/
 
-    beforeCreate =()=> {
-        return {};
-    }
-
-    create = ()=> {
-        var obj = this.beforeCreate();
-        this.$editModal.open(obj,"create");
-    }
-
-    beforeEdit = (record)=> {
-        return record;
-    }
-
-    edit = (record)=> {
-        var record = this.beforeEdit(record);
-        this.$editModal.open(record,"edit");
-    }
-
-    beforeSaveForm = (record)=> {
-        return record;
-    }
-
     saveFormCallBack = (res,type)=> {
         console.log(res)
     }
@@ -127,6 +106,10 @@ export default class TableCrud extends React.Component{
         setLocalStorage($localStorage);
     }
 
+    init() {
+        if(this.$editModal) this.tableAction = new TableAction(this.$editModal);
+    }
+
     componentWillMount() {
         showLoading();
         console.log(this.props)
@@ -136,5 +119,9 @@ export default class TableCrud extends React.Component{
 
     componentWillUnmount() {
         //this.setLocalStorage();
+    }
+
+    componentDidMount() {
+        this.init();
     }
 }

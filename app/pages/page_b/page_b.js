@@ -91,6 +91,10 @@ export default class Page_b extends TableCrud{
                 </tr>
     }
     
+    componentDidMount() {
+        console.log("parent")
+    }
+    
     render () {
         return  <QueueAnim delay={300} className="queue-simple" animConfig={[
                     { opacity: [1, 0], translateY: [0, 50] },

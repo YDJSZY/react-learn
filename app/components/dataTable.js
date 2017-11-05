@@ -190,10 +190,7 @@ export default class DataTable extends React.Component {
                                             : null
                                     }
                                 </TableThComponent>
-                                /*<th data-field={item.key} key={item.key} style={item.style}>
-                                {item.title}
-                                
-                            </th>*/ : null
+                                : null
                         })}
                     </tr>
                     </thead>

@@ -139,7 +139,7 @@ var model = {
                 style:{width:"20px"},
                 render: (text, record, dataTableRef) => {
                     return <span>
-                            <button className="btn btn-primary btn-xs" onClick={()=>{self.edit(record)}}>编辑</button>
+                            <button className="btn btn-primary btn-xs" onClick={()=>{self.tableAction.edit(record)}}>编辑</button>
                             <span className="seperate-line"></span>
                             <Link to="/page_b/?id=1" target="_blank">跳转</Link>
                         </span>

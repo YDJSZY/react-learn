@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import ReactDom from 'react-dom';
-//import { HashRouter } from 'react-router-dom';
-import { HashRouter, Route } from 'react-keeper'
+import { HashRouter } from 'react-router-dom';
+//import { HashRouter, Route } from 'react-keeper'
 import axios from 'axios';
 import App from './app';
 import {myInfo,constants,setMyInfo,setConstants} from './untils/global'

@@ -116,7 +116,7 @@ export default class Page_a extends TableCrud{
                                 </a>
                             </div>
                             <div className="form-group pull-right">
-                                <a className="btn btn-success" onClick={this.create}>新增</a>
+                                <a className="btn btn-success" onClick={()=>{this.tableAction.create()}}>新增</a>
                             </div>
                         </form>
                     </div>
